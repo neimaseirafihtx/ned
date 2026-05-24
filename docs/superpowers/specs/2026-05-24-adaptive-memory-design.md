@@ -66,7 +66,7 @@ When a signal is spotted, Ned appends a tagged one-liner to `memory/session-log.
 [2026-05-24] [project] Frigate setup begins after Reolink cameras arrive
 ```
 
-Ned does **not** interrupt the conversation to announce log writes.
+Ned does **not** accompany log writes with text commentary — the Write tool call is visible in the UI but produces no conversational output.
 
 **Session start:** Ned reads `memory/MEMORY.md` and loads relevant memory files before answering, the same way it loads from `references/`.
 
@@ -76,7 +76,7 @@ Ned does **not** interrupt the conversation to announce log writes.
 
 Triggered by `/note`. Steps:
 
-1. Read `memory/session-log.md`
+1. Read `memory/session-log.md` (if empty or missing, skip to step 3)
 2. Read all existing memory files
 3. Scan the full conversation for anything the session log missed
 4. For each observation: create a new typed file, update an existing one, or delete a stale one
