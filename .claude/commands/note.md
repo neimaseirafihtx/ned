@@ -8,7 +8,7 @@ Read `memory/MEMORY.md` to get the index of existing memory files, then read eac
 
 ## Step 2: Full conversation scan
 
-Scan the entire conversation from the beginning. Extract every signal worth capturing:
+Scan the entire conversation in this session, from the beginning up to this point. Extract every signal worth capturing:
 
 | Signal type | Memory type | Examples |
 |-------------|-------------|---------|
@@ -34,10 +34,12 @@ metadata:
   type: user | feedback | project | reference
 ---
 
-Content here. For feedback/project: lead with the rule/fact, then **Why:** and **How to apply:** lines.
+Content here. For feedback/project types: lead with the rule/fact, then **Why:** and **How to apply:** lines. For user/reference types: concise prose is fine — no required structure.
 ```
 
 **Update existing memory:** Edit the relevant file in place — replace stale facts, add new details, remove contradictions.
+
+If multiple observations map to the same slug, merge them into one file rather than creating numbered variants.
 
 **Remove stale memory:** Delete files for facts that are no longer true (e.g., a phase marked complete, a hardware guess that's now confirmed differently).
 
