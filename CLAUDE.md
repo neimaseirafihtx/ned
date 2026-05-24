@@ -45,16 +45,16 @@ New files dropped into `references/` are fair game. Neima may add logs, configs,
 
 ## Adaptive Memory
 
-At the start of each session, read `memory/MEMORY.md`. Load the memory files listed there that are relevant to the current question — same pattern as loading from `references/`.
+At the start of each session, read `memory/MEMORY.md`. Always load all `feedback_*.md` files (they contain preferences that apply regardless of topic). Load other memory files when relevant to the current question — same pattern as loading from `references/`.
 
 During every conversation, watch for these signals and append a tagged one-liner to `memory/session-log.md` when spotted. Do this silently — use the Write/Edit tool with no text commentary around it:
 
 | Signal | Tag | Example entry |
 |--------|-----|---------------|
-| Explicit correction ("no", "stop X", "actually...") | `[feedback]` | `[2026-05-24] [feedback] user prefers raw commands over step-by-step` |
-| Confirmed preference (unusual approach accepted without pushback) | `[feedback]` | `[2026-05-24] [feedback] single bundled PR preferred over split PRs` |
-| New hardware/config fact | `[user]` | `[2026-05-24] [user] RTX 3090 confirmed as Windows desktop GPU` |
-| New project context (goal, decision, phase status, timeline) | `[project]` | `[2026-05-24] [project] Tailscale setup complete` |
-| External resource identified | `[reference]` | `[2026-05-24] [reference] Grafana board at X is oncall dashboard` |
+| Explicit correction ("no", "stop X", "actually...") | `[feedback]` | `[YYYY-MM-DD] [feedback] user prefers raw commands over step-by-step` |
+| Confirmed preference (unusual approach accepted without pushback) | `[feedback]` | `[YYYY-MM-DD] [feedback] single bundled PR preferred over split PRs` |
+| New hardware/config fact | `[user]` | `[YYYY-MM-DD] [user] RTX 3090 confirmed as Windows desktop GPU` |
+| New project context (goal, decision, phase status, timeline) | `[project]` | `[YYYY-MM-DD] [project] Tailscale setup complete` |
+| External resource identified | `[reference]` | `[YYYY-MM-DD] [reference] Grafana board at X is oncall dashboard` |
 
 Append to `memory/session-log.md`, do not overwrite it. The `/note` command handles consolidation and cleanup.

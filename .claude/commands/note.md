@@ -41,7 +41,7 @@ Content here. For feedback/project types: lead with the rule/fact, then **Why:**
 
 If multiple observations map to the same slug, merge them into one file rather than creating numbered variants.
 
-**Remove stale memory:** Delete files for facts that are no longer true (e.g., a phase marked complete, a hardware guess that's now confirmed differently).
+**Remove stale memory:** Delete files for facts that are no longer true (e.g., a phase marked complete, a hardware guess that's now confirmed differently). Use Bash: `rm memory/<filename>.md`.
 
 **Update index:** After all writes, update `memory/MEMORY.md` so every current memory file has exactly one entry:
 ```
@@ -50,7 +50,7 @@ If multiple observations map to the same slug, merge them into one file rather t
 
 ## Step 4: Clear the session log
 
-Overwrite `memory/session-log.md` with just the comment lines:
+Overwrite `memory/session-log.md` with just the comment lines (this is the one place where overwriting is correct — unlike the silent append during conversation):
 
 ```
 <!-- Session observation log. Format: [YYYY-MM-DD] [type] observation -->
