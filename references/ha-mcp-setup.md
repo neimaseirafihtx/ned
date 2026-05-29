@@ -5,7 +5,7 @@
 
 ## Current Status
 
-Home Assistant's official **Model Context Protocol Server** integration is installed and Hermes has a native HTTP MCP config for it, but the current stored token is not authenticating.
+Home Assistant is connected to Hermes through the official Home Assistant **Model Context Protocol Server** integration using Hermes native HTTP MCP support.
 
 Verified state:
 
@@ -15,9 +15,10 @@ Verified state:
 - Hermes MCP server name: `homeassistant`
 - Hermes transport: native HTTP / Streamable HTTP via `url:` config
 - `mcp-proxy`: not used
-- Hermes gateway: restarted after config change
-- Current blocker: `hermes mcp test homeassistant` now returns HTTP 401 Unauthorized with the stored `HA_MCP_TOKEN`; `/api/` and `/api/config` also return 401 with all local `HA_MCP_TOKEN` entries.
-- Action needed: regenerate or re-store the Home Assistant long-lived token for the dedicated `Hermes MCP` user, then re-run `hermes mcp test homeassistant`.
+- `~/.hermes/.env` has exactly one `HA_MCP_URL`, one `HA_MCP_TOKEN`, and one `HA_MCP_TIMEZONE` entry after token refresh
+- `hermes mcp test homeassistant` connects successfully and discovers 20 tools
+- Fresh Hermes CLI read-only validation using `GetLiveContext` succeeds
+- Hermes gateway was restarted after the token refresh so platform sessions inherit the working MCP setup
 
 ## Local Secret Storage
 
@@ -51,13 +52,22 @@ mcp_servers:
     connect_timeout: 60
 ```
 
-## Initial Discovery vs Current Auth State
+## Verification Commands and Results
 
-During this session, an earlier `hermes mcp test homeassistant` reported a successful connection and discovered 20 tools, and a fresh Hermes CLI read-only prompt reported `GetLiveContext` output. A later verification pass failed with HTTP 401 for the same local token material, including direct Home Assistant REST checks against `/api/` and `/api/config`.
+Commands run:
 
-Treat the setup as **configured but blocked on valid token authentication** until a fresh token re-test passes.
+```bash
+hermes mcp test homeassistant
+hermes chat -q "Use the Home Assistant MCP server only for read-only validation..."
+hermes gateway restart
+```
 
-Previously observed tool names from the official HA MCP server:
+`hermes mcp test homeassistant` result:
+
+- connected successfully in ~47 ms
+- discovered 20 tools
+
+Discovered tool names from the official HA MCP server:
 
 - `HassTurnOn`
 - `HassTurnOff`
@@ -82,9 +92,18 @@ Previously observed tool names from the official HA MCP server:
 
 ## Read-Only Validation Result
 
-A read-only `GetLiveContext` response was observed earlier in the session, but follow-up verification now fails at token auth. Do not treat read-only validation as durable until `hermes mcp test homeassistant` succeeds again with a freshly stored token.
+A fresh Hermes CLI session successfully called only the read-only `GetLiveContext` tool.
 
-Previously observed live context examples:
+Confirmed validation result:
+
+- MCP initialize: HTTP 200
+- server name: `home-assistant`
+- server version: `1.26.0`
+- `GetLiveContext` call: HTTP 200
+- result success: `true`
+- write/control/media/broadcast/todo mutation tools: not called
+
+Observed live context examples:
 
 - Entry Lamp / Entryway light: on, brightness 143
 - Family Room light: on, brightness 66
@@ -98,7 +117,7 @@ Previously observed live context examples:
 - Kitchen Main Lights / Kitchen Island Pendants: off
 - Shopping List todo entity: state 0
 
-This proves the server/tool path can work, but the current durable state is blocked on token authentication and needs a fresh successful `hermes mcp test homeassistant` before relying on live state.
+This proves Hermes can answer “what lights are on?” from live Home Assistant state, not from the static Ned entity map.
 
 ## Safety Notes
 
@@ -111,9 +130,7 @@ The official HA MCP server exposes both read and write-capable tool names. Keep 
 
 ## Next Steps
 
-1. Regenerate or re-store the Home Assistant long-lived token for the `Hermes MCP` user.
-2. Re-run `hermes mcp test homeassistant`; expected result is connected + tools discovered, not HTTP 401.
-3. After auth passes, compare `GetLiveContext` output against `references/home-assistant-entity-map.md` and refresh stale state notes without turning the map into a raw entity dump.
-4. Ask Neima before the first write test.
-5. If write testing is approved, use one visible low-risk target such as `light.tv_lightstrip` or `scene.entryway_relax`, then verify live state afterward.
-6. Continue Phase 3 with the custom Ned MCP server and the first Hermes cron health brief.
+1. Compare `GetLiveContext` output against `references/home-assistant-entity-map.md` and refresh stale state notes without turning the map into a raw entity dump.
+2. Ask Neima before the first write test.
+3. If write testing is approved, use one visible low-risk target such as `light.tv_lightstrip` or `scene.entryway_relax`, then verify live state afterward.
+4. Continue Phase 3 with the custom Ned MCP server and the first Hermes cron health brief.

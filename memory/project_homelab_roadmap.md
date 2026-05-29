@@ -25,8 +25,8 @@ Two tracks run in parallel:
 **Phase 3 detail (current focus):**
 1. Reboot Mac Mini → verify all services survive (Hermes, HAOS, Ollama, Tailscale) ✅
 2. Clean HA entity map — name everything by room/device
-3. Enable official HA MCP Server integration → endpoint/config in place; stored token currently returns 401 and needs refresh
-4. Compare live MCP state against `references/home-assistant-entity-map.md` after auth passes
+3. Enable official HA MCP Server integration → live read access is working; writes remain approval-gated
+4. Compare live MCP state against `references/home-assistant-entity-map.md`
 5. Build first custom MCP server (ned project/homelab status)
 6. First Hermes cron job — daily homelab health brief
 
@@ -34,7 +34,7 @@ Two tracks run in parallel:
 - `ned/plans/mac-mini-ops-baseline.md` — service startup verification
 - `ned/plans/home-assistant-mcp-roadmap.md` — HA MCP install/validation plan with safety boundary and time estimates
 - `ned/references/home-assistant-entity-map.md` — clean HA entity names
-- Working: "ask Hermes what lights are on" → blocked until HA MCP token auth passes again
+- Working: "ask Hermes what lights are on" → real answer ✅
 - Working: daily health check cron agent
 
 ---
