@@ -31,9 +31,9 @@ Start with the official MCP Server integration and expose ONLY a read-relevant e
   - unauthenticated probe now returns HTTP 401, not 404, confirming the server integration is installed and auth-gated.
 - Hermes MCP support: available; Hermes config uses `url:` for remote HTTP/SSE/StreamableHTTP MCP servers.
 - Hermes MCP server configured: `homeassistant` using native HTTP / Streamable HTTP.
+- Current blocker: stored `HA_MCP_TOKEN` returns HTTP 401 for `hermes mcp test homeassistant` and direct HA REST probes.
 - `mcp-proxy`: not used; keep only as fallback if native HTTP ever regresses.
-- Discovered official HA MCP tools: 20 total; see `references/ha-mcp-setup.md` for the exact list and safety notes.
-- Read-only validation: passed via `GetLiveContext` in a fresh Hermes CLI session.
+- Previously observed official HA MCP tools: 20 total; see `references/ha-mcp-setup.md` for the exact list and safety notes.
 - Home Assistant VM boot reliability remains separate work; do not confuse MCP readiness with boot reliability.
 
 ## Security Boundary
