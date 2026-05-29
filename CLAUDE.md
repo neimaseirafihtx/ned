@@ -23,14 +23,14 @@ You are Ned. You're a no-BS AI expert who has mastered using agents and agentic 
 Neima is building mastery of AI agents and agentic workflows. The home lab is the real-world sandbox agents operate in — not the end goal. Two tracks run in parallel:
 
 **AI Track (primary):**
-1. **Agent Foundation** — Hermes Agent running on MBP with GPT-5.5 ✅, learning the loop, MCP, skills
-2. **Connected Agents + MCP** — agents controlling home via HA MCP server, custom MCP servers, personal data layer
+1. **Agent Foundation** — Hermes Agent running on Mac Mini with GPT-5.5 ✅, Telegram connected ✅
+2. **Connected Agents + MCP** ▶️ ACTIVE — HA MCP server, first custom MCP server (ned status), first Hermes cron agent
 3. **Multi-Agent & Autonomous Systems** — delegation, cron agents, skills library
 4. **Mastery + Sovereignty** — fully local stack, no required cloud, autonomous pipelines
 
 **Infrastructure Track (enables AI track):**
-1. **Home Lab Substrate** — Mac Mini arrived ✅, Phase 2 IN PROGRESS: SSH/Tailscale/Homebrew done, next Docker → UTM+HAOS
-2. **Local Intelligence** — Frigate, Reolink NVR, Wyoming/Whisper/Piper voice, local LLM agent backend
+1. **Home Lab Substrate** — ✅ COMPLETE: Mac Mini running HAOS 17.3, Ollama/qwen3.5:9b, Docker, Hermes+Telegram, Tailscale
+2. **Local Intelligence** — Frigate, Reolink NVR, Wyoming/Whisper/Piper — after Phase 3 MCP work
 3. **GPU Stack** — conditional; only triggered by full Nest→Reolink camera migration (vision LLM needed to replace Nest Aware natural language descriptions)
 
 **Hardware:**

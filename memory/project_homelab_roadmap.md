@@ -1,6 +1,6 @@
 ---
 name: homelab-roadmap
-description: Dual-track roadmap — AI mastery is primary goal, home lab is the sandbox. AI Track + Infrastructure Track.
+description: Dual-track roadmap — AI mastery is primary goal, home lab is the sandbox; Phase 2 complete, Phase 3 active
 metadata:
   type: project
 ---
@@ -17,16 +17,23 @@ Two tracks run in parallel:
 
 | Phase | Name | Status |
 |-------|------|--------|
-| 1 | Agent Foundation | ✅ ACTIVE — Hermes running on MBP, GPT-5.5 backend |
-| 3 | Connected Agents + MCP | 📋 Needs Mac Mini (HA MCP server, custom MCP servers, Nextcloud) |
+| 1 | Agent Foundation | ✅ COMPLETE — Hermes + GPT-5.5 on Mac Mini, Telegram connected |
+| 3 | Connected Agents + MCP | ▶️ ACTIVE — HA MCP, custom MCP server, ned as project brain |
 | 5 | Multi-Agent & Autonomous Systems | 📋 Delegation, cron agents, skills library |
 | 7 | Mastery + Sovereignty | 📋 Fully local stack, autonomous pipelines |
 
-**Phase 1 detail:**
-- Hermes Agent running on MBP with GPT-5.5 (OpenAI) ✅
-- Goals: learn agent loop, tool use, memory systems, build first MCP server, write first skill
-- REX (OpenClaw) on M1 Pro — separate project, cross-pollinate learnings
-- Hermes moves to Mac Mini when it arrives
+**Phase 3 detail (current focus):**
+1. Reboot Mac Mini → verify all services survive (Hermes, HAOS, Ollama, Tailscale)
+2. Clean HA entity map — name everything by room/device
+3. Enable HA MCP server → agents read + control home state
+4. Build first custom MCP server (ned project/homelab status)
+5. First Hermes cron job — daily homelab health brief
+
+**Phase 3 deliverables:**
+- `ned/plans/mac-mini-ops-baseline.md` — service startup verification
+- `ned/references/home-assistant-entity-map.md` — clean HA entity names
+- Working: "ask Hermes what lights are on" → real answer
+- Working: daily health check cron agent
 
 ---
 
@@ -34,28 +41,56 @@ Two tracks run in parallel:
 
 | Phase | Name | Status |
 |-------|------|--------|
-| 2 | Home Lab Substrate | ⏳ Blocked — waiting on Mac Mini |
-| 4 | Local Intelligence Layer | 📋 Frigate, NVR, Voice (Wyoming+Whisper+Piper), local Ollama backend |
-| 6 | GPU Stack | ⏸ Conditional — only triggered by full Nest→Reolink camera migration |
+| 2 | Home Lab Substrate | ✅ COMPLETE |
+| 4 | Local Intelligence Layer | 📋 After Phase 3 — Frigate, NVR, Voice pipeline |
+| 6 | GPU Stack | ⏸ Conditional — full Nest→Reolink migration only |
 
-**Phase 2 detail (Mac Mini arrival unlock):**
-- UTM + HAOS VM → first live agent target
-- Tailscale — agents reach home from anywhere
-- Ollama lightweight model (llama3.1:8b or phi3.5) for HA automation
-- Hermes Agent migrates here from MBP
-- Integrate devices: Hue → Caseta → Sonos → Nest
+**Phase 2 complete state:**
+- Mac Mini M4 16GB, macOS Tahoe 26.5, static IP `192.168.68.85`
+- SSH key auth, auto-login, Homebrew, Tailscale, Screen Sharing ✅
+- Docker Desktop (ARM native) ✅
+- UTM + HAOS 17.3 at `homeassistant.local:8123` ✅
+- Hue, Lutron Caseta, Sonos auto-discovered in HA ✅
+- Ollama running with `qwen3.5:9b` ✅
+- Hermes Agent running with GPT-5.5 backend + Telegram ✅
+- ned repo on GitHub, shared between Claude Code + Hermes ✅
+
+---
+
+## 30-Day Plan (from 2026-05-29)
+
+**Week 1 — Stabilize**
+- Reboot Mac Mini, verify all services survive
+- Document service startup state → `plans/mac-mini-ops-baseline.md`
+- Confirm remote access from outside home via Tailscale
+
+**Week 2 — HA Entity Cleanup**
+- Name all entities by room/device consistently
+- Add Nest if not a time sink
+- Publish `references/home-assistant-entity-map.md`
+
+**Week 3 — HA MCP + Agent Control**
+- Enable HA MCP server
+- Start read-only (list entities, read state)
+- Add low-risk writes (lights, Sonos, scenes)
+- Deliverable: "ask Hermes what lights are on" → real answer
+
+**Week 4 — Custom MCP + First Cron Agent**
+- Build ned status MCP server (get_homelab_status, read_ned_memory, etc.)
+- Add Hermes daily health brief cron job
+- Save lessons as Hermes skill
 
 ---
 
 ## Key Decisions
 
 - **AI learning is the primary goal** — home lab is the sandbox, not the destination
-- **Hermes Agent is the primary learning vehicle** — understand its internals, not just use it
-- **MCP is foundational** — invest in understanding it deeply
-- **NVR owns camera storage** — external SSD is personal cloud only (Nextcloud + Backblaze B2)
-- **No Synology needed** — NVR + SSD + Backblaze covers all storage
-- **16GB Mac Mini LLM constraint** — max 8B model for HA automation only; heavy inference stays on MBP
-- **Windows RTX is conditional, not planned** — only needed if fully replacing Nest cameras with Reolink (vision LLM needed to replace Nest Aware natural language descriptions)
-- **Camera migration rule** — don't half-migrate; keep Nest Aware until fully committing to local cameras
+- **MCP is foundational** — invest in understanding it deeply, build custom servers
+- **ned is the canonical project brain** — both Claude Code and Hermes read/write it via GitHub
+- **Stabilize before expanding** — reboot test before adding new services
+- **No cameras/Frigate yet** — rabbit hole, doesn't teach the core agent loop as directly as HA+MCP
+- **No GPU stack yet** — only triggered by full Nest→Reolink migration
+- **Camera migration rule** — keep Nest Aware until fully committing to local cameras
+- **Ollama stays modest** — qwen3.5:9b for HA automation + light local use only
+- **NVR owns camera storage** — external SSD is personal cloud only
 - **No REX on Mac Mini** — REX runs on M1 Pro (separate project)
-- **Confirmed tool stack** — Claude/Claude Code = primary tools, Hermes+GPT-5.5 = agent work, Mac Mini 8B = HA automation, Coral TPU = Frigate detection; MBP Ollama has no active use case
