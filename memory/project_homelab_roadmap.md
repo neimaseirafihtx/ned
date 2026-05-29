@@ -31,6 +31,7 @@ Two tracks run in parallel:
 
 **Phase 3 deliverables:**
 - `ned/plans/mac-mini-ops-baseline.md` — service startup verification
+- `ned/plans/home-assistant-mcp-roadmap.md` — HA MCP install/validation plan with safety boundary and time estimates
 - `ned/references/home-assistant-entity-map.md` — clean HA entity names
 - Working: "ask Hermes what lights are on" → real answer
 - Working: daily health check cron agent
