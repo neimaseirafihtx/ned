@@ -25,7 +25,7 @@ Two tracks run in parallel:
 **Phase 3 detail (current focus):**
 1. Reboot Mac Mini → verify all services survive (Hermes, HAOS, Ollama, Tailscale)
 2. Clean HA entity map — name everything by room/device
-3. Enable HA MCP server → agents read + control home state
+3. Enable official HA MCP Server integration → agents read live home state first, then tightly scoped control after approval
 4. Build first custom MCP server (ned project/homelab status)
 5. First Hermes cron job — daily homelab health brief
 
@@ -71,9 +71,9 @@ Two tracks run in parallel:
 - Publish `references/home-assistant-entity-map.md`
 
 **Week 3 — HA MCP + Agent Control**
-- Enable HA MCP server
+- Enable official HA MCP Server integration with `Control Home Assistant` OFF for first read-only session
 - Start read-only (list entities, read state)
-- Add low-risk writes (lights, Sonos, scenes)
+- Add low-risk writes only after clean read-only validation (visible light/scene first)
 - Deliverable: "ask Hermes what lights are on" → real answer
 
 **Week 4 — Custom MCP + First Cron Agent**

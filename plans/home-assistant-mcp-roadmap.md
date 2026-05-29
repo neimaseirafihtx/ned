@@ -4,9 +4,21 @@
 
 **Goal:** Connect Hermes to Home Assistant through MCP so agents can read live smart-home state, compare it against the curated entity map, and later perform tightly scoped safe controls.
 
-**Architecture:** Start with a generic Home Assistant MCP server for live state discovery and read-only validation. Add or switch to a lights/scenes-only MCP server for safer writes. If the generic server exposes too much power behind one tool, build a small custom read-only wrapper before granting broad agent access.
+## Operational Rule (read before wiring any token)
 
-**Tech Stack:** Hermes Agent native MCP client, Home Assistant long-lived access token, Node/npx MCP servers, `ha-mcp`, optionally `ha-mcp-server`, Ned entity map at `references/home-assistant-entity-map.md`.
+During initial setup, Hermes may only READ Home Assistant state. Any write action requires Neima to approve the exact `entity_id` and action in the current turn.
+
+Generic service-call tools (`call_service` and anything that can create automations, helpers, dashboards, or scripts) must NOT be enabled for routine use unless they are wrapped, allowlisted, or documented as safe. If reads and writes cannot be separated into distinct tools, the server does not get persistent write access — full stop.
+
+**Architecture:** There are three different Home Assistant MCP implementations and they are easy to confuse:
+
+1. Official **Model Context Protocol Server** integration — a custom component installed INTO Home Assistant. HA acts as the server; control runs through the Assist API; you pick exactly which entities/services are exposed from the Exposed Entities page. This is the structural allowlist we want, and it is first-party.
+2. Official **Model Context Protocol** integration — the reverse direction: HA as a client consuming other MCP servers. Not what we need here.
+3. Community **ha-mcp** (`homeassistant-ai/ha-mcp`) — connects via REST + WebSocket and can create automations/helpers/dashboards. This is the most powerful and least safe option, not a read-only starter.
+
+Start with the official MCP Server integration and expose ONLY a read-relevant entity set. Treat `ha-mcp` as a later, deliberately scoped option for structural work, never the first-session default.
+
+**Tech Stack:** Hermes Agent native MCP HTTP client, Home Assistant official MCP Server integration, Home Assistant long-lived access token, Ned entity map at `references/home-assistant-entity-map.md`, optional `mcp-proxy` fallback only if the installed Hermes/MCP runtime cannot speak Streamable HTTP directly. Community `ha-mcp` / `ha-mcp-server` are deferred options, not the default.
 
 ---
 
@@ -15,9 +27,10 @@
 - Ned repo canonical path: `/Users/neimaseirafi/Documents/ned`
 - Home Assistant entity map: `references/home-assistant-entity-map.md`
 - Home Assistant local URL: `http://homeassistant.local:8123`
-- Hermes MCP support: available
-- Node/npx: available on the Mac Mini
-- uv: available on the Mac Mini
+- Hermes MCP support: available; Hermes config uses `url:` for remote HTTP/SSE/StreamableHTTP MCP servers.
+- Home Assistant official MCP endpoint target: `http://homeassistant.local:8123/api/mcp` after the MCP Server integration is installed.
+- `uv`: available on the Mac Mini for `mcp-proxy` fallback installation if needed.
+- Node/npx: available on the Mac Mini, but no longer part of the first-session default path.
 - Existing Hermes MCP servers before this plan: none configured
 - Home Assistant VM boot reliability remains separate work; do not confuse MCP readiness with boot reliability.
 
@@ -42,6 +55,15 @@ Initial safe write scope, after read-only validation:
 - scenes
 - bounded media pause/resume or volume, with explicit limits
 
+### Official MCP Server read-only reality
+
+The official integration has no per-entity "read-only but block writes" mode. Its access model is:
+
+1. **Control Home Assistant** option ON/OFF — coarse: either clients can act, or they cannot.
+2. **Exposed Entities** page — which entities are visible at all.
+
+For the genuinely read-only first session, set **Control Home Assistant OFF**. That is stronger than policy-by-instruction and avoids needing a custom wrapper just to achieve safe read-only. Flip it ON only when Phase 8 reaches the first approved write test.
+
 Suggested Sonos safety policy:
 
 ```text
@@ -55,8 +77,8 @@ Never set Sonos volume above 35% unless Neima explicitly asks in that turn.
 Total expected hands-on installation/validation time:
 
 ```text
-130–210 minutes total
-≈ 2h10m–3h30m
+140–225 minutes total
+≈ 2h20m–3h45m
 ```
 
 Practical planning estimate:
@@ -70,8 +92,9 @@ Per-phase estimates:
 
 - Phase 0 — Safety framing: 10–15 min
 - Phase 1 — Create HA token: 5–10 min
-- Phase 2 — Choose MCP server strategy: 10–15 min
-- Phase 3 — Add Hermes MCP config: 10–15 min
+- Phase 1.5 — Create dedicated HA identity: 10–15 min
+- Phase 2 — Install/configure official HA MCP Server strategy: 15–20 min
+- Phase 3 — Add Hermes MCP config: 10–20 min
 - Phase 4 — Restart gateway and test MCP connection: 10–15 min
 - Phase 5 — Tool discovery and risk review: 15–25 min
 - Phase 6 — Read-only validation: 20–30 min
@@ -116,7 +139,7 @@ Per-phase estimates:
 
 **Required time:** 5–10 minutes
 
-**Objective:** Create a Home Assistant token for Hermes MCP access without committing secrets to Git.
+**Objective:** Create a Home Assistant token for Hermes MCP access without committing secrets to Git. Prefer a dedicated `Hermes MCP` Home Assistant user rather than Neima's admin account; Phase 1.5 formalizes that identity split.
 
 **Files:**
 
@@ -125,15 +148,16 @@ Per-phase estimates:
 
 **Steps:**
 
-1. In Home Assistant, go to Neima's user profile.
-2. Scroll to **Long-Lived Access Tokens**.
-3. Create a token named:
+1. In Home Assistant, create or switch to the dedicated `Hermes MCP` user from Phase 1.5 when possible.
+2. Go to that user profile.
+3. Scroll to **Long-Lived Access Tokens**.
+4. Create a token named:
 
 ```text
 Hermes HA MCP
 ```
 
-4. Store it in `~/.hermes/.env`:
+5. Store it in `~/.hermes/.env`:
 
 ```bash
 HA_MCP_URL=http://homeassistant.local:8123
@@ -141,53 +165,79 @@ HA_MCP_TOKEN=[REDACTED]
 HA_MCP_TIMEZONE=America/Chicago
 ```
 
-**Verification:** `~/.hermes/.env` contains the three variable names above, and no token appears in the Ned repo.
+**Verification:** `~/.hermes/.env` contains the three variable names above, the token belongs to the dedicated `Hermes MCP` user if possible, and no token appears in the Ned repo.
+
+---
+
+## Phase 1.5: Create a Dedicated Low-Privilege HA Identity
+
+**Required time:** 10–15 minutes
+
+**Objective:** Avoid using Neima's admin account's long-lived token. Create a separate `Hermes MCP` Home Assistant user so the token is independently auditable and revocable.
+
+**Reality check on HA's permission model:** Home Assistant's per-user permissions are coarse, and non-admin token creation can be restricted depending on version. So the durable win here is **identity separation** and one-click **revocation**, not true least privilege. The actual capability constraint comes from the official integration's entity-exposure allowlist and the `Control Home Assistant` toggle in Phase 2, not from the user role.
+
+**Steps:**
+
+1. Create a Home Assistant user named `Hermes MCP`.
+2. Give it the lowest practical role that can still authenticate and read exposed state.
+3. Generate the long-lived token from that user, named `Hermes HA MCP`.
+4. Store it in `~/.hermes/.env` using the `HA_MCP_*` variables from Phase 1.
+
+**Verification:** The token belongs to the `Hermes MCP` user, not Neima's admin account, and can be revoked without touching admin access.
 
 ---
 
 ## Phase 2: Choose MCP Server Strategy
 
-**Required time:** 10–15 minutes
+**Required time:** 15–20 minutes
 
-**Objective:** Choose the starting MCP server and define when to add a safer wrapper.
+**Objective:** Install/configure the official Home Assistant MCP Server integration first, with Home Assistant itself acting as the MCP server and entity exposure serving as the structural allowlist.
 
 **Recommended first server:**
 
 ```text
-ha-mcp
+Official Home Assistant "Model Context Protocol Server" integration
 ```
 
 Use it for:
 
 - live entity discovery
 - state queries
-- service visibility
-- initial read-only validation
+- read-only validation with `Control Home Assistant` OFF
+- later tightly scoped writes by enabling control and exposing only deliberate entities
 
-Potential follow-up server:
+**Do not confuse these implementations:**
+
+1. **Model Context Protocol Server** — correct first target. Installed in HA. HA serves `/api/mcp` over Streamable HTTP.
+2. **Model Context Protocol** — reverse direction. HA consumes other MCP servers. Not this project.
+3. **ha-mcp** — community REST/WebSocket package with structural write power. Defer.
+
+Potential follow-up servers/packages:
 
 ```text
+ha-mcp
 ha-mcp-server
+custom Ned/HA wrapper
 ```
 
-Use it for safer writes limited to:
-
-- lights
-- scenes
+Use them only for a specific need after official read-only value is proven.
 
 **Decision rule:**
 
-If `ha-mcp` exposes read and write through one generic tool/action schema, then treat it as read-only by policy during the first session. If that boundary feels too loose, build a custom read-only MCP wrapper before giving Hermes persistent Home Assistant access.
+Prefer the official MCP Server integration first, because entity exposure IS the allowlist — no custom wrapper required for first-session read-only when `Control Home Assistant` is OFF. Expose a minimal read set, validate, then expand exposure deliberately.
 
-**Verification:** Record which package is selected and why in this plan or a future `references/ha-mcp-setup.md`.
+Only reach for `ha-mcp` (REST/WebSocket, structural writes) once read-only value is proven AND a specific structural need exists. If `ha-mcp` exposes read and write through one generic tool with no exposure gating, it does NOT get persistent write access until a custom read-only wrapper or a tight allowlist is in place.
+
+**Verification:** Record the official integration settings, exposed entity set, and control-toggle state in this plan or a future `references/ha-mcp-setup.md`.
 
 ---
 
 ## Phase 3: Add Hermes MCP Config
 
-**Required time:** 10–15 minutes
+**Required time:** 10–20 minutes
 
-**Objective:** Configure Hermes native MCP client to launch the Home Assistant MCP server.
+**Objective:** Configure Hermes native MCP client to connect to Home Assistant's official Streamable HTTP MCP endpoint.
 
 **Files:**
 
@@ -195,22 +245,72 @@ If `ha-mcp` exposes read and write through one generic tool/action schema, then 
 - Read: `~/.hermes/.env`
 - Do not modify: Ned repo secrets
 
-**Generic HA MCP config:**
+**Verified Home Assistant official MCP Server facts:**
+
+```text
+Endpoint:   http://homeassistant.local:8123/api/mcp   (NOT /mcp)
+Transport:  Streamable HTTP, stateless. The integration is NOT a stdio npx package.
+Introduced: HA 2025.2; current HAOS is well past this.
+Install:    Settings > Devices & Services > Add Integration > "Model Context Protocol Server".
+Auth:       OAuth (IndieAuth) OR a Long-Lived Access Token sent as a Bearer header.
+Control:    "Control Home Assistant" option governs whether clients can act at all.
+Exposure:   Clients can only see/control entities exposed via the Exposed Entities page.
+```
+
+**Hermes-native HTTP config:**
+
+Hermes supports remote HTTP/SSE/StreamableHTTP MCP servers via the `url:` config key. Use this as the default if the installed Hermes runtime has the MCP Python package with Streamable HTTP support:
 
 ```yaml
 mcp_servers:
   homeassistant:
-    command: "npx"
-    args: ["-y", "ha-mcp"]
-    env:
-      HA_MCP_URL: "${HA_MCP_URL}"
-      HA_MCP_TOKEN: "${HA_MCP_TOKEN}"
-      HA_MCP_TIMEZONE: "${HA_MCP_TIMEZONE}"
+    url: "http://homeassistant.local:8123/api/mcp"
+    headers:
+      Authorization: "Bearer ${HA_MCP_TOKEN}"
     timeout: 120
     connect_timeout: 60
 ```
 
-**Optional lights/scenes server config:**
+Before trusting this block, confirm the active Hermes environment has MCP Streamable HTTP support:
+
+```bash
+python3 - <<'PY'
+import mcp.client.streamable_http
+print("streamable_http available")
+PY
+```
+
+If that import fails, install/upgrade the MCP SDK in the Hermes runtime, then restart Hermes:
+
+```bash
+pip install --upgrade mcp
+```
+
+**Fallback bridge if HTTP transport is unavailable:**
+
+If Hermes' current MCP runtime cannot speak Streamable HTTP directly, use `mcp-proxy` as a stdio bridge. `uv` is already available on the Mac Mini:
+
+```bash
+uv tool install git+https://github.com/sparfenyuk/mcp-proxy
+```
+
+```yaml
+mcp_servers:
+  homeassistant:
+    command: "mcp-proxy"
+    args:
+      - "--transport=streamablehttp"
+      - "--stateless"
+      - "http://homeassistant.local:8123/api/mcp"
+    env:
+      API_ACCESS_TOKEN: "${HA_MCP_TOKEN}"
+    timeout: 120
+    connect_timeout: 60
+```
+
+**Deferred community lights/scenes server config, if ever used:**
+
+Standardize local secret names on `HA_MCP_*`, then map them into whatever names the specific server README requires. Example only — verify the package README before trusting it:
 
 ```yaml
 mcp_servers:
@@ -254,6 +354,15 @@ If testing fails, inspect logs:
 grep -i "mcp\|homeassistant\|home assistant" ~/.hermes/logs/gateway.log | tail -80
 ```
 
+Troubleshooting anchors from the official HA docs:
+
+```text
+404 at /api/mcp  -> the MCP Server integration is not actually configured in HA.
+401 at /api/mcp  -> the long-lived access token is wrong or not being sent as Bearer auth.
+```
+
+Also verify the endpoint path is `/api/mcp`, not `/mcp`.
+
 **Verification:** The Home Assistant MCP server appears as connected or testable, and Hermes startup logs show MCP discovery without credential leakage.
 
 ---
@@ -275,13 +384,15 @@ hermes mcp configure homeassistant
 
 - Tool names prefixed like `mcp_homeassistant_*`
 - Whether reads and writes are separate tools
+- Whether `Control Home Assistant` is OFF for the first read-only session
 - Whether one generic tool can run both `get_state` and `call_service`
-- Whether high-risk services are visible
+- Whether high-risk services are visible despite the Exposed Entities allowlist
 
 **Decision:**
 
 - If read tools are separable, enable read tools first.
-- If all actions sit behind one generic tool, keep first session read-only by instruction and consider a custom wrapper.
+- If `Control Home Assistant` is OFF, treat this as the preferred first-session structural read-only boundary.
+- If all actions sit behind one generic tool, keep first session read-only and do not grant persistent write access.
 - If dangerous write tools are separable, disable them.
 
 **Verification:** Write down the actual discovered tool names in `references/ha-mcp-setup.md` after the first live run.
@@ -383,6 +494,8 @@ scene.entryway_relax
 **Rules:**
 
 - Ask Neima before the first write.
+- Run the first write only after a fully clean read-only session.
+- The first write target must be a device physically visible to Neima in the same room, so the result is verified by eye, not just by state.
 - Use one obvious target entity.
 - Verify state afterward.
 - Do not test broad service calls.
@@ -406,7 +519,7 @@ scene.entryway_relax
 
 **Record:**
 
-- MCP package used
+- MCP integration/transport used, including whether Hermes native HTTP or `mcp-proxy` fallback was chosen
 - exact Hermes config shape, with tokens redacted
 - discovered tool names
 - read-only tests passed/failed
@@ -443,8 +556,8 @@ Pause and reassess if:
 
 The likely durable architecture is:
 
-1. Generic HA MCP or custom wrapper for read-only state.
-2. Lights/scenes-only MCP for safe writes.
+1. Official HA MCP Server integration for read-only state with `Control Home Assistant` OFF.
+2. Official HA MCP Server integration with narrow exposed entities for safe writes, or a lights/scenes-only MCP wrapper if the discovered tools are too broad.
 3. Custom Ned MCP for project/homelab coaching context.
 4. Hermes cron health agent for daily status summaries.
 5. Optional Home Assistant automations that agents can trigger indirectly through pre-approved scripts/scenes rather than arbitrary service calls.
