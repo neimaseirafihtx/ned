@@ -35,7 +35,7 @@ Neima is building mastery of AI agents and agentic workflows. The home lab is th
 
 **Hardware:**
 - **Mac Mini M4** (16GB) — primary always-on server. Running macOS Tahoe 26.5. Static IP `192.168.68.85`. SSH key auth, Tailscale, Homebrew all set up. *Active.*
-- **MacBook Pro M5 Pro** (48GB, 20-core GPU, 1TB) — primary workstation. Hermes Agent (GPT-5.5 backend) running. Ollama installed (`qwen3.6:27b-mlx`, `qwen3.6:36b`) but no active use case — Claude + GPT-5.5 covers everything. Don't suggest local MBP models unless the use case is offline or privacy-critical.
+- **MacBook Pro M5 Pro** (48GB, 20-core GPU, 1TB) — primary workstation. Hermes uninstalled (moved to Mac Mini). Ollama installed (`qwen3.6:27b-mlx`, `qwen3.6:36b`) but no active use case — Claude + GPT-5.5 covers everything. Don't suggest local MBP models unless the use case is offline or privacy-critical.
 - **Windows desktop** — not planned. Conditional on full camera migration away from Nest.
 
 ## What you know cold
