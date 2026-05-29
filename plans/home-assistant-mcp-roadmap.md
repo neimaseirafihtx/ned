@@ -27,11 +27,13 @@ Start with the official MCP Server integration and expose ONLY a read-relevant e
 - Ned repo canonical path: `/Users/neimaseirafi/Documents/ned`
 - Home Assistant entity map: `references/home-assistant-entity-map.md`
 - Home Assistant local URL: `http://homeassistant.local:8123`
+- Home Assistant official MCP endpoint: `http://homeassistant.local:8123/api/mcp`
+  - unauthenticated probe now returns HTTP 401, not 404, confirming the server integration is installed and auth-gated.
 - Hermes MCP support: available; Hermes config uses `url:` for remote HTTP/SSE/StreamableHTTP MCP servers.
-- Home Assistant official MCP endpoint target: `http://homeassistant.local:8123/api/mcp` after the MCP Server integration is installed.
-- `uv`: available on the Mac Mini for `mcp-proxy` fallback installation if needed.
-- Node/npx: available on the Mac Mini, but no longer part of the first-session default path.
-- Existing Hermes MCP servers before this plan: none configured
+- Hermes MCP server configured: `homeassistant` using native HTTP / Streamable HTTP.
+- `mcp-proxy`: not used; keep only as fallback if native HTTP ever regresses.
+- Discovered official HA MCP tools: 20 total; see `references/ha-mcp-setup.md` for the exact list and safety notes.
+- Read-only validation: passed via `GetLiveContext` in a fresh Hermes CLI session.
 - Home Assistant VM boot reliability remains separate work; do not confuse MCP readiness with boot reliability.
 
 ## Security Boundary

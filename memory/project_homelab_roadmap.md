@@ -23,17 +23,18 @@ Two tracks run in parallel:
 | 7 | Mastery + Sovereignty | 📋 Fully local stack, autonomous pipelines |
 
 **Phase 3 detail (current focus):**
-1. Reboot Mac Mini → verify all services survive (Hermes, HAOS, Ollama, Tailscale)
+1. Reboot Mac Mini → verify all services survive (Hermes, HAOS, Ollama, Tailscale) ✅
 2. Clean HA entity map — name everything by room/device
-3. Enable official HA MCP Server integration → agents read live home state first, then tightly scoped control after approval
-4. Build first custom MCP server (ned project/homelab status)
-5. First Hermes cron job — daily homelab health brief
+3. Enable official HA MCP Server integration → live read access is working; writes remain approval-gated
+4. Compare live MCP state against `references/home-assistant-entity-map.md`
+5. Build first custom MCP server (ned project/homelab status)
+6. First Hermes cron job — daily homelab health brief
 
 **Phase 3 deliverables:**
 - `ned/plans/mac-mini-ops-baseline.md` — service startup verification
 - `ned/plans/home-assistant-mcp-roadmap.md` — HA MCP install/validation plan with safety boundary and time estimates
 - `ned/references/home-assistant-entity-map.md` — clean HA entity names
-- Working: "ask Hermes what lights are on" → real answer
+- Working: "ask Hermes what lights are on" → real answer ✅
 - Working: daily health check cron agent
 
 ---
