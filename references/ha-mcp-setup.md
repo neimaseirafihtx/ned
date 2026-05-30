@@ -128,11 +128,36 @@ The official HA MCP server exposes both read and write-capable tool names. Keep 
 - Keep the first write test limited to one visible, low-risk light or scene.
 - Avoid locks, cameras/security, HVAC, arbitrary service calls, automation/config mutation, and unbounded Sonos volume.
 
+## First Write Test Result
+
+Completed 2026-05-29 with explicit user approval.
+
+Approved scope:
+
+- Target: `light.family_room_main_lights` / "Family Room Main Lights"
+- Requested action: turn on to 30% brightness
+
+MCP write call:
+
+- Tool: `HassLightSet`
+- Arguments: `name="Family Room Main Lights"`, `area="Family Room"`, `domain=["light"]`, `brightness=30`
+- Result: `action_done`, success included `light.family_room_main_lights`
+
+Read-only verification:
+
+- Tool: `GetLiveContext`
+- Result after propagation: Family Room Main Lights `on`, brightness `76` raw HA brightness, approximately 30% of 255.
+
+Important safety observation:
+
+- Because the official MCP tool uses natural-language Home Assistant Assist targeting, including `area="Family Room"` appears to have affected the broader Family Room light area as well as the named entity.
+- Follow-up live read showed nearby Family Room lights also around 30% raw brightness (`light.family_room`, `light.family_room_lamp`, and `light.tv_lightstrip`).
+- For future write tests, use the narrowest selector possible and consider an allowlisted wrapper if exact entity-only writes are required.
+
 ## Next Steps
 
-1. Ask Neima before the first write test.
-2. If write testing is approved, use one visible low-risk target such as `light.tv_lightstrip` or `scene.entryway_relax`, then verify live state afterward.
-3. Continue Phase 3 with the custom Ned MCP server and the first Hermes cron health brief.
+1. Decide whether to keep official HA MCP write access as approval-gated natural-language control, or build a small allowlisted wrapper for exact entity-only writes.
+2. Continue Phase 3 with the custom Ned MCP server and the first Hermes cron health brief.
 
 Completed follow-up:
 

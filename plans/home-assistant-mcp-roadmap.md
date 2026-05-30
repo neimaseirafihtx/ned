@@ -35,6 +35,7 @@ Start with the official MCP Server integration and expose ONLY a read-relevant e
 - Official HA MCP tools discovered: 20 total; see `references/ha-mcp-setup.md` for the exact list and safety notes.
 - Read-only validation: passed via `GetLiveContext` in a fresh Hermes CLI session.
 - Entity-map comparison: completed on 2026-05-29; `references/home-assistant-entity-map.md` now records MCP live-state differences while staying curated.
+- First safe write test: completed with explicit approval; `HassLightSet` turned on Family Room Main Lights to ~30%, but area-based Assist targeting also affected nearby Family Room lights. Future writes should use narrower selectors or an allowlisted wrapper.
 - Home Assistant VM boot reliability remains separate work; do not confuse MCP readiness with boot reliability.
 
 ## Security Boundary
@@ -468,6 +469,8 @@ Keep the entity map curated. Agents need a control surface, not every backup sen
 
 ## Phase 8: First Safe Write Test
 
+**Status:** Complete as of 2026-05-29 with explicit approval. Result succeeded, but revealed that official MCP natural-language targeting can affect an area when `area` is included alongside a named light.
+
 **Required time:** 15–25 minutes
 
 **Objective:** Perform one low-risk write only after read-only validation succeeds.
@@ -506,6 +509,8 @@ scene.entryway_relax
 - Do not test broad service calls.
 
 **Verification:** Home Assistant confirms the target state changed and no unrelated entities changed.
+
+**Actual result:** `light.family_room_main_lights` changed to on at raw brightness 76 (~30%), but the broader Family Room light area also moved to roughly 30% because the MCP call included `area="Family Room"`. Treat this as a safety lesson: prefer exact/narrow selectors, and consider a custom allowlisted wrapper for deterministic entity-only writes.
 
 ---
 

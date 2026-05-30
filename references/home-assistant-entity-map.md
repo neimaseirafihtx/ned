@@ -18,7 +18,7 @@ Read-only MCP comparison ran against the official Home Assistant MCP Server with
 Important differences from the original HA API snapshot:
 
 - Several light state notes are naturally time-sensitive and changed live:
-  - Family Room group / lamp / TV lightstrip are currently on at brightness 66.
+  - After the first approved write test, Family Room lights were around 30% raw brightness (`light.family_room_main_lights` verified at raw brightness 76).
   - Entryway / Entry Lamp are currently on at brightness 143.
   - Listening Room light is currently on at brightness 65.
 - Media players often appear more than once in MCP live context because HA exposes both display/player and speaker/duplicate contexts. Treat entity IDs below as canonical where known, and use friendly names carefully when reading MCP output.
@@ -40,10 +40,10 @@ Important differences from the original HA API snapshot:
 ### Family Room Lights
 | Entity ID | Friendly Name | Type | Notes |
 |-----------|--------------|------|-------|
-| `light.family_room` | Family Room | Hue group | MCP live: on, brightness 66. Group includes TV lightstrip + lamp. |
-| `light.family_room_lamp` | Family Room Lamp | Hue bulb | MCP live: on, brightness 66. |
-| `light.tv_lightstrip` | TV lightstrip | Hue lightstrip | MCP live: on, brightness 66. Good low-risk visible write-test target if explicitly approved. |
-| `light.family_room_main_lights` | Family Room Main Lights | Lutron Caseta | MCP live: off. |
+| `light.family_room` | Family Room | Hue group | MCP live after first write test: on, raw brightness ~74. Group includes TV lightstrip + lamp. |
+| `light.family_room_lamp` | Family Room Lamp | Hue bulb | MCP live after first write test: on, raw brightness ~77. |
+| `light.tv_lightstrip` | TV lightstrip | Hue lightstrip | MCP live after first write test: on, raw brightness ~72. Good low-risk visible write-test target if explicitly approved. |
+| `light.family_room_main_lights` | Family Room Main Lights | Lutron Caseta | First approved write test target. MCP live after write: on, raw brightness 76 (~30%). |
 | `scene.family_room_dimmed` | Family Room Dimmed | Hue scene | MCP live: scene exposed, unknown state, brightness target 65. |
 
 ### Kitchen
