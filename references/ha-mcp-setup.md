@@ -130,7 +130,10 @@ The official HA MCP server exposes both read and write-capable tool names. Keep 
 
 ## Next Steps
 
-1. Compare `GetLiveContext` output against `references/home-assistant-entity-map.md` and refresh stale state notes without turning the map into a raw entity dump.
-2. Ask Neima before the first write test.
-3. If write testing is approved, use one visible low-risk target such as `light.tv_lightstrip` or `scene.entryway_relax`, then verify live state afterward.
-4. Continue Phase 3 with the custom Ned MCP server and the first Hermes cron health brief.
+1. Ask Neima before the first write test.
+2. If write testing is approved, use one visible low-risk target such as `light.tv_lightstrip` or `scene.entryway_relax`, then verify live state afterward.
+3. Continue Phase 3 with the custom Ned MCP server and the first Hermes cron health brief.
+
+Completed follow-up:
+
+- `references/home-assistant-entity-map.md` was cross-checked against `GetLiveContext` on 2026-05-29 and refreshed as a curated agent map, not a raw entity dump.

@@ -34,6 +34,7 @@ Start with the official MCP Server integration and expose ONLY a read-relevant e
 - `mcp-proxy`: not used; keep only as fallback if native HTTP ever regresses.
 - Official HA MCP tools discovered: 20 total; see `references/ha-mcp-setup.md` for the exact list and safety notes.
 - Read-only validation: passed via `GetLiveContext` in a fresh Hermes CLI session.
+- Entity-map comparison: completed on 2026-05-29; `references/home-assistant-entity-map.md` now records MCP live-state differences while staying curated.
 - Home Assistant VM boot reliability remains separate work; do not confuse MCP readiness with boot reliability.
 
 ## Security Boundary
@@ -437,6 +438,8 @@ Summarize the house by room using the Ned entity map as context.
 ---
 
 ## Phase 7: Compare Live State Against Entity Map
+
+**Status:** Complete as of 2026-05-29. The entity map was refreshed from a read-only `GetLiveContext` comparison without turning it into a raw entity dump.
 
 **Required time:** 20–35 minutes
 
