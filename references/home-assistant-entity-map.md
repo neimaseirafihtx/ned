@@ -40,11 +40,16 @@ Important differences from the original HA API snapshot:
 ### Family Room Lights
 | Entity ID | Friendly Name | Type | Notes |
 |-----------|--------------|------|-------|
-| `light.family_room` | Family Room | Hue group | MCP live after first write test: on, raw brightness ~74. Group includes TV lightstrip + lamp. |
-| `light.family_room_lamp` | Family Room Lamp | Hue bulb | MCP live after first write test: on, raw brightness ~77. |
-| `light.tv_lightstrip` | TV lightstrip | Hue lightstrip | MCP live after first write test: on, raw brightness ~72. Good low-risk visible write-test target if explicitly approved. |
-| `light.family_room_main_lights` | Family Room Main Lights | Lutron Caseta | First approved write test target. MCP live after write: on, raw brightness 76 (~30%). |
+| `light.family_room` | Family Room | Hue group | Current after Telegram follow-up fix: off. Group includes TV lightstrip + lamp, but not the Lutron main lights. |
+| `light.family_room_lamp` | Family Room Lamp | Hue bulb | Current after Telegram follow-up fix: off. |
+| `light.tv_lightstrip` | TV lightstrip | Hue lightstrip | Current after Telegram follow-up fix: off. Good low-risk visible write-test target if explicitly approved. |
+| `light.family_room_main_lights` | Family Room Main Lights | Lutron Caseta | Current after Telegram follow-up fix: off. Important: include this when user says “Family Room lights”; Hue group turn-off alone misses it. |
 | `scene.family_room_dimmed` | Family Room Dimmed | Hue scene | MCP live: scene exposed, unknown state, brightness target 65. |
+
+Family Room control note:
+- Treat “Family Room lights” as all four light entities above: `light.family_room`, `light.family_room_lamp`, `light.tv_lightstrip`, and `light.family_room_main_lights`.
+- The 2026-05-29 Telegram “turn off Family Room lights” attempt initially missed `light.family_room_main_lights` because it targeted the Hue group/child lights but not the separate Lutron main lights. Exact REST turn-off of `light.family_room_main_lights` fixed the remaining light.
+- For future exact family-room-off routines, prefer an allowlisted exact entity set or a Home Assistant group intentionally containing both Hue and Lutron entities.
 
 ### Kitchen
 | Entity ID | Friendly Name | Type | Notes |
