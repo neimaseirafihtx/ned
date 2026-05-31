@@ -13,7 +13,7 @@
 - **Apple ID signed in** — iCloud selectively configured (see below)
 - **iCloud ON:** iCloud Drive, Keychain, Notes, Messages, Mail, Find My, Contacts, Calendar, Reminders, Safari
 - **iCloud OFF:** Photos, FaceTime, Freeform, Siri, Wallet, Home
-- **FileVault** — was on, fully decrypted and left off (not needed for home lab threat model)
+- **FileVault** — was on, fully decrypted and left off for headless/home-server recoverability
 - **Energy settings:**
   - Prevent automatic sleeping when display is off → ON
   - Wake for network access → ON
@@ -22,7 +22,7 @@
 - **Sharing settings:**
   - Remote Login → ON
   - Remote Management → OFF
-  - File Sharing → ON (can turn off, not needed)
+  - File Sharing → ON, hardened for authenticated SMB access to `Neima Home Folder`; guest SMB access disabled
   - Screen Sharing → ON ✅
     - Anyone may request permission: Off
     - VNC viewers may control screen with password: Off
@@ -53,10 +53,9 @@
 
 6. ~~**UTM + Home Assistant OS VM**~~ ✅ HAOS 17.3 running in UTM VM, accessible at homeassistant.local:8123
 
-7. **Ollama (8B model)**
-   - For HA automation only — not general inference
-   - Max 8B on 16GB, heavy inference stays on MBP
-   - `brew install ollama`
+7. ~~**Ollama (8B/9B-class model)**~~ ✅ installed and running with `qwen3.5:9b`
+   - For HA automation and light local use only — not heavy general inference
+   - 16GB RAM is tight; heavy inference stays off this box
 
 8. **Nextcloud**
    - Personal data layer agents can operate on
@@ -84,9 +83,9 @@ AI mastery is the primary goal. Mac Mini is the sandbox that makes it real.
 
 | Track | Phase | Status |
 |-------|-------|--------|
-| AI | Phase 1 — Agent Foundation | ✅ ACTIVE (Hermes + GPT-5.5 on MBP) |
+| AI | Phase 1 — Agent Foundation | ✅ COMPLETE (Hermes + GPT-5.5 on Mac Mini, Telegram connected) |
 | Infra | Phase 2 — Home Lab Substrate | ✅ COMPLETE (SSH ✅ static IP ✅ Homebrew ✅ Tailscale ✅ Screen Sharing ✅ Ollama/qwen3.5:9b ✅ Docker ✅ HAOS 17.3 ✅ Hermes+Telegram ✅) |
-| AI | Phase 3 — Connected Agents + MCP | 📋 Blocked on Phase 2 |
+| AI | Phase 3 — Connected Agents + MCP | ▶️ ACTIVE (HA MCP read access working; writes approval-gated) |
 | Infra | Phase 4 — Local Intelligence | 📋 Planned |
 | AI | Phase 5 — Multi-Agent & Autonomous | 📋 Planned |
 | Infra | Phase 6 — GPU Stack | ⏸ Conditional (camera migration only) |

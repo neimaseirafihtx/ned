@@ -1,6 +1,6 @@
 <!-- Session observation log. Format: [YYYY-MM-DD] [type] observation -->
 <!-- Cleared automatically when /note is run. -->
-[2026-05-29] [project] Reboot test complete: Hermes survives, HAOS does not auto-restart (UTM LaunchAgent fix deferred)
+[2026-05-29] [project] Reboot test complete: Hermes gateway, Tailscale, and Ollama auto-start; Docker Desktop needs `open -a Docker`; HAOS UTM VM `Linux` needs `utmctl start 'Linux'` before `homeassistant.local:8123` returns 200.
 [2026-05-29] [project] HA entity map generated and saved to references/home-assistant-entity-map.md — live snapshot of all devices
 [2026-05-29] [user] HA setup: Hue (Family Room, Entryway, Listening Room), Lutron Caseta (Master Bedroom, Dining Room, Kitchen, Family Room, Guestroom, Exterior), Sonos (Living Room, Listening Room, Office, Garage, Neima's Room), Samsung TVs (75" The Frame, 65" OLED), Music Assistant installed
 [2026-05-29] [user] listening_room_lamp unavailable = intentional (off at switch); 65" OLED unavailable = rarely used TV, expected
@@ -10,3 +10,4 @@
 [2026-05-29] [project] HA MCP token stored in ~/.hermes/.env (single clean entry); config in ~/.hermes/config.yaml under mcp_servers.homeassistant; setup docs in references/ha-mcp-setup.md
 [2026-05-30] [user] Home network: AT&T Fiber gateway radios off/IP-passthrough-style bridge via multi-gig to main Deco BE63 2.5GbE; BE63 feeds 2.5GbE 8-port switch, three additional Deco nodes, and Luxul 16-port gigabit switch for home Ethernet.
 [2026-05-31] [user] Hermes Agent uninstalled from MBP — rm -rf ~/.hermes && rm ~/.local/bin/hermes
+[2026-05-31] [project] Mac Mini SMB hardening complete: authenticated `Neima Home Folder` share active, guest SMB access disabled, FileVault remains off, macOS firewall and stealth mode enabled.
