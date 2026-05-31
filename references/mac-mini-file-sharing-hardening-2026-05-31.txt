@@ -130,11 +130,9 @@ guest access: 0
 read-only: 0
 ```
 
-## Optional firewall step
+## Firewall step completed
 
-This was **not applied** because the SMB hardening step was blocked by admin authorization.
-
-When ready, after confirming authenticated SMB access works from the MBP, enable firewall and stealth mode with:
+After confirming authenticated SMB access worked, Neima manually enabled the macOS application firewall and stealth mode:
 
 ```bash
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
@@ -143,14 +141,38 @@ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
 /usr/libexec/ApplicationFirewall/socketfilterfw --getstealthmode
 ```
 
-After enabling firewall, verify:
+Verified by Hermes at `2026-05-31 09:09:09 CDT`:
 
-```bash
-ssh neimaseirafi@192.168.68.85
-nc -vz 192.168.68.85 445
+```text
+FileVault is Off.
+Firewall is enabled. (State = 1)
+Firewall stealth mode is on
+
+List of Share Points
+name: Neima Home Folder
+path: /Users/neimaseirafi
+smb:
+  name: Neima Home Folder
+  shared: 1
+  guest access: 0
+  read-only: 0
+  sealed: 0
+
+SMB port 445 local check: succeeded
 ```
 
-Also verify from the MBP Finder:
+Current final status: **authenticated SMB sharing is active, guest SMB access is disabled, FileVault remains off, and the macOS firewall/stealth mode are enabled.**
+
+Ongoing verification commands:
+
+```bash
+/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate
+/usr/libexec/ApplicationFirewall/socketfilterfw --getstealthmode
+/usr/sbin/sharing -l
+nc -vz 127.0.0.1 445
+```
+
+From the MBP Finder, connect with:
 
 ```text
 smb://192.168.68.85
