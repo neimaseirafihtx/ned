@@ -1,0 +1,41 @@
+# Mac mini file sharing hardening pre-change snapshot
+Captured: 2026-05-31 08:53:16 CDT
+
+## FileVault
+FileVault is Off.
+
+## Firewall
+Firewall is disabled. (State = 0)
+Firewall stealth mode is off
+
+## SMB shares
+
+			List of Share Points
+name:		Neima Seirafi’s Public Folder
+path:		/Users/neimaseirafi/Public
+	smb:	{
+    		name:	Neima Seirafi’s Public Folder
+    		shared:	1
+    		guest access:	1
+    		read-only:	0
+    		sealed:	0
+	}
+
+
+## SMB server plist
+{
+  "DOSCodePage" => "437"
+  "NetBIOSName" => "Neimas-Mac-mini"
+  "ServerDescription" => "Neima’s Mac mini"
+}
+
+## Listening SMB ports
+tcp4       0      0  *.445                  *.*                    LISTEN                 0            0  131072  131072          launchd:1      00180 00000006 0000000000000027 00000000 00000800      1      0 000000
+tcp6       0      0  *.445                  *.*                    LISTEN                 0            0  131072  131072          launchd:1      00180 00000006 0000000000000026 00000000 00000800      1      0 000000
+
+## Public folder permissions
+drwxr-x---+ 4 neimaseirafi  staff  128 May 28 19:20 /Users/neimaseirafi/Public
+ 0: group:everyone deny delete
+drwx-wx-wx+ 3 neimaseirafi  staff   96 May 28 19:20 /Users/neimaseirafi/Public/Drop Box
+ 0: group:everyone deny delete
+ 1: user:neimaseirafi allow list,add_file,search,delete,add_subdirectory,delete_child,readattr,writeattr,readextattr,writeextattr,readsecurity,writesecurity,chown,file_inherit,directory_inherit

@@ -1,0 +1,171 @@
+# Mac mini File Sharing Hardening Log
+
+Date: 2026-05-31
+Host: Neima’s Mac mini
+User account: neimaseirafi
+Goal: Keep FileVault off for home-server recoverability, but harden SMB/File Sharing so access requires authentication and guest access is removed.
+
+## Requested target state
+
+- FileVault remains OFF.
+- SMB/File Sharing remains ON.
+- Guest SMB access is OFF.
+- The previous guest-access Public Folder share is removed.
+- The main home folder `/Users/neimaseirafi` is shared over SMB.
+- Access should require authenticating as `neimaseirafi`.
+- Remote access should be over trusted LAN/Tailscale only; do not port-forward SMB from the internet.
+
+## Pre-change state captured
+
+A full pre-change snapshot was also saved at:
+
+`references/mac-mini-file-sharing-hardening-prechange-2026-05-31.txt`
+
+Observed pre-change state:
+
+```text
+FileVault is Off.
+Firewall is disabled. (State = 0)
+Firewall stealth mode is off
+
+Existing SMB share:
+name: Neima Seirafi’s Public Folder
+path: /Users/neimaseirafi/Public
+smb shared: 1
+guest access: 1
+read-only: 0
+
+SMB port 445 was listening locally.
+```
+
+## What Hermes attempted
+
+Hermes attempted to apply the change using macOS `sharing` commands. The normal command requires root:
+
+```bash
+/usr/sbin/sharing -r "Neima Seirafi’s Public Folder"
+/usr/sbin/sharing -a /Users/neimaseirafi -n "Neima Home Folder" -S "Neima Home Folder" -s 001 -g 000 -R 0 -E 0
+```
+
+The first non-root attempt failed as expected:
+
+```text
+sharing: must be run as root
+```
+
+Hermes then attempted to use `sudo -n`, but the Mac required an admin password:
+
+```text
+sudo: a password is required
+```
+
+Hermes then attempted to trigger a macOS administrator authorization prompt using AppleScript:
+
+```applescript
+do shell script "/usr/sbin/sharing -r \"Neima Seirafi’s Public Folder\" 2>/dev/null || true
+/usr/sbin/sharing -a /Users/neimaseirafi -n \"Neima Home Folder\" -S \"Neima Home Folder\" -s 001 -g 000 -R 0 -E 0" with administrator privileges with prompt "Hermes needs admin permission to disable guest SMB sharing and share your home folder with authenticated access only."
+```
+
+That prompt was not completed before the tool timeout. As of the follow-up diagnostic, the change had **not** been applied yet.
+
+## Final state after Hermes attempt
+
+The final diagnostic still showed the old share active:
+
+```text
+name: Neima Seirafi’s Public Folder
+path: /Users/neimaseirafi/Public
+guest access: 1
+```
+
+So this document is both a record of the attempted hardening and the exact runbook to apply/reverse it manually.
+
+## Apply commands
+
+Run these on the Mac mini in Terminal from an admin account:
+
+```bash
+sudo /usr/sbin/sharing -r "Neima Seirafi’s Public Folder" 2>/dev/null || true
+sudo /usr/sbin/sharing -a /Users/neimaseirafi \
+  -n "Neima Home Folder" \
+  -S "Neima Home Folder" \
+  -s 001 \
+  -g 000 \
+  -R 0 \
+  -E 0
+/usr/sbin/sharing -l
+```
+
+Expected result:
+
+```text
+name: Neima Home Folder
+path: /Users/neimaseirafi
+smb shared: 1
+guest access: 0
+read-only: 0
+```
+
+## Optional firewall step
+
+This was **not applied** because the SMB hardening step was blocked by admin authorization.
+
+When ready, after confirming authenticated SMB access works from the MBP, enable firewall and stealth mode with:
+
+```bash
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
+/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate
+/usr/libexec/ApplicationFirewall/socketfilterfw --getstealthmode
+```
+
+After enabling firewall, verify:
+
+```bash
+ssh neimaseirafi@192.168.68.85
+nc -vz 192.168.68.85 445
+```
+
+Also verify from the MBP Finder:
+
+```text
+smb://192.168.68.85
+```
+
+Login as:
+
+```text
+neimaseirafi
+```
+
+## Rollback commands
+
+If the authenticated home-folder share causes problems, reverse it with:
+
+```bash
+sudo /usr/sbin/sharing -r "Neima Home Folder" 2>/dev/null || true
+sudo /usr/sbin/sharing -a /Users/neimaseirafi/Public \
+  -n "Neima Seirafi’s Public Folder" \
+  -S "Neima Seirafi’s Public Folder" \
+  -s 001 \
+  -g 001 \
+  -R 0 \
+  -E 0
+/usr/sbin/sharing -l
+```
+
+If the firewall creates an issue and needs to be temporarily disabled:
+
+```bash
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate off
+/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate
+```
+
+## Security notes
+
+- This hardening does not enable FileVault. FileVault remains off to preserve easier headless reboot behavior for the Mac mini server.
+- Disabling guest SMB access is the important security improvement.
+- Sharing the full home folder is acceptable for Neima’s single-user convenience model, but it means an authenticated SMB session has broad read/write access.
+- Do not expose SMB ports to the public internet: TCP 445, TCP 139, UDP 137, UDP 138.
+- For remote access, use Tailscale rather than port forwarding SMB.
+- When the Samsung T9 is added later, it should be shared as a separate authenticated SMB share, ideally APFS-formatted and mounted reliably at boot.
