@@ -24,7 +24,7 @@ Neima is building mastery of AI agents and agentic workflows. The home lab is th
 
 **AI Track (primary):**
 1. **Agent Foundation** — Hermes Agent running on Mac Mini with GPT-5.5 ✅, Telegram connected ✅
-2. **Connected Agents + MCP** ▶️ ACTIVE — HA MCP live read access working, first custom MCP server (ned status), first Hermes cron agent
+2. **Connected Agents + MCP** ▶️ ACTIVE — HA MCP live read access + entity-map cross-check working; next up: custom Ned MCP server and first Hermes health cron
 3. **Multi-Agent & Autonomous Systems** — delegation, cron agents, skills library
 4. **Mastery + Sovereignty** — fully local stack, no required cloud, autonomous pipelines
 

@@ -2,7 +2,7 @@
 
 **Owner:** Neima  
 **Created:** 2026-05-30 20:58 CDT  
-**Last updated:** 2026-05-31 07:18 CDT  
+**Last updated:** 2026-05-31
 **Source:** Telegram discussion with Hermes/Ned + screenshots from the TP-Link Deco app
 
 This document captures the current known state of Neima's home network, including WAN service, gateway/mesh/switch topology, TP-Link Deco app observations, and the working recommendation for future network architecture.
@@ -45,7 +45,7 @@ Neima described the current network as follows:
 
 ```text
 AT&T fiber gateway / fiber box
-  - Common AT&T residential fiber gateway
+  - Model: BGW320-500
   - Wi-Fi radio broadcast turned off
   - Configured in bridge mode / passthrough-style mode
   - Uses multi-gig port for LAN handoff
@@ -85,7 +85,7 @@ AT&T Fiber Gateway
 
 ### ISP / WAN
 
-- **AT&T Fiber gateway**
+- **AT&T Fiber gateway — BGW320-500**
   - Wi-Fi radios disabled.
   - Multi-gig Ethernet handoff in use.
   - User describes it as bridge mode. Practical note: many AT&T residential gateways use IP Passthrough rather than pure bridge mode, but the intended behavior is the same: demote the AT&T box and let the downstream router control the LAN.

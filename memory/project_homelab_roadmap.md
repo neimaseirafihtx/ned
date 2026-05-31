@@ -18,24 +18,24 @@ Two tracks run in parallel:
 | Phase | Name | Status |
 |-------|------|--------|
 | 1 | Agent Foundation | ✅ COMPLETE — Hermes + GPT-5.5 on Mac Mini, Telegram connected |
-| 3 | Connected Agents + MCP | ▶️ ACTIVE — HA MCP, custom MCP server, ned as project brain |
+| 3 | Connected Agents + MCP | ▶️ ACTIVE — HA MCP read/live-state working; custom Ned MCP server + health cron are next |
 | 5 | Multi-Agent & Autonomous Systems | 📋 Delegation, cron agents, skills library |
 | 7 | Mastery + Sovereignty | 📋 Fully local stack, autonomous pipelines |
 
 **Phase 3 detail (current focus):**
 1. Reboot Mac Mini → verify all services survive (Hermes, HAOS, Ollama, Tailscale) ✅
-2. Clean HA entity map — name everything by room/device
-3. Enable official HA MCP Server integration → live read access is working; writes remain approval-gated
-4. Compare live MCP state against `references/home-assistant-entity-map.md`
-5. Build first custom MCP server (ned project/homelab status)
-6. First Hermes cron job — daily homelab health brief
+2. Clean HA entity map — room/device map published and cross-checked ✅
+3. Enable official HA MCP Server integration → live read access is working ✅; writes remain approval-gated
+4. Compare live MCP state against `references/home-assistant-entity-map.md` ✅
+5. Build first custom MCP server (ned project/homelab status) ▶️ NEXT
+6. First Hermes cron job — daily homelab health brief ▶️ NEXT
 
 **Phase 3 deliverables:**
 - `ned/plans/mac-mini-ops-baseline.md` — service startup verification
 - `ned/plans/home-assistant-mcp-roadmap.md` — HA MCP install/validation plan with safety boundary and time estimates
 - `ned/references/home-assistant-entity-map.md` — clean HA entity names
 - Working: "ask Hermes what lights are on" → real answer ✅
-- Working: daily health check cron agent
+- Working: daily health check cron agent — not created yet; next activation step
 
 ---
 
@@ -62,20 +62,20 @@ Two tracks run in parallel:
 ## 30-Day Plan (from 2026-05-29)
 
 **Week 1 — Stabilize**
-- Reboot Mac Mini, verify all services survive
-- Document service startup state → `plans/mac-mini-ops-baseline.md`
-- Confirm remote access from outside home via Tailscale
+- Reboot Mac Mini, verify all services survive ✅
+- Document service startup state → `plans/mac-mini-ops-baseline.md` ✅
+- Confirm remote access from outside home via Tailscale — still open
 
 **Week 2 — HA Entity Cleanup**
-- Name all entities by room/device consistently
-- Add Nest if not a time sink
-- Publish `references/home-assistant-entity-map.md`
+- Name all entities by room/device consistently ✅
+- Add Nest if not a time sink — deferred
+- Publish `references/home-assistant-entity-map.md` ✅
 
 **Week 3 — HA MCP + Agent Control**
-- Enable official HA MCP Server integration with `Control Home Assistant` OFF for first read-only session
-- Start read-only (list entities, read state)
-- Add low-risk writes only after clean read-only validation (visible light/scene first)
-- Deliverable: "ask Hermes what lights are on" → real answer
+- Enable official HA MCP Server integration with read-only-first safety boundary ✅
+- Start read-only (list entities, read state) ✅
+- Add low-risk writes only after clean read-only validation (visible light/scene first) ✅ first test completed; keep approval-gated
+- Deliverable: "ask Hermes what lights are on" → real answer ✅
 
 **Week 4 — Custom MCP + First Cron Agent**
 - Build ned status MCP server (get_homelab_status, read_ned_memory, etc.)

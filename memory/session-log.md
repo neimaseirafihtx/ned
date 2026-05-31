@@ -11,3 +11,5 @@
 [2026-05-30] [user] Home network: AT&T Fiber gateway radios off/IP-passthrough-style bridge via multi-gig to main Deco BE63 2.5GbE; BE63 feeds 2.5GbE 8-port switch, three additional Deco nodes, and Luxul 16-port gigabit switch for home Ethernet.
 [2026-05-31] [user] Hermes Agent uninstalled from MBP — rm -rf ~/.hermes && rm ~/.local/bin/hermes
 [2026-05-31] [project] Mac Mini SMB hardening complete: authenticated `Neima Home Folder` share active, guest SMB access disabled, FileVault remains off, macOS firewall and stealth mode enabled.
+[2026-05-31] [project] Roadmap activation status cleaned up: HA MCP live read access + entity map cross-check are complete; custom Ned MCP server and daily health brief cron are next.
+[2026-05-31] [user] AT&T Fiber gateway model confirmed as BGW320-500.

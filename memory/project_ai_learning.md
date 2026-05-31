@@ -9,11 +9,14 @@ AI agents and agentic workflows are the primary learning goal. Home lab is the s
 
 **Current focus (Phase 3 — Connected Agents + MCP):**
 1. Reboot Mac Mini → verify all services survive ✅
-2. Clean HA entity map by room
+2. Clean HA entity map by room ✅
 3. Enable HA MCP server → agents read live Home Assistant state ✅
-4. Compare live MCP state against the curated entity map
-5. Build first custom MCP server (ned project/homelab status)
-6. First Hermes cron job — daily homelab health brief
+4. Compare live MCP state against the curated entity map ✅
+5. Build first custom MCP server (ned project/homelab status) ▶️ NEXT
+6. First Hermes cron job — daily homelab health brief ▶️ NEXT
+
+**Current activation note:**
+Hermes has crossed from chat-only into live tool-using home awareness: Home Assistant MCP read access works, the entity map is curated, and the first approved light write exposed the need for tighter exact-entity guardrails. Next lesson is custom MCP + scheduled autonomous reporting.
 
 **Core concepts to master (in order):**
 1. Agent loops — think → tool call → observe → repeat
