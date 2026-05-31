@@ -7,3 +7,4 @@
 [2026-05-29] [project] Home Assistant official MCP Server is connected to Hermes via native HTTP; read-only GetLiveContext validation passed; writes remain approval-gated.
 [2026-05-29] [project] First approved HA MCP write test completed: Family Room Main Lights set to ~30%; official MCP Assist targeting also affected nearby Family Room lights, so future writes should use narrower selectors or an allowlisted wrapper.
 [2026-05-29] [project] Telegram family-room-off follow-up revealed Hue group targeting missed separate Lutron main lights. Exact entity turn-off fixed all Family Room lights off; entity map now documents the four-entity Family Room set.
+[2026-05-30] [user] Home network: AT&T Fiber gateway radios off/IP-passthrough-style bridge via multi-gig to main Deco BE63 2.5GbE; BE63 feeds 2.5GbE 8-port switch, three additional Deco nodes, and Luxul 16-port gigabit switch for home Ethernet.
