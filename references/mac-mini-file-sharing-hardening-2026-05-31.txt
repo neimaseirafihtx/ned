@@ -70,7 +70,7 @@ That prompt was not completed before the tool timeout. As of the follow-up diagn
 
 ## Final state after Hermes attempt
 
-The final diagnostic still showed the old share active:
+The final diagnostic after Hermes' automated attempt still showed the old share active:
 
 ```text
 name: Neima Seirafi’s Public Folder
@@ -78,7 +78,31 @@ path: /Users/neimaseirafi/Public
 guest access: 1
 ```
 
-So this document is both a record of the attempted hardening and the exact runbook to apply/reverse it manually.
+## Manual application completed
+
+Neima manually ran the apply commands in Terminal and entered the administrator password.
+
+Verified by Hermes at `2026-05-31 09:01:13 CDT`:
+
+```text
+FileVault is Off.
+Firewall is disabled. (State = 0)
+Firewall stealth mode is off
+
+List of Share Points
+name: Neima Home Folder
+path: /Users/neimaseirafi
+smb:
+  name: Neima Home Folder
+  shared: 1
+  guest access: 0
+  read-only: 0
+  sealed: 0
+
+SMB port 445 local check: succeeded
+```
+
+Current status: **SMB guest access has been removed and the authenticated home-folder share is active.**
 
 ## Apply commands
 
