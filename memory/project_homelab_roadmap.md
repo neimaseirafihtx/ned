@@ -39,6 +39,7 @@ Two tracks run in parallel:
 - Working: Home Assistant feels useful day-to-day, not just as an agent demo:
   - phone app installed/configured for Neima
   - useful rooms/dashboard/favorites surfaced
+  - existing automations migrated/inventoried from Google Home, Lutron, and Hue
   - a first pass of scenes for common lighting states
   - a first pass of automations that beat Google Home / Apple Home for actual convenience
 - Working: daily health check cron agent — not created yet; next activation step
@@ -89,6 +90,7 @@ Two tracks run in parallel:
 - Make Home Assistant useful before expanding the stack:
   - install/configure Home Assistant Companion app on phone
   - create a simple mobile dashboard with the actually-used rooms/devices
+  - inventory current automations/scenes from Google Home, Lutron, and Hue before recreating them in HA
   - define first scenes for common lighting states (Family Room, Entryway, Kitchen/Dining, Master Bedroom)
   - define first practical automations/notifications that Google Home / Apple Home do not already solve well
 - Save lessons as Hermes skill
@@ -98,7 +100,7 @@ Two tracks run in parallel:
 ## Key Decisions
 
 - **AI learning is the primary goal** — home lab is the sandbox, not the destination
-- **Home Assistant must become useful, not ornamental** — prioritize automations, scenes, dashboards, and the phone app before adding more integrations; if it is worse than Google Home / Apple Home for daily use, the stack is not done
+- **Home Assistant must become useful, not ornamental** — prioritize automations, scenes, dashboards, and the phone app before adding more integrations; migrate/inventory existing Google Home, Lutron, and Hue automations so HA becomes the control plane instead of another parallel app; if it is worse than Google Home / Apple Home for daily use, the stack is not done
 - **MCP is foundational** — invest in understanding it deeply, build custom servers
 - **ned is the canonical project brain** — both Claude Code and Hermes read/write it via GitHub
 - **Stabilize before expanding** — reboot test before adding new services

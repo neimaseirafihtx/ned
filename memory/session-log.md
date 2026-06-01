@@ -14,3 +14,5 @@
 [2026-05-31] [project] Roadmap activation status cleaned up: HA MCP live read access + entity map cross-check are complete; custom Ned MCP server and daily health brief cron are next.
 [2026-05-31] [user] AT&T Fiber gateway model confirmed as BGW320-500.
 [2026-05-31] [project] Roadmap updated: Home Assistant usability is now a required near-term milestone — Companion App, phone dashboard, scenes, and practical automations must make HA useful vs Google Home / Apple Home before deeper expansion.
+[2026-05-31] [project] HA usability scope expanded: inventory/migrate existing Google Home, Lutron, and Hue automations/scenes into HA so HA becomes the main smart-home control plane rather than another parallel app.
+[2026-05-31] [project] UniFi skill assessment: the found `unifi-cli` file is only an inventory/API helper; it does not replace a safe UDM cutover plan covering DHCP, VLANs, firewall rules, smart-home discovery, and rollback.

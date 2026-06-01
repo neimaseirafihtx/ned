@@ -325,6 +325,29 @@ Good fit if Neima wants:
 - Possible future UniFi Protect/camera integration.
 - Bigger homelab-style architecture.
 
+### Agent / Skill Reality Check for UniFi Programming
+
+Neima found a `unifi-cli` skill/file hoping Hermes could program a future UDM directly. That file is not enough by itself.
+
+What it appears useful for:
+
+- installing a community `unifi` CLI
+- connecting to a local UniFi controller with a local admin account
+- listing sites, devices, clients, and health
+- basic inventory/export work after controller access exists
+
+What it does **not** solve:
+
+- safe UDM cutover from AT&T BGW320-500 + Deco routing
+- DHCP/reservation migration
+- VLAN/network design
+- firewall policy design
+- mDNS/SSDP/Sonos/AirPlay/Home Assistant exceptions
+- rollback planning
+- direct unattended programming without controller/API/browser access
+
+Working assumption: Hermes can help program UniFi only after local UniFi controller access exists through browser/UI, API, or a verified CLI. Treat generic UniFi CLI skills as inventory helpers, not the actual migration plan.
+
 ### Firewalla Gold Plus / Gold Pro
 
 Good fit if Neima wants:
@@ -388,7 +411,7 @@ The network does **not** need a WAN bandwidth upgrade before this work. The exis
 
 Items to verify before a gateway migration:
 
-- Exact AT&T gateway model.
+- Exact AT&T gateway model. ✅ BGW320-500
 - Whether current mode is true bridge mode or AT&T IP Passthrough.
 - Exact model of the 2.5 GbE 8-port switch.
 - Exact model of the Luxul 16-port gigabit switch.
