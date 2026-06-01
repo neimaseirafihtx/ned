@@ -27,9 +27,9 @@ Two tracks run in parallel:
 2. Clean HA entity map — room/device map published and cross-checked ✅
 3. Enable official HA MCP Server integration → live read access is working ✅; writes remain approval-gated
 4. Compare live MCP state against `references/home-assistant-entity-map.md` ✅
-5. Make Home Assistant useful for humans — automations, scenes, dashboards, and phone app setup ▶️ NEXT
+5. Make Home Assistant useful for humans — automations, scenes, dashboards, and phone app setup ▶️ ACTIVE
 6. Build first custom MCP server (ned project/homelab status) ▶️ NEXT
-7. First Hermes cron job — daily homelab health brief ▶️ NEXT
+7. First Hermes cron job — daily homelab health brief ✅
 8. Add a hybrid AI provider lane:
    - keep ChatGPT/OpenAI OAuth subscription as Hermes primary brain while it remains low-friction and cost-effective
    - use Claude subscription as a deliberate second-brain lane for planning, architecture, code review, and long-form docs
@@ -47,7 +47,7 @@ Two tracks run in parallel:
   - existing automations migrated/inventoried from Google Home, Lutron, and Hue
   - a first pass of scenes for common lighting states
   - a first pass of automations that beat Google Home / Apple Home for actual convenience
-- Working: daily health check cron agent — not created yet; next activation step
+- Working: daily health check cron agent ✅ created and test-run; sends to Ned Telegram group daily at 8:00 AM
 - Working: hybrid AI provider path is explicit:
   - Hermes/OpenAI remains the primary always-on operator through the current ChatGPT OAuth subscription
   - Claude is used as a second-brain/reviewer for planning, architecture, code review, and docs
@@ -96,7 +96,7 @@ Two tracks run in parallel:
 
 **Week 4 — Custom MCP + First Cron Agent + HA Usability**
 - Build ned status MCP server (get_homelab_status, read_ned_memory, etc.)
-- Add Hermes daily health brief cron job
+- Add Hermes daily health brief cron job ✅
 - Define the hybrid AI provider lane:
   - keep current ChatGPT/OpenAI OAuth subscription as Hermes primary model path while it remains simple and cost-effective
   - document when to route work to Claude: planning, architecture, long-context docs, code review, and careful second opinions
@@ -109,6 +109,7 @@ Two tracks run in parallel:
   - inventory current automations/scenes from Google Home, Lutron, and Hue before recreating them in HA
   - define first scenes for common lighting states (Family Room, Entryway, Kitchen/Dining, Master Bedroom)
   - define first practical automations/notifications that Google Home / Apple Home do not already solve well
+  - first planning docs created: `plans/home-assistant-usability-pass.md` and `references/home-assistant-automation-inventory.md`
 - Save lessons as Hermes skill
 
 ---
