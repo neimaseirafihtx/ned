@@ -67,8 +67,9 @@ Working name: `Neima Home`
 Live HA dashboard created 2026-06-01:
 
 - Dashboard title: `Neima Home`
-- URL path: `/ned-home/home`
+- URL path: `/neima-home/home`
 - Sidebar: shown
+- Previous `/ned-home/home` dashboard path is hidden from the sidebar as an old-path rollback copy.
 - First button grid: `Family Room Modes`
 - Buttons call `script.turn_on` directly:
   - `script.family_room_evening`
