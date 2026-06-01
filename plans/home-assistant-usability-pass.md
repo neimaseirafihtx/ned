@@ -2,7 +2,7 @@
 
 **Created:** 2026-06-01  
 **Owner:** Neima / Ned  
-**Status:** Active — first-pass design and inventory scaffold
+**Status:** Active — inventory captured; ready for first HA script creation after approval
 
 ---
 
@@ -14,7 +14,7 @@ Success means:
 
 - Neima can open the HA Companion App and use it faster than Google Home / Apple Home for common controls.
 - The first dashboard is room/mode oriented, not a raw entity dump.
-- Existing Google Home, Hue, and Lutron routines are inventoried before recreating anything.
+- Existing Apple Home, Google Home, Hue, and Lutron routines are inventoried before recreating anything.
 - Useful scenes/scripts exist in HA as exact, safe control targets.
 - Source-app duplicate automations are disabled only after HA replacements are tested.
 
@@ -68,10 +68,10 @@ Design principle: 4 room cards + a small status/quick-actions area. No entity sp
 
 | Button | Purpose | Backing target |
 |---|---|---|
+| Evening | Existing daily Apple Home scene translated into HA | New exact HA script/scene combining Hue + Lutron |
+| Movie Mode | Existing Apple Home movie scene translated into HA | New exact HA script/scene combining Hue + Lutron |
 | All common lights off | One-tap shutdown for common spaces | New exact HA script, not broad area targeting |
-| Family Room Relax | Comfortable evening TV/lounge state | New exact HA script/scene combining Hue + Lutron |
-| Movie Mode | TV-focused dim/off pattern | New exact HA script/scene combining Hue + Lutron |
-| Night / Shutdown | Later: broader evening shutdown | Defer until inventory confirms what should be included |
+| Entryway Relax / Bright | Existing Hue scenes surfaced in HA | Existing HA scene entities |
 
 ### Room cards
 
@@ -132,9 +132,54 @@ Actions:
 
 ---
 
+## Captured Source-App Inventory
+
+Source file from Neima:
+
+```text
+references/smart_home_inventory.md
+```
+
+Summary:
+
+| Source | Item | Decision | Notes |
+|---|---|---|---|
+| Apple Home | Evening scene | Migrate first | Best first HA scene; spans Kitchen, Family/Living, Dining, Hue, and Lutron. |
+| Apple Home | Movie scene | Migrate second | Best second HA scene; clear exact lighting behavior. |
+| Google Home | All Lights Off at 11:00 PM | Replace later | First build/test exact `script.common_lights_off`; schedule only after target list is approved. |
+| Hue | Morning Lamp 7–9 AM | Defer / maybe leave | Entryway only; low priority. |
+| Hue | Evening Lamps 5–11 PM | Leave for now, maybe replace later | Reliable vendor automation; do not disable until HA Evening is proven. |
+| Lutron | Outdoor Lights at sunset | Leave | Exterior/safety-ish and reliable in Lutron. |
+| Lutron | Outdoor Lights Off at 11:30 PM | Leave | Exterior/safety-ish and reliable in Lutron. |
+
+---
+
 ## First Exact HA Scripts / Scenes to Create
 
 Do not use broad natural-language/area targeting. Use exact entities.
+
+### `script.ned_evening`
+
+Exact translation target from Apple Home `Evening`:
+
+- `light.kitchen_island_pendants`: on, brightness 30%
+- `light.kitchen_main_lights`: off
+- `light.tv_lightstrip`: on
+- `light.family_room_lamp`: on, brightness 75%
+- `light.family_room_main_lights`: on, brightness 1%
+- `light.dining_room_main_lights`: on, brightness 20%
+
+Open question: Apple Home says Hue Lightstrip “Turn On” without a captured brightness/color. Use HA/Hue default on-state unless Neima wants a specific value.
+
+### `script.movie_mode`
+
+Exact translation target from Apple Home `Movie`:
+
+- `light.kitchen_island_pendants`: on, brightness 35%
+- `light.tv_lightstrip`: on, brightness 19%
+- `light.family_room_lamp`: on, brightness 25%
+- `light.family_room_main_lights`: off
+- `light.dining_room_main_lights`: off
 
 ### `script.family_room_off`
 
@@ -154,14 +199,9 @@ Proposed first draft:
 - `light.tv_lightstrip`: on, low/warm or existing Hue relaxed state, brightness ~25–35%
 - Avoid TV/media changes for v1.
 
-### `script.movie_mode`
+### `script.movie_mode_legacy_draft`
 
-Proposed first draft:
-
-- `light.family_room_main_lights`: off or very low, depending Neima preference
-- `light.family_room_lamp`: off or low
-- `light.tv_lightstrip`: on low
-- Avoid TV/media changes for v1.
+Superseded by the exact Apple Home `Movie` translation above. Keep only as historical idea; do not build this version.
 
 ### `script.kitchen_dining_off`
 
@@ -218,10 +258,15 @@ Inventory doc:
 - [x] HA API token works for read-state checks.
 - [x] First-pass dashboard target rooms identified.
 - [x] First exact script/scene candidates identified.
+- [x] Apple Home Evening/Movie scenes inventoried.
+- [x] Google Home All Lights Off automation inventoried.
+- [x] Hue Morning Lamp and Evening Lamps automations inventoried.
+- [x] Lutron outdoor schedules inventoried.
 - [ ] Companion App installed/configured on Neima's phone.
-- [ ] Google Home routines inventoried.
-- [ ] Hue scenes/automations inventoried from app.
-- [ ] Lutron scenes/schedules inventoried from app.
+- [x] Google Home routines inventoried, first pass.
+- [x] Hue scenes/automations inventoried from app, first pass.
+- [x] Lutron scenes/schedules inventoried from app, first pass.
+- [ ] Neima approved exact HA script creation.
 - [ ] First HA scripts created.
 - [ ] First HA dashboard created.
 - [ ] Source-app duplicate automation disabled after HA replacement is tested.

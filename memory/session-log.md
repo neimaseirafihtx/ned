@@ -21,3 +21,4 @@
 [2026-06-01] [project] Mac Mini active LAN is UGREEN 2.5GbE adapter en9; HAOS UTM bridge must target en9, not stale en0.
 [2026-06-01] [project] First daily Hermes health brief cron created for Ned Telegram group using repo script scripts/mac-mini-health-check.sh.
 [2026-06-01] [project] Home Assistant usability pass started: first mobile dashboard/scene plan and Google/Hue/Lutron inventory template created in Ned repo.
+[2026-06-01] [project] Smart home inventory captured: Apple Home Evening/Movie, Google Home 11 PM All Lights Off, Hue Morning/Evening Lamps, and Lutron outdoor schedules; first HA migration target is Evening then Movie.
