@@ -74,6 +74,15 @@ Live HA dashboard created 2026-06-01:
 - Buttons call `script.turn_on` directly:
   - `script.family_room_evening`
   - `script.family_room_movie`
+- Room/status cards currently included:
+  - `Family Room`
+  - `Kitchen / Dining`
+  - `Entryway`
+  - `Neima’s Room`
+  - `Listening Room`
+  - `Guestroom`
+  - `Office / Garage`
+  - `Exterior`
 - Reason: the Family Room area page's auto `Scenes > Dimmed`/scene-trigger path did not drive the physical lights, while Developer Tools `script.turn_on` worked. Use explicit script buttons for daily controls.
 
 Design principle: 4 room cards + a small status/quick-actions area. No entity sprawl.
@@ -284,5 +293,5 @@ Inventory doc:
 - [x] First HA scripts created.
 - [x] First HA scripts tested manually from Developer Tools; Neima confirmed `script.turn_on` worked.
 - [x] Family Room area metadata corrected: `script.family_room_evening` and `script.family_room_movie` assigned to the `family_room` area; corresponding scene entities hidden from UI to prevent the non-working scene-trigger path.
-- [x] First HA dashboard created: `Neima Home`, with `Family Room Modes` buttons wired to `script.turn_on`.
+- [x] First HA dashboard created: `Neima Home`, with `Family Room Modes` buttons wired to `script.turn_on`; expanded with room/status cards for Family Room, Kitchen/Dining, Entryway, Neima’s Room, Listening Room, Guestroom, Office/Garage, and Exterior.
 - [ ] Source-app duplicate automation disabled after HA replacement is tested.
