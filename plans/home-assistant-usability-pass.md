@@ -70,10 +70,11 @@ Live HA dashboard created 2026-06-01:
 - URL path: `/neima-home/home`
 - Sidebar: shown
 - Previous `/ned-home/home` dashboard path is hidden from the sidebar as an old-path rollback copy.
-- First button grid: `Family Room Modes`
+- First button grid: `Second Floor Scenes`
 - Buttons call `script.turn_on` directly:
   - `script.family_room_evening`
   - `script.family_room_movie`
+  - `script.all_house_lights_off`
 - Room/status cards currently included:
   - `Family Room`
   - `Kitchen / Dining`
@@ -93,7 +94,7 @@ Design principle: 4 room cards + a small status/quick-actions area. No entity sp
 |---|---|---|
 | Evening | Existing daily Apple Home scene translated into HA | `script.family_room_evening` combining Hue + Lutron; prefer script over scene trigger |
 | Movie Mode | Existing Apple Home movie scene translated into HA | `script.family_room_movie` combining Hue + Lutron; prefer script over scene trigger |
-| All common lights off | One-tap shutdown for common spaces | New exact HA script, not broad area targeting |
+| All Lights Off | One-tap shutdown for all HA-visible house lights | `script.all_house_lights_off`; exact entity list, not broad area targeting |
 | Entryway Relax / Bright | Existing Hue scenes surfaced in HA | Existing HA scene entities |
 
 ### Room cards
@@ -293,5 +294,5 @@ Inventory doc:
 - [x] First HA scripts created.
 - [x] First HA scripts tested manually from Developer Tools; Neima confirmed `script.turn_on` worked.
 - [x] Family Room area metadata corrected: `script.family_room_evening` and `script.family_room_movie` assigned to the `family_room` area; corresponding scene entities hidden from UI to prevent the non-working scene-trigger path.
-- [x] First HA dashboard created: `Neima Home`, with `Family Room Modes` buttons wired to `script.turn_on`; expanded with room/status cards for Family Room, Kitchen/Dining, Entryway, Neima’s Room, Listening Room, Guestroom, Office/Garage, and Exterior.
+- [x] First HA dashboard created: `Neima Home`, with `Second Floor Scenes` buttons wired to `script.turn_on`; expanded with room/status cards for Family Room, Kitchen/Dining, Entryway, Neima’s Room, Listening Room, Guestroom, Office/Garage, and Exterior. Added `script.all_house_lights_off` and an `All Lights Off` dashboard button for one-tap whole-house lights-off.
 - [ ] Source-app duplicate automation disabled after HA replacement is tested.
