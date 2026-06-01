@@ -2,7 +2,7 @@
 
 **Owner:** Neima  
 **Created:** 2026-05-30 20:58 CDT  
-**Last updated:** 2026-05-31
+**Last updated:** 2026-06-01
 **Source:** Telegram discussion with Hermes/Ned + screenshots from the TP-Link Deco app
 
 This document captures the current known state of Neima's home network, including WAN service, gateway/mesh/switch topology, TP-Link Deco app observations, and the working recommendation for future network architecture.
@@ -110,6 +110,20 @@ AT&T Fiber Gateway
 - **Luxul 16-port gigabit switch**
   - Feeds the rest of the home's Ethernet ports.
   - Gigabit switching layer for wired home drops.
+
+### Mac Mini LAN / Home Assistant Bridge State
+
+- **Mac Mini active LAN interface:** `en9`
+  - Adapter: UGREEN USB-C 2.5GbE Ethernet adapter.
+  - MAC address: `6c:1f:f7:c0:3e:e5`.
+  - Router reservation / canonical LAN IP: `192.168.68.85`.
+  - Verified link: `2500Base-T <full-duplex>`.
+  - Hostname/mDNS: `Neimas-Mac-mini.local` resolves to `192.168.68.85`.
+- **Important recovery note:** do not assume the old built-in Ethernet interface `en0` is the active server LAN path. Future scripts, docs, UTM bridge settings, and SSH assumptions should use `en9` unless the physical adapter changes again.
+- **Home Assistant UTM bridge:** HAOS VM is named `Linux` and must bridge to `en9`, not stale `en0`, after the UGREEN adapter migration.
+- **Home Assistant reachability verified after adapter migration:**
+  - `http://192.168.68.68:8123/` returned HTTP 200.
+  - `http://homeassistant.local:8123/` returned HTTP 200.
 
 ---
 

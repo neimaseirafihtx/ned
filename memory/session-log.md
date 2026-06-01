@@ -18,3 +18,5 @@
 [2026-05-31] [project] UniFi skill assessment: the found `unifi-cli` file is only an inventory/API helper; it does not replace a safe UDM cutover plan covering DHCP, VLANs, firewall rules, smart-home discovery, and rollback.
 [2026-05-31] [project] Roadmap updated: add hybrid AI provider lane — Hermes/OpenAI via current ChatGPT OAuth subscription remains primary Ned operator; Claude subscription becomes second-brain lane for plans/architecture/docs/code review; local Ollama/llama.cpp models are scoped to simple/private/offline worker tasks.
 [2026-05-31] [project] Roadmap updated: Grok/xAI OAuth added as a possible cloud contingency lane for Hermes if support proves stable, alongside OpenAI primary, Claude second-brain, and local simple-worker models.
+[2026-06-01] [project] Mac Mini active LAN is UGREEN 2.5GbE adapter en9; HAOS UTM bridge must target en9, not stale en0.
+[2026-06-01] [project] First daily Hermes health brief cron created for Ned Telegram group using repo script scripts/mac-mini-health-check.sh.

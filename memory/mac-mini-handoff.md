@@ -34,6 +34,10 @@
 - SSH key auth set up — no password required ✅
 - Alias configured on MBP: type `mac-mini` to connect instantly ✅
 - Static IP `192.168.68.85` reserved in router ✅
+- Active LAN path is now UGREEN USB-C 2.5GbE adapter `en9` ✅
+  - MAC: `6c:1f:f7:c0:3e:e5`
+  - Link: `2500Base-T <full-duplex>`
+  - Do not use stale built-in Ethernet `en0` assumptions for HA UTM bridge or Mac Mini server docs.
 - Automatic login enabled ✅
 - Mac Mini username: `neimaseirafi`
 - Hostname: `Neimas-Mac-mini.local`
@@ -73,6 +77,9 @@
 | Hostname | `Neimas-Mac-mini.local` |
 | SSH alias (MBP) | `mac-mini` |
 | Static IP | `192.168.68.85` |
+| Active LAN interface | `en9` / UGREEN USB-C 2.5GbE |
+| Active LAN MAC | `6c:1f:f7:c0:3e:e5` |
+| HA UTM bridge target | `en9`, not stale `en0` |
 | Vet (Coco) | Meredith Perry DVM, Montrose Vet, 713-524-3814 |
 
 ---

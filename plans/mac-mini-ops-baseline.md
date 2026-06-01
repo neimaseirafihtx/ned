@@ -1,5 +1,5 @@
 # Mac Mini Ops Baseline
-*Created 2026-05-29 — updated 2026-05-31 after first full reboot test*
+*Created 2026-05-29 — updated 2026-06-01 after UGREEN 2.5GbE / HA recovery verification*
 
 ---
 
@@ -22,6 +22,8 @@ After every Mac Mini reboot, verify:
 | Hermes Agent | Telegram message → response | Hermes replies |
 | SSH from MBP | `ssh mac-mini` | Connects without password |
 | Remote (Tailscale) | SSH from outside network | Connects via Tailscale IP |
+| LAN adapter | `ifconfig en9` | `2500Base-T <full-duplex>`, active, IP `192.168.68.85` |
+| SMB | `nc -vz 127.0.0.1 445` | Port 445 open |
 
 ---
 
@@ -38,6 +40,25 @@ Completed during Phase 3 activation work.
 | HAOS / Home Assistant UTM VM | ⚠️ Manual start needed | UTM VM is named `Linux`; `utmctl start 'Linux'` was needed before `homeassistant.local:8123` returned 200. |
 
 Operational takeaway: Hermes/Tailscale/Ollama are stable after reboot; Docker Desktop and HAOS VM need explicit startup handling before the Mac Mini is fully boring.
+
+---
+
+## UGREEN 2.5GbE / Home Assistant Recovery Result
+
+Verified 2026-06-01 after moving the Mac Mini's canonical LAN path to the UGREEN USB-C 2.5GbE adapter.
+
+| Item | Result | Notes |
+|------|--------|-------|
+| Active LAN interface | ✅ `en9` | `192.168.68.85` |
+| Adapter MAC | ✅ `6c:1f:f7:c0:3e:e5` | Deco reservation should stay tied to this MAC. |
+| Link speed | ✅ `2500Base-T <full-duplex>` | Confirms adapter/cable/switch path negotiated at 2.5GbE. |
+| Hostname/mDNS | ✅ `Neimas-Mac-mini.local` | Resolves to `192.168.68.85`. |
+| SSH from MBP | ✅ Working | Current session is over SSH from the MBP. |
+| SMB | ✅ Working | Local port 445 open; Finder/SMB path should use `smb://192.168.68.85` if mDNS is stale. |
+| Home Assistant IP | ✅ HTTP 200 | `http://192.168.68.68:8123/` |
+| Home Assistant mDNS | ✅ HTTP 200 | `http://homeassistant.local:8123/` |
+
+Important UTM note: after the adapter swap, the HAOS `Linux` UTM VM must bridge to `en9`, not old `en0`. If HA disappears after a reboot or UTM restart, check live QEMU args for a stale `ifname=en0`, fully quit/reopen UTM, and verify bridge config before assuming HA itself is broken.
 
 ---
 
@@ -60,17 +81,56 @@ Known gaps:
 
 ## Health Check Script
 
-```bash
-#!/bin/bash
-echo "=== Mac Mini Health ==="
-echo "Tailscale: $(tailscale status | head -1)"
-echo "Ollama: $(ollama list 2>/dev/null | grep qwen || echo 'NOT RUNNING')"
-echo "Docker: $(docker ps -q 2>/dev/null | wc -l | tr -d ' ') containers running"
-echo "HA: $(curl -s -o /dev/null -w '%{http_code}' http://homeassistant.local:8123)"
-echo "Disk: $(df -h / | tail -1 | awk '{print $4}') free"
+Canonical script:
+
+```text
+scripts/mac-mini-health-check.sh
 ```
 
-Save as `~/scripts/health-check.sh`, run after reboots, and reuse the same checks for the first daily Hermes health brief.
+Manual run:
+
+```bash
+cd /Users/neimaseirafi/Documents/ned
+scripts/mac-mini-health-check.sh
+```
+
+It checks:
+
+- Hostname and canonical IP.
+- `en9` UGREEN adapter MAC and 2.5GbE link state.
+- Hermes gateway.
+- Tailscale.
+- Ollama API.
+- Docker daemon.
+- UTM/HAOS caveat: `utmctl` may not work over SSH, so HA HTTP is the real proof.
+- Home Assistant via `192.168.68.68` and `homeassistant.local`.
+- SMB port 445.
+- Root disk and mounted external storage.
+
+Latest manual result: green with one expected SSH-context warning — `utmctl` is not queryable from SSH, but Home Assistant HTTP returned 200 by IP and mDNS.
+
+---
+
+## Daily Hermes Health Brief Cron
+
+Created 2026-06-01.
+
+| Item | Value |
+|------|-------|
+| Hermes cron job | `7cdc3e9ef531` |
+| Name | Daily Mac mini homelab health brief |
+| Schedule | `0 8 * * *` — daily at 8:00 AM local Mac Mini time |
+| Delivery | Ned Telegram group `telegram:-5158655448` |
+| Mode | `no_agent` script-only; stdout is delivered directly |
+| Cron wrapper | `/Users/neimaseirafi/.hermes/scripts/mac-mini-health-brief.sh` |
+| Repo-owned implementation | `/Users/neimaseirafi/Documents/ned/scripts/mac-mini-health-check.sh` |
+
+Verified test run:
+
+- Last run: `2026-06-01T08:59:01.272859-05:00`
+- Status: `ok`
+- Delivery error: none reported by Hermes cron
+- Next scheduled run: `2026-06-02T08:00:00-05:00`
 
 ---
 
@@ -80,5 +140,6 @@ Save as `~/scripts/health-check.sh`, run after reboots, and reuse the same check
 - [ ] All services verified auto-starting
 - [ ] UTM VM auto-start confirmed
 - [x] Hermes auto-start confirmed
-- [ ] Health check script saved on Mac Mini
+- [x] Health check script saved on Mac Mini
+- [x] Daily Hermes health brief cron created and test-run
 - [ ] Remote access from outside home confirmed

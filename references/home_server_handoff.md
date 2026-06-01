@@ -20,8 +20,10 @@ Build mastery of AI agents and agentic workflows. The home lab is the live real-
 - Status: **active**.
 - OS: macOS Tahoe 26.5.
 - Static IP: `192.168.68.85`.
+- Active LAN interface: `en9` via UGREEN USB-C 2.5GbE adapter, MAC `6c:1f:f7:c0:3e:e5`, verified at `2500Base-T <full-duplex>`.
 - Running: Hermes Agent + Telegram gateway, HAOS 17.3 via UTM, Ollama `qwen3.5:9b`, Docker Desktop, Tailscale.
-- Reboot finding: Hermes gateway, Tailscale, and Ollama auto-start; Docker Desktop needs `open -a Docker`; HAOS UTM VM named `Linux` needs `utmctl start 'Linux'` before `homeassistant.local:8123` returns 200.
+- Reboot finding: Hermes gateway, Tailscale, and Ollama auto-start; Docker Desktop may need `open -a Docker`; HAOS UTM VM named `Linux` may need `utmctl start 'Linux'` before `homeassistant.local:8123` returns 200.
+- UTM recovery note: HAOS bridge must target `en9`, not stale built-in Ethernet `en0`, after the UGREEN adapter migration.
 
 ### MacBook Pro M5 Pro — 48GB (PRIMARY WORKSTATION)
 - Personal laptop and primary development/workstation machine.
@@ -50,6 +52,7 @@ Build mastery of AI agents and agentic workflows. The home lab is the live real-
 - AT&T gateway Wi-Fi radios are off; setup is bridge/IP-passthrough-style into the home network.
 - Main router/mesh node: TP-Link Deco BE63 connected over 2.5GbE.
 - Downstream: 2.5GbE 8-port switch, three additional Deco nodes including one BE23, and a Luxul 16-port gigabit switch for home Ethernet.
+- Mac Mini now uses UGREEN 2.5GbE adapter on `en9`; Deco reservation should remain tied to MAC `6c:1f:f7:c0:3e:e5` for `192.168.68.85`.
 - Current network recommendation: keep Deco as Wi-Fi for now, but eventually add a dedicated gateway/router and move Deco into AP mode if/when segmentation/firewall/VPN control becomes important.
 
 ## Smart Home Devices
