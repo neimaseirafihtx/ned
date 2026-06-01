@@ -73,6 +73,36 @@ The safe pattern is:
 3. Trigger only an exact allowlisted script or a narrowly scoped, approved light write.
 4. Verify the result immediately.
 
+## What Ned Should Use HA MCP For
+
+This is the actual value-add layer. If these use cases sound useful, MCP is worth keeping.
+
+### Good read-only questions
+
+- What lights are on right now?
+- What room is currently active or playing media?
+- What devices are unavailable?
+- Is the house in an “evening” or “everything off” state?
+- What changed since the last check?
+
+### Good light control actions
+
+- Turn on a room’s lights
+- Dim or brighten the Family Room
+- Run `All Lights Off`
+- Trigger a simple evening/movie lighting setup
+- Adjust a visible light when you’re already elsewhere
+
+### Not a great first-pass use case
+
+- micromanaging Sonos playback
+- TV control
+- full-home automation edits
+- thermostat/HVAC work
+- security/camera workflows
+
+If the assistant is not answering these kinds of questions or saving you taps, MCP is probably not earning its keep yet.
+
 ---
 
 ## Current Known State

@@ -198,6 +198,19 @@ Use this as the default day-to-day checklist when Hermes/Ned talks to Home Assis
 7. If the request is ambiguous, stop and clarify rather than guessing.
 8. Keep locks, cameras/security, HVAC, and arbitrary service calls out of routine agent use.
 
+## What this is good for
+
+If you want MCP to keep earning its place, the best recurring uses are:
+
+- ask what lights are on
+- ask what room is active or playing media
+- ask what changed since the last check
+- run `All Lights Off`
+- dim/brighten a room
+- trigger simple evening/movie lighting
+
+If you never end up asking these kinds of questions, MCP is probably just infrastructure, not a daily tool.
+
 ## Next Steps
 
 1. Decide whether to keep official HA MCP write access as approval-gated natural-language control, or build a small allowlisted wrapper for exact entity-only writes.
