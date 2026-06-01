@@ -36,6 +36,7 @@ Start with the official MCP Server integration and expose ONLY a read-relevant e
 - Read-only validation: passed via `GetLiveContext` in a fresh Hermes CLI session.
 - Entity-map comparison: completed on 2026-05-29; `references/home-assistant-entity-map.md` now records MCP live-state differences while staying curated.
 - First safe write test: completed with explicit approval; `HassLightSet` turned on Family Room Main Lights to ~30%, but area-based Assist targeting also affected nearby Family Room lights. Future writes should use narrower selectors or an allowlisted wrapper.
+- Usability gap: Home Assistant is currently more of a project backend than a useful daily control surface. Roadmap now includes a human-facing pass: Companion App, mobile dashboard, scenes, and practical automations before deeper expansion.
 - Home Assistant VM boot reliability remains separate work; do not confuse MCP readiness with boot reliability.
 
 ## Security Boundary
@@ -467,6 +468,44 @@ Keep the entity map curated. Agents need a control surface, not every backup sen
 
 ---
 
+## Phase 7.5: Human-Facing Home Assistant Usability Pass
+
+**Status:** Added after Neima called out the core problem: Home Assistant is not yet useful compared to Google Home or Apple Home.
+
+**Objective:** Turn Home Assistant from an agent/MCP backend into something Neima would actually use day-to-day.
+
+**Files:**
+
+- Read/modify: `references/home-assistant-entity-map.md`
+- Create/modify if needed: `references/ha-usability-notes.md`
+- Modify if needed: `memory/project_homelab_roadmap.md`
+
+**Scope:**
+
+1. Companion App setup:
+   - install Home Assistant Companion App on Neima's phone
+   - confirm remote/local URL behavior
+   - enable useful permissions only: notifications, location if wanted for presence, local network/Bluetooth if needed
+   - confirm phone appears as a tracked device/sensor set in HA
+2. Mobile dashboard:
+   - create a simple phone-first dashboard for actually used rooms
+   - surface common controls instead of raw entity sprawl
+   - prioritize Family Room, Entryway, Kitchen/Dining, Master Bedroom, Sonos, and any "all off" controls
+3. Scenes:
+   - first pass lighting scenes for common modes, e.g. Family Room normal/movie/off, Entryway evening/off, Kitchen/Dining dinner/off, Master Bedroom night/off
+   - prefer scene activation over broad ad-hoc natural-language service calls when agents act
+4. Automations:
+   - start with convenience automations that are visibly better than Google Home / Apple Home
+   - avoid clever but annoying automations; every automation needs an obvious manual override
+   - likely starters: sunset/evening lighting, bedtime/all-off, simple presence-aware notifications, and low-risk Sonos/media convenience
+5. Agent integration:
+   - expose scenes/scripts to MCP as safer action targets
+   - keep locks/security/HVAC/cameras out of casual automation until explicitly planned
+
+**Verification:** Neima can open the HA app and do common house actions faster or better than before; at least one scene and one automation are useful without needing Hermes in the loop.
+
+---
+
 ## Phase 8: First Safe Write Test
 
 **Status:** Complete as of 2026-05-29 with explicit approval. Result succeeded, but revealed that official MCP natural-language targeting can affect an area when `area` is included alongside a named light.
@@ -550,7 +589,9 @@ The HA MCP project is considered successful when:
 3. Hermes can identify unavailable mapped entities.
 4. Hermes can compare live HA state to `references/home-assistant-entity-map.md`.
 5. First write, if approved, is limited to one light/scene and verified afterward.
-6. The final setup is documented in Ned with secrets redacted.
+6. Home Assistant has a phone-first control surface Neima would actually use.
+7. At least one scene and one automation provide real daily value beyond Google Home / Apple Home.
+8. The final setup is documented in Ned with secrets redacted.
 
 ## Deferral Criteria
 
@@ -567,7 +608,8 @@ Pause and reassess if:
 The likely durable architecture is:
 
 1. Official HA MCP Server integration for read-only state with `Control Home Assistant` OFF.
-2. Official HA MCP Server integration with narrow exposed entities for safe writes, or a lights/scenes-only MCP wrapper if the discovered tools are too broad.
-3. Custom Ned MCP for project/homelab coaching context.
-4. Hermes cron health agent for daily status summaries.
-5. Optional Home Assistant automations that agents can trigger indirectly through pre-approved scripts/scenes rather than arbitrary service calls.
+2. Human-facing Home Assistant usefulness: Companion App, phone-first dashboard, scenes, and practical automations.
+3. Official HA MCP Server integration with narrow exposed entities for safe writes, or a lights/scenes-only MCP wrapper if the discovered tools are too broad.
+4. Custom Ned MCP for project/homelab coaching context.
+5. Hermes cron health agent for daily status summaries.
+6. Optional Home Assistant automations that agents can trigger indirectly through pre-approved scripts/scenes rather than arbitrary service calls.

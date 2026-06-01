@@ -13,3 +13,4 @@
 [2026-05-31] [project] Mac Mini SMB hardening complete: authenticated `Neima Home Folder` share active, guest SMB access disabled, FileVault remains off, macOS firewall and stealth mode enabled.
 [2026-05-31] [project] Roadmap activation status cleaned up: HA MCP live read access + entity map cross-check are complete; custom Ned MCP server and daily health brief cron are next.
 [2026-05-31] [user] AT&T Fiber gateway model confirmed as BGW320-500.
+[2026-05-31] [project] Roadmap updated: Home Assistant usability is now a required near-term milestone — Companion App, phone dashboard, scenes, and practical automations must make HA useful vs Google Home / Apple Home before deeper expansion.

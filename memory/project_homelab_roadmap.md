@@ -27,14 +27,20 @@ Two tracks run in parallel:
 2. Clean HA entity map — room/device map published and cross-checked ✅
 3. Enable official HA MCP Server integration → live read access is working ✅; writes remain approval-gated
 4. Compare live MCP state against `references/home-assistant-entity-map.md` ✅
-5. Build first custom MCP server (ned project/homelab status) ▶️ NEXT
-6. First Hermes cron job — daily homelab health brief ▶️ NEXT
+5. Make Home Assistant useful for humans — automations, scenes, dashboards, and phone app setup ▶️ NEXT
+6. Build first custom MCP server (ned project/homelab status) ▶️ NEXT
+7. First Hermes cron job — daily homelab health brief ▶️ NEXT
 
 **Phase 3 deliverables:**
 - `ned/plans/mac-mini-ops-baseline.md` — service startup verification
 - `ned/plans/home-assistant-mcp-roadmap.md` — HA MCP install/validation plan with safety boundary and time estimates
 - `ned/references/home-assistant-entity-map.md` — clean HA entity names
 - Working: "ask Hermes what lights are on" → real answer ✅
+- Working: Home Assistant feels useful day-to-day, not just as an agent demo:
+  - phone app installed/configured for Neima
+  - useful rooms/dashboard/favorites surfaced
+  - a first pass of scenes for common lighting states
+  - a first pass of automations that beat Google Home / Apple Home for actual convenience
 - Working: daily health check cron agent — not created yet; next activation step
 
 ---
@@ -77,9 +83,14 @@ Two tracks run in parallel:
 - Add low-risk writes only after clean read-only validation (visible light/scene first) ✅ first test completed; keep approval-gated
 - Deliverable: "ask Hermes what lights are on" → real answer ✅
 
-**Week 4 — Custom MCP + First Cron Agent**
+**Week 4 — Custom MCP + First Cron Agent + HA Usability**
 - Build ned status MCP server (get_homelab_status, read_ned_memory, etc.)
 - Add Hermes daily health brief cron job
+- Make Home Assistant useful before expanding the stack:
+  - install/configure Home Assistant Companion app on phone
+  - create a simple mobile dashboard with the actually-used rooms/devices
+  - define first scenes for common lighting states (Family Room, Entryway, Kitchen/Dining, Master Bedroom)
+  - define first practical automations/notifications that Google Home / Apple Home do not already solve well
 - Save lessons as Hermes skill
 
 ---
@@ -87,6 +98,7 @@ Two tracks run in parallel:
 ## Key Decisions
 
 - **AI learning is the primary goal** — home lab is the sandbox, not the destination
+- **Home Assistant must become useful, not ornamental** — prioritize automations, scenes, dashboards, and the phone app before adding more integrations; if it is worse than Google Home / Apple Home for daily use, the stack is not done
 - **MCP is foundational** — invest in understanding it deeply, build custom servers
 - **ned is the canonical project brain** — both Claude Code and Hermes read/write it via GitHub
 - **Stabilize before expanding** — reboot test before adding new services
