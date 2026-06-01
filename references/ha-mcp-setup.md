@@ -136,21 +136,23 @@ Default allowlist for Hermes/Ned when HA MCP is connected:
 - `GetLiveContext`
 - `GetDateTime`
 - read-only todo queries when useful
+- essentially all other Home Assistant state when it is not sensitive
 
 ### Write
-- `script.family_room_evening`
-- `script.family_room_movie`
+- any `light.*` entity in the home
+- light groups, brightness, color, and on/off changes
 - `script.all_house_lights_off`
-- other exact scripts explicitly added later
+- other exact light-related scripts explicitly added later
 
 ### Off-limits for casual use
+- Sonos / `media_player.*` control
+- TVs / display media players
 - locks and garage doors
 - cameras and security devices
 - HVAC and thermostat changes
 - broad automation/config edits
 - arbitrary `call_service` style control
-- unbounded media volume/playback control
-- room-wide actions that need interpretation instead of an exact target
+- anything that needs room-wide interpretation instead of an exact target
 
 Rule of thumb: if it is ambiguous, it does not get agent write access yet.
 

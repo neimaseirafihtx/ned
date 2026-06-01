@@ -31,34 +31,35 @@ Allowed for routine use:
 - `GetLiveContext`
 - `GetDateTime`
 - read-only todo queries when useful
+- essentially all other Home Assistant state when it is not sensitive
 
-Read access should be broad enough to answer normal home-status questions, but it should still be interpreted through the curated entity map rather than treated as a raw dump.
+For this home, read access can be broad because there is nothing sensitive in HA right now. Still interpret live state through the curated entity map rather than treating it as a raw dump.
 
 ### Write permissions
 
-Allowed only through explicit approval or pre-approved scripts/scenes:
+Allowed for all lights:
 
-- `script.family_room_evening`
-- `script.family_room_movie`
+- any `light.*` entity in the home
+- light groups, brightness, color, and on/off changes
 - `script.all_house_lights_off`
-- other exact scripts that Neima explicitly adds later
+- other exact light-related scripts that Neima explicitly adds later
 
 Potentially acceptable later, if they are narrowly scoped and well understood:
 
-- a few named lights in specific rooms
-- simple on/off or brightness changes for visible, low-risk lights
-- a small set of intentional scene triggers
+- a few intentional light scenes
+- exact room-level light shortcuts that stay within the light domain
 
 ### Off-limits for casual agent use
 
 Keep these out of the default agent surface:
 
+- Sonos / `media_player.*` control
+- TVs / display media players
 - locks and garage doors
 - cameras and security devices
 - HVAC and thermostat changes
 - broad automation/config edits
 - arbitrary `call_service` style control
-- unbounded media volume or playback control
 - anything that needs room-wide interpretation instead of an exact target
 
 ### Control rule
@@ -69,7 +70,7 @@ The safe pattern is:
 
 1. Read live state.
 2. Compare against the curated entity map.
-3. Trigger only an exact allowlisted script or a narrowly scoped, approved write.
+3. Trigger only an exact allowlisted script or a narrowly scoped, approved light write.
 4. Verify the result immediately.
 
 ---
