@@ -28,10 +28,10 @@ Source: `references/home-assistant-entity-map.md` plus live HA REST state check 
 
 | Room / Area | Entities | Notes |
 |---|---|---|
-| Family Room | `light.family_room`, `light.family_room_lamp`, `light.tv_lightstrip`, `light.family_room_main_lights`, `media_player.living_room`, `media_player.75_the_frame` | Highest-value first room. Important: “Family Room lights” spans Hue + Lutron, not just the Hue group. |
+| Family Room | `light.family_room`, `light.family_room_lamp`, `light.tv_lightstrip`, `light.family_room_main_lights`, `media_player.living_room` | Highest-value first room. Important: “Family Room lights” spans Hue + Lutron, not just the Hue group. Keep display-specific entities off the phone dashboard unless they are a daily question. |
 | Kitchen / Dining | `light.kitchen_main_lights`, `light.kitchen_island_pendants`, `light.dining_room_main_lights` | Good second room group; likely useful for evening/dinner scenes. |
 | Entryway | `light.entryway`, `light.entry_lamp`, `scene.entryway_relax`, `scene.entryway_bright_80` | Existing Hue scenes already available. |
-| Master Bedroom / Neima’s Room | `light.master_bedroom_main_lights`, `media_player.neimas_room` | Keep simple at first. |
+| Master Bedroom / Neima’s Room | `light.master_bedroom_main_lights`, `media_player.neimas_room` | Keep simple at first; skip bedroom display entities unless Neima asks for them. |
 | Listening Room | `light.listening_room`, Hue scenes, `media_player.listening_room` | Useful but not first-pass daily dashboard unless Neima uses it often. |
 
 ### Existing HA scenes discovered
