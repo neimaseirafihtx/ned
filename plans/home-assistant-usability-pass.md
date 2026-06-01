@@ -86,7 +86,14 @@ Live HA dashboard created 2026-06-01:
   - `Exterior`
 - Reason: the Family Room area page's auto `Scenes > Dimmed`/scene-trigger path did not drive the physical lights, while Developer Tools `script.turn_on` worked. Use explicit script buttons for daily controls.
 
-Design principle: 4 room cards + a small status/quick-actions area. No entity sprawl.
+Design principle: phone-first, thumb-friendly, zero-deep-navigation for the daily stuff.
+
+### Phone dashboard v2 layout
+
+1. Top action strip: the 3–4 things Neima taps most.
+2. Below that: room cards ordered by daily importance.
+3. Keep each room card narrow and obvious; no raw entity dumping.
+4. Put noisy / rarely used / stale entities at the bottom or omit them.
 
 ### Top quick actions
 
@@ -96,6 +103,25 @@ Design principle: 4 room cards + a small status/quick-actions area. No entity sp
 | Movie Mode | Existing Apple Home movie scene translated into HA | `script.family_room_movie` combining Hue + Lutron; prefer script over scene trigger |
 | All Lights Off | One-tap shutdown for all HA-visible house lights | `script.all_house_lights_off`; exact entity list, not broad area targeting |
 | Entryway Relax / Bright | Existing Hue scenes surfaced in HA | Existing HA scene entities |
+
+### Mobile card order recommendation
+
+1. Family Room
+2. Kitchen / Dining
+3. Entryway
+4. Neima’s Room
+5. Listening Room
+6. Guestroom
+7. Office / Garage
+8. Exterior
+
+### Phone UX rules
+
+- Use script buttons for actions; use entity cards for status.
+- Keep the first row to one thumb swipe on a phone.
+- If a card isn’t useful at least once a week, it does not belong on the phone dashboard.
+- If a room has only one or two useful entities, keep the card small.
+- Avoid adding media players or stale entities unless they answer a real daily question.
 
 ### Room cards
 
