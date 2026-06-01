@@ -2,7 +2,7 @@
 
 **Created:** 2026-06-01  
 **Owner:** Neima / Ned  
-**Status:** Active — `Ned Home` dashboard created with Family Room script buttons for Evening/Movie
+**Status:** Active — `Neima Home` dashboard created with Family Room script buttons for Evening/Movie
 
 ---
 
@@ -62,11 +62,11 @@ Live REST check on 2026-06-01 did not show HA-native `automation.*` or `script.*
 
 ## First Mobile Dashboard Design
 
-Working name: `Ned Home`
+Working name: `Neima Home`
 
 Live HA dashboard created 2026-06-01:
 
-- Dashboard title: `Ned Home`
+- Dashboard title: `Neima Home`
 - URL path: `/ned-home/home`
 - Sidebar: shown
 - First button grid: `Family Room Modes`
@@ -283,5 +283,5 @@ Inventory doc:
 - [x] First HA scripts created.
 - [x] First HA scripts tested manually from Developer Tools; Neima confirmed `script.turn_on` worked.
 - [x] Family Room area metadata corrected: `script.family_room_evening` and `script.family_room_movie` assigned to the `family_room` area; corresponding scene entities hidden from UI to prevent the non-working scene-trigger path.
-- [x] First HA dashboard created: `Ned Home`, with `Family Room Modes` buttons wired to `script.turn_on`.
+- [x] First HA dashboard created: `Neima Home`, with `Family Room Modes` buttons wired to `script.turn_on`.
 - [ ] Source-app duplicate automation disabled after HA replacement is tested.
