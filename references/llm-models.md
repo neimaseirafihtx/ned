@@ -1,6 +1,6 @@
 # Local LLM Models — Hardware Tiers & Recommendations
 
-Last updated: 2026-05-24
+Last updated: 2026-05-31
 
 ## Hardware Tiers
 
@@ -100,6 +100,19 @@ Local LLMs have gotten genuinely good, but be realistic:
 | Following complex instructions | ⚠️ Inconsistent | Reliable |
 
 **Bottom line for Neima's setup:** Local LLMs are great for HA automation calls, quick summaries, and keeping data local. Don't try to replace Claude for anything requiring real reasoning. That's not a knock on Ollama — it's just using the right tool.
+
+## Cloud + Local Routing Strategy
+
+Current subscription posture:
+- **Hermes/OpenAI via ChatGPT OAuth** is the primary always-on Ned operator while the $20 subscription path remains low-friction and cost-effective.
+- **Claude subscription** is the second-brain lane for planning, architecture, long-context docs, code review, and careful critique.
+- **Local Ollama/llama.cpp models** are supporting workers for simple summaries, log triage, structured extraction, Home Assistant intent parsing, privacy-sensitive prompts, and offline fallback.
+
+Routing rule of thumb:
+- Use cloud for anything that needs real judgment, long context, tool orchestration, Git/repo updates, or infrastructure safety.
+- Use Claude when a second opinion, writing quality, architectural review, or code review matters.
+- Use local models when speed/privacy/offline availability matters more than top-tier reasoning.
+- Do not treat local models as the primary Ned replacement until they can pass real workflow tests on the Mac Mini and MacBook Pro.
 
 ## Home Assistant Integration
 

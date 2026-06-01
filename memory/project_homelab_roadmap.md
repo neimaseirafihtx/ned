@@ -19,8 +19,8 @@ Two tracks run in parallel:
 |-------|------|--------|
 | 1 | Agent Foundation | ✅ COMPLETE — Hermes + GPT-5.5 on Mac Mini, Telegram connected |
 | 3 | Connected Agents + MCP | ▶️ ACTIVE — HA MCP read/live-state working; custom Ned MCP server + health cron are next |
-| 5 | Multi-Agent & Autonomous Systems | 📋 Delegation, cron agents, skills library |
-| 7 | Mastery + Sovereignty | 📋 Fully local stack, autonomous pipelines |
+| 5 | Multi-Agent & Autonomous Systems | 📋 Delegation, cron agents, skills library, Claude second-brain review lane, local simple-task workers |
+| 7 | Mastery + Sovereignty | 📋 Hybrid cloud/local stack first; fully local stack only where quality and latency make sense |
 
 **Phase 3 detail (current focus):**
 1. Reboot Mac Mini → verify all services survive (Hermes, HAOS, Ollama, Tailscale) ✅
@@ -30,6 +30,10 @@ Two tracks run in parallel:
 5. Make Home Assistant useful for humans — automations, scenes, dashboards, and phone app setup ▶️ NEXT
 6. Build first custom MCP server (ned project/homelab status) ▶️ NEXT
 7. First Hermes cron job — daily homelab health brief ▶️ NEXT
+8. Add a hybrid AI provider lane:
+   - keep ChatGPT/OpenAI OAuth subscription as Hermes primary brain while it remains low-friction and cost-effective
+   - use Claude subscription as a deliberate second-brain lane for planning, architecture, code review, and long-form docs
+   - add local Ollama/llama.cpp workers for simple/privacy-sensitive/offline tasks, not as a replacement for the cloud chief-of-staff model
 
 **Phase 3 deliverables:**
 - `ned/plans/mac-mini-ops-baseline.md` — service startup verification
@@ -43,6 +47,10 @@ Two tracks run in parallel:
   - a first pass of scenes for common lighting states
   - a first pass of automations that beat Google Home / Apple Home for actual convenience
 - Working: daily health check cron agent — not created yet; next activation step
+- Working: hybrid AI provider path is explicit:
+  - Hermes/OpenAI remains the primary always-on operator through the current ChatGPT OAuth subscription
+  - Claude is used as a second-brain/reviewer for planning, architecture, code review, and docs
+  - local models are scoped to simple, fast, private, or offline tasks
 
 ---
 
@@ -87,6 +95,11 @@ Two tracks run in parallel:
 **Week 4 — Custom MCP + First Cron Agent + HA Usability**
 - Build ned status MCP server (get_homelab_status, read_ned_memory, etc.)
 - Add Hermes daily health brief cron job
+- Define the hybrid AI provider lane:
+  - keep current ChatGPT/OpenAI OAuth subscription as Hermes primary model path while it remains simple and cost-effective
+  - document when to route work to Claude: planning, architecture, long-context docs, code review, and careful second opinions
+  - document when to route work to a local model: simple summaries, log triage, structured extraction, HA intent parsing, privacy/offline fallback
+  - avoid replacing the cloud Ned role with local LLMs until local quality, context length, and tool reliability are proven
 - Make Home Assistant useful before expanding the stack:
   - install/configure Home Assistant Companion app on phone
   - create a simple mobile dashboard with the actually-used rooms/devices
@@ -108,5 +121,6 @@ Two tracks run in parallel:
 - **No GPU stack yet** — only triggered by full Nest→Reolink migration
 - **Camera migration rule** — keep Nest Aware until fully committing to local cameras
 - **Ollama stays modest** — qwen3.5:9b for HA automation + light local use only
+- **Hybrid AI provider strategy** — ChatGPT/OpenAI OAuth remains Hermes' primary low-friction cloud brain; Claude subscription is the deliberate second-brain lane for planning, architecture, docs, and code review; local models are supporting workers for simple/private/offline tasks, not the primary Ned replacement yet
 - **NVR owns camera storage** — external SSD is personal cloud only
 - **No REX on Mac Mini** — REX runs on M1 Pro (separate project)
