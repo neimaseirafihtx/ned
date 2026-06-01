@@ -180,6 +180,22 @@ Important safety observation:
 - Follow-up live read showed nearby Family Room lights also around 30% raw brightness (`light.family_room`, `light.family_room_lamp`, and `light.tv_lightstrip`).
 - For future write tests, use the narrowest selector possible and consider an allowlisted wrapper if exact entity-only writes are required.
 
+## First-Pass MCP Operating Checklist
+
+Use this as the default day-to-day checklist when Hermes/Ned talks to Home Assistant.
+
+1. Start with `GetLiveContext` for live status questions.
+2. Use `GetDateTime` only when time context matters.
+3. Interpret live state through `references/home-assistant-entity-map.md`, not as a raw entity dump.
+4. For normal home control, prefer the explicit approved script surface:
+   - `script.family_room_evening`
+   - `script.family_room_movie`
+   - `script.all_house_lights_off`
+5. If a new action is needed, add it to the allowlist before using it casually.
+6. For any write, verify the state immediately after the action.
+7. If the request is ambiguous, stop and clarify rather than guessing.
+8. Keep locks, cameras/security, HVAC, and arbitrary service calls out of routine agent use.
+
 ## Next Steps
 
 1. Decide whether to keep official HA MCP write access as approval-gated natural-language control, or build a small allowlisted wrapper for exact entity-only writes.
