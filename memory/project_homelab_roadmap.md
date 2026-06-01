@@ -33,6 +33,7 @@ Two tracks run in parallel:
 8. Add a hybrid AI provider lane:
    - keep ChatGPT/OpenAI OAuth subscription as Hermes primary brain while it remains low-friction and cost-effective
    - use Claude subscription as a deliberate second-brain lane for planning, architecture, code review, and long-form docs
+   - track Grok/xAI OAuth support as an additional cloud contingency if it becomes stable in Hermes
    - add local Ollama/llama.cpp workers for simple/privacy-sensitive/offline tasks, not as a replacement for the cloud chief-of-staff model
 
 **Phase 3 deliverables:**
@@ -50,6 +51,7 @@ Two tracks run in parallel:
 - Working: hybrid AI provider path is explicit:
   - Hermes/OpenAI remains the primary always-on operator through the current ChatGPT OAuth subscription
   - Claude is used as a second-brain/reviewer for planning, architecture, code review, and docs
+  - Grok/xAI OAuth is tracked as a possible additional cloud contingency once stable in Hermes
   - local models are scoped to simple, fast, private, or offline tasks
 
 ---
@@ -98,6 +100,7 @@ Two tracks run in parallel:
 - Define the hybrid AI provider lane:
   - keep current ChatGPT/OpenAI OAuth subscription as Hermes primary model path while it remains simple and cost-effective
   - document when to route work to Claude: planning, architecture, long-context docs, code review, and careful second opinions
+  - track Grok/xAI OAuth as an additional cloud-provider contingency if Hermes support proves stable enough
   - document when to route work to a local model: simple summaries, log triage, structured extraction, HA intent parsing, privacy/offline fallback
   - avoid replacing the cloud Ned role with local LLMs until local quality, context length, and tool reliability are proven
 - Make Home Assistant useful before expanding the stack:
@@ -121,6 +124,6 @@ Two tracks run in parallel:
 - **No GPU stack yet** — only triggered by full Nest→Reolink migration
 - **Camera migration rule** — keep Nest Aware until fully committing to local cameras
 - **Ollama stays modest** — qwen3.5:9b for HA automation + light local use only
-- **Hybrid AI provider strategy** — ChatGPT/OpenAI OAuth remains Hermes' primary low-friction cloud brain; Claude subscription is the deliberate second-brain lane for planning, architecture, docs, and code review; local models are supporting workers for simple/private/offline tasks, not the primary Ned replacement yet
+- **Hybrid AI provider strategy** — ChatGPT/OpenAI OAuth remains Hermes' primary low-friction cloud brain; Claude subscription is the deliberate second-brain lane for planning, architecture, docs, and code review; Grok/xAI OAuth is a possible cloud contingency if Hermes support proves stable; local models are supporting workers for simple/private/offline tasks, not the primary Ned replacement yet
 - **NVR owns camera storage** — external SSD is personal cloud only
 - **No REX on Mac Mini** — REX runs on M1 Pro (separate project)

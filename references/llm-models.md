@@ -106,11 +106,13 @@ Local LLMs have gotten genuinely good, but be realistic:
 Current subscription posture:
 - **Hermes/OpenAI via ChatGPT OAuth** is the primary always-on Ned operator while the $20 subscription path remains low-friction and cost-effective.
 - **Claude subscription** is the second-brain lane for planning, architecture, long-context docs, code review, and careful critique.
+- **Grok/xAI OAuth** is a possible cloud contingency lane if Hermes support becomes stable enough for day-to-day use.
 - **Local Ollama/llama.cpp models** are supporting workers for simple summaries, log triage, structured extraction, Home Assistant intent parsing, privacy-sensitive prompts, and offline fallback.
 
 Routing rule of thumb:
 - Use cloud for anything that needs real judgment, long context, tool orchestration, Git/repo updates, or infrastructure safety.
 - Use Claude when a second opinion, writing quality, architectural review, or code review matters.
+- Use Grok/xAI as a contingency cloud provider if OAuth access through Hermes is stable and quality is good enough for the task.
 - Use local models when speed/privacy/offline availability matters more than top-tier reasoning.
 - Do not treat local models as the primary Ned replacement until they can pass real workflow tests on the Mac Mini and MacBook Pro.
 

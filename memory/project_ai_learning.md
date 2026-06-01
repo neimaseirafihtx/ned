@@ -17,10 +17,11 @@ AI agents and agentic workflows are the primary learning goal. Home lab is the s
 7. Define hybrid AI provider routing ▶️ NEXT
    - Hermes/OpenAI: primary always-on operator through current ChatGPT OAuth subscription
    - Claude: second-brain lane for plans, architecture, docs, code review, and careful review
+   - Grok/xAI: possible extra cloud contingency if OAuth support proves stable in Hermes
    - Local Ollama/llama.cpp: simple summaries, log triage, structured extraction, HA intent parsing, privacy/offline fallback
 
 **Current activation note:**
-Hermes has crossed from chat-only into live tool-using home awareness: Home Assistant MCP read access works, the entity map is curated, and the first approved light write exposed the need for tighter exact-entity guardrails. Next lessons are custom MCP + scheduled autonomous reporting + explicit routing across OpenAI/Hermes, Claude, and local models so the right intelligence tier handles each task.
+Hermes has crossed from chat-only into live tool-using home awareness: Home Assistant MCP read access works, the entity map is curated, and the first approved light write exposed the need for tighter exact-entity guardrails. Next lessons are custom MCP + scheduled autonomous reporting + explicit routing across OpenAI/Hermes, Claude, Grok/xAI contingencies, and local models so the right intelligence tier handles each task.
 
 **Core concepts to master (in order):**
 1. Agent loops — think → tool call → observe → repeat
@@ -29,7 +30,7 @@ Hermes has crossed from chat-only into live tool-using home awareness: Home Assi
 4. MCP — standardization layer; build at least one custom server yourself
 5. Multi-agent orchestration — delegation, parallel workers
 6. Skills / procedural memory — reusable captured workflows
-7. Provider/model routing — decide when to use the Hermes/OpenAI primary cloud brain, Claude as reviewer/second brain, or local models as simple workers
+7. Provider/model routing — decide when to use the Hermes/OpenAI primary cloud brain, Claude as reviewer/second brain, Grok/xAI as a contingency cloud lane, or local models as simple workers
 
 **Key HA config notes (for when wiring Ollama to HA):**
 - Use native Ollama integration (not HACS Extended OpenAI Conversation)
