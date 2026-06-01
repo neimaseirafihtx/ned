@@ -2,7 +2,7 @@
 
 **Created:** 2026-06-01  
 **Owner:** Neima / Ned  
-**Status:** Active — first Family Room scenes/scripts created in HA; ready for manual testing and dashboard buttons
+**Status:** Active — first Family Room scenes/scripts created and schema-corrected in HA; ready for manual testing and dashboard buttons
 
 ---
 
@@ -38,8 +38,8 @@ Source: `references/home-assistant-entity-map.md` plus live HA REST state check 
 
 | Scene | Friendly name | Source / Notes | First-pass decision |
 |---|---|---|---|
-| `scene.family_room_evening` | Family Room Evening | HA scene created 2026-06-01 from Apple Home Evening values | Test manually, then expose on dashboard. |
-| `scene.family_room_movie` | Family Room Movie | HA scene created 2026-06-01 from Apple Home Movie values | Test manually, then expose on dashboard. |
+| `scene.family_room_evening` | Family Room Evening | HA scene created 2026-06-01 from Apple Home Evening values; corrected to flattened scene attributes after initial test issue | Test manually, then expose on dashboard. |
+| `scene.family_room_movie` | Family Room Movie | HA scene created 2026-06-01 from Apple Home Movie values; corrected to flattened scene attributes after initial test issue | Test manually, then expose on dashboard. |
 | `scene.family_room_dimmed` | Family Room Dimmed | Hue scene, brightness target 65 | Use as ingredient, but it does not include Lutron main lights. |
 | `scene.entryway_relax` | Entryway Relax | Hue scene, brightness target 143 | Keep; expose on dashboard. |
 | `scene.entryway_bright_80` | Entryway Bright 80% | Hue scene, brightness target 205 | Keep; expose if useful. |

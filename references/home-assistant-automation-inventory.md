@@ -124,8 +124,8 @@ App name shown: **Polk**. Current state shown: **All Off**.
 
 | Source | Name | Trigger | Targets | Behavior | Decision | Notes |
 |---|---|---|---|---|---|---|
-| HA | Family Room Evening | Manual scene/script | Kitchen, Family Room, Dining Room | New HA scene `scene.family_room_evening` plus callable script `script.family_room_evening` | Built / verify manually | Created 2026-06-01 via HA config API and reloaded. Uses exact Apple Home Evening values, with Living Room renamed Family Room. |
-| HA | Family Room Movie | Manual scene/script | Kitchen, Family Room, Dining Room | New HA scene `scene.family_room_movie` plus callable script `script.family_room_movie` | Built / verify manually | Created 2026-06-01 via HA config API and reloaded. Uses exact Apple Home Movie values, with Living Room renamed Family Room. |
+| HA | Family Room Evening | Manual scene/script | Kitchen, Family Room, Dining Room | New HA scene `scene.family_room_evening` plus callable script `script.family_room_evening` | Built / verify manually | Created 2026-06-01 via HA config API and reloaded. Corrected after first test: scene entity attributes must be flattened (`brightness`) rather than nested under `attributes`; script uses direct light service calls. |
+| HA | Family Room Movie | Manual scene/script | Kitchen, Family Room, Dining Room | New HA scene `scene.family_room_movie` plus callable script `script.family_room_movie` | Built / verify manually | Created 2026-06-01 via HA config API and reloaded. Corrected after first test: scene entity attributes must be flattened (`brightness`) rather than nested under `attributes`; script uses direct light service calls. |
 | Hue | Family Room Dimmed | Manual scene | Family Room Hue lights | Existing scene `scene.family_room_dimmed`, brightness target 65 | Keep / ingredient | Does not include Lutron Family Room Main Lights. Use as ingredient only. |
 | Hue | Entryway Relax | Manual scene | Entryway Hue lights | Existing scene `scene.entryway_relax`, brightness target 143 | Keep | Good dashboard candidate. |
 | Hue | Entryway Bright 80% | Manual scene | Entryway Hue lights | Existing scene `scene.entryway_bright_80`, brightness target 205 | Keep | Good dashboard candidate. |
@@ -216,6 +216,6 @@ Most core inventory is now usable. Remaining detail that would help:
 - [x] Lutron app schedules confirmed.
 - [x] First HA replacement selected: Apple Home `Evening`, then `Movie`.
 - [x] Neima approved exact HA `Evening` script spec, including TV lightstrip at 28%.
-- [x] First HA scenes/scripts created: `scene.family_room_evening`, `scene.family_room_movie`, `script.family_room_evening`, `script.family_room_movie`.
+- [x] First HA scenes/scripts created and schema-corrected: `scene.family_room_evening`, `scene.family_room_movie`, `script.family_room_evening`, `script.family_room_movie`.
 - [ ] First HA scripts tested manually.
 - [ ] Dashboard buttons created.
