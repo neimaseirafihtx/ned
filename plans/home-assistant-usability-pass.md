@@ -2,7 +2,7 @@
 
 **Created:** 2026-06-01  
 **Owner:** Neima / Ned  
-**Status:** Active — first Family Room scenes/scripts created and schema-corrected in HA; ready for manual testing and dashboard buttons
+**Status:** Active — first Family Room scripts work from HA Developer Tools; Family Room area control surface corrected to prefer scripts over scene triggers
 
 ---
 
@@ -38,8 +38,8 @@ Source: `references/home-assistant-entity-map.md` plus live HA REST state check 
 
 | Scene | Friendly name | Source / Notes | First-pass decision |
 |---|---|---|---|
-| `scene.family_room_evening` | Family Room Evening | HA scene created 2026-06-01 from Apple Home Evening values; corrected to flattened scene attributes after initial test issue | Test manually, then expose on dashboard. |
-| `scene.family_room_movie` | Family Room Movie | HA scene created 2026-06-01 from Apple Home Movie values; corrected to flattened scene attributes after initial test issue | Test manually, then expose on dashboard. |
+| `scene.family_room_evening` | Family Room Evening | HA scene created 2026-06-01 from Apple Home Evening values; corrected to flattened scene attributes after initial test issue; later hidden from UI because the Family Room area scene trigger did not drive lights while the script worked | Do not expose as the primary dashboard control; use `script.family_room_evening`. |
+| `scene.family_room_movie` | Family Room Movie | HA scene created 2026-06-01 from Apple Home Movie values; corrected to flattened scene attributes after initial test issue; later hidden from UI because the Family Room area scene trigger did not drive lights while the script worked | Do not expose as the primary dashboard control; use `script.family_room_movie`. |
 | `scene.family_room_dimmed` | Family Room Dimmed | Hue scene, brightness target 65 | Use as ingredient, but it does not include Lutron main lights. |
 | `scene.entryway_relax` | Entryway Relax | Hue scene, brightness target 143 | Keep; expose on dashboard. |
 | `scene.entryway_bright_80` | Entryway Bright 80% | Hue scene, brightness target 205 | Keep; expose if useful. |
@@ -70,8 +70,8 @@ Design principle: 4 room cards + a small status/quick-actions area. No entity sp
 
 | Button | Purpose | Backing target |
 |---|---|---|
-| Evening | Existing daily Apple Home scene translated into HA | New exact HA script/scene combining Hue + Lutron |
-| Movie Mode | Existing Apple Home movie scene translated into HA | New exact HA script/scene combining Hue + Lutron |
+| Evening | Existing daily Apple Home scene translated into HA | `script.family_room_evening` combining Hue + Lutron; prefer script over scene trigger |
+| Movie Mode | Existing Apple Home movie scene translated into HA | `script.family_room_movie` combining Hue + Lutron; prefer script over scene trigger |
 | All common lights off | One-tap shutdown for common spaces | New exact HA script, not broad area targeting |
 | Entryway Relax / Bright | Existing Hue scenes surfaced in HA | Existing HA scene entities |
 
@@ -248,7 +248,7 @@ Inventory doc:
 1. Finish inventory from Google Home, Hue, and Lutron.
 2. Create HA scripts/scenes manually or via exact YAML after review.
 3. Test each script manually from HA.
-4. Add dashboard buttons.
+4. Add dashboard buttons or area-page controls that call `script.turn_on`; do not rely on the auto-generated area scene trigger for mixed Hue + Lutron scenes.
 5. Disable matching source-app automation only after the HA version works.
 6. Keep a rollback note: re-enable source-app automation if HA version behaves poorly.
 
@@ -268,7 +268,9 @@ Inventory doc:
 - [x] Google Home routines inventoried, first pass.
 - [x] Hue scenes/automations inventoried from app, first pass.
 - [x] Lutron scenes/schedules inventoried from app, first pass.
-- [ ] Neima approved exact HA script creation.
-- [ ] First HA scripts created.
+- [x] Neima approved exact HA script creation.
+- [x] First HA scripts created.
+- [x] First HA scripts tested manually from Developer Tools; Neima confirmed `script.turn_on` worked.
+- [x] Family Room area metadata corrected: `script.family_room_evening` and `script.family_room_movie` assigned to the `family_room` area; corresponding scene entities hidden from UI to prevent the non-working scene-trigger path.
 - [ ] First HA dashboard created.
 - [ ] Source-app duplicate automation disabled after HA replacement is tested.

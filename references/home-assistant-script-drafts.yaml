@@ -6,16 +6,21 @@
 #   - script.family_room_evening
 #   - script.family_room_movie
 #
-# Pitfall discovered 2026-06-01:
-# HA scene config entities need flattened attributes, e.g.:
-#   light.example:
-#     state: "on"
-#     brightness: 128
-# Do NOT use REST state shape with nested attributes:
-#   light.example:
-#     state: "on"
-#     attributes:
-#       brightness: 128
+# Pitfalls discovered 2026-06-01:
+# 1. HA scene config entities need flattened attributes, e.g.:
+#      light.example:
+#        state: "on"
+#        brightness: 128
+#    Do NOT use REST state shape with nested attributes:
+#      light.example:
+#        state: "on"
+#        attributes:
+#          brightness: 128
+# 2. For the Family Room area page, the auto scene trigger path did not drive
+#    physical lights, while Developer Tools `script.turn_on` worked. Prefer the
+#    `script.family_room_*` entities for dashboard/area controls. The script
+#    entities are assigned to area `family_room`; the corresponding scene
+#    entities are hidden from the UI to avoid the dead trigger path.
 
 scenes:
   family_room_evening:
