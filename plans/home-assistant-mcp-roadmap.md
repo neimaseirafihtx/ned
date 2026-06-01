@@ -20,6 +20,58 @@ Start with the official MCP Server integration and expose ONLY a read-relevant e
 
 **Tech Stack:** Hermes Agent native MCP HTTP client, Home Assistant official MCP Server integration, Home Assistant long-lived access token, Ned entity map at `references/home-assistant-entity-map.md`, optional `mcp-proxy` fallback only if the installed Hermes/MCP runtime cannot speak Streamable HTTP directly. Community `ha-mcp` / `ha-mcp-server` are deferred options, not the default.
 
+## Ned Safe MCP Surface
+
+Default policy for Hermes/Ned when Home Assistant MCP is available.
+
+### Read permissions
+
+Allowed for routine use:
+
+- `GetLiveContext`
+- `GetDateTime`
+- read-only todo queries when useful
+
+Read access should be broad enough to answer normal home-status questions, but it should still be interpreted through the curated entity map rather than treated as a raw dump.
+
+### Write permissions
+
+Allowed only through explicit approval or pre-approved scripts/scenes:
+
+- `script.family_room_evening`
+- `script.family_room_movie`
+- `script.all_house_lights_off`
+- other exact scripts that Neima explicitly adds later
+
+Potentially acceptable later, if they are narrowly scoped and well understood:
+
+- a few named lights in specific rooms
+- simple on/off or brightness changes for visible, low-risk lights
+- a small set of intentional scene triggers
+
+### Off-limits for casual agent use
+
+Keep these out of the default agent surface:
+
+- locks and garage doors
+- cameras and security devices
+- HVAC and thermostat changes
+- broad automation/config edits
+- arbitrary `call_service` style control
+- unbounded media volume or playback control
+- anything that needs room-wide interpretation instead of an exact target
+
+### Control rule
+
+If an action is ambiguous, it does not get agent write access yet.
+
+The safe pattern is:
+
+1. Read live state.
+2. Compare against the curated entity map.
+3. Trigger only an exact allowlisted script or a narrowly scoped, approved write.
+4. Verify the result immediately.
+
 ---
 
 ## Current Known State

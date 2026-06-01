@@ -128,6 +128,32 @@ The official HA MCP server exposes both read and write-capable tool names. Keep 
 - Keep the first write test limited to one visible, low-risk light or scene.
 - Avoid locks, cameras/security, HVAC, arbitrary service calls, automation/config mutation, and unbounded Sonos volume.
 
+## Ned Safe MCP Surface
+
+Default allowlist for Hermes/Ned when HA MCP is connected:
+
+### Read
+- `GetLiveContext`
+- `GetDateTime`
+- read-only todo queries when useful
+
+### Write
+- `script.family_room_evening`
+- `script.family_room_movie`
+- `script.all_house_lights_off`
+- other exact scripts explicitly added later
+
+### Off-limits for casual use
+- locks and garage doors
+- cameras and security devices
+- HVAC and thermostat changes
+- broad automation/config edits
+- arbitrary `call_service` style control
+- unbounded media volume/playback control
+- room-wide actions that need interpretation instead of an exact target
+
+Rule of thumb: if it is ambiguous, it does not get agent write access yet.
+
 ## First Write Test Result
 
 Completed 2026-05-29 with explicit user approval.
