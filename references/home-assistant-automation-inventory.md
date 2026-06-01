@@ -219,4 +219,4 @@ Most core inventory is now usable. Remaining detail that would help:
 - [x] First HA scenes/scripts created and schema-corrected: `scene.family_room_evening`, `scene.family_room_movie`, `script.family_room_evening`, `script.family_room_movie`.
 - [x] First HA scripts tested manually via Developer Tools `script.turn_on`; Neima confirmed it worked.
 - [x] Family Room area control surface corrected: working script entities assigned to `family_room`; non-working scene trigger entities hidden from UI.
-- [ ] Dashboard buttons created.
+- [x] Dashboard buttons created in HA dashboard `Ned Home` at `/ned-home/home`; Family Room Modes buttons call `script.turn_on` for `script.family_room_evening` and `script.family_room_movie`.

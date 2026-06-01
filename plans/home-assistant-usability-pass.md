@@ -2,7 +2,7 @@
 
 **Created:** 2026-06-01  
 **Owner:** Neima / Ned  
-**Status:** Active — first Family Room scripts work from HA Developer Tools; Family Room area control surface corrected to prefer scripts over scene triggers
+**Status:** Active — `Ned Home` dashboard created with Family Room script buttons for Evening/Movie
 
 ---
 
@@ -62,7 +62,18 @@ Live REST check on 2026-06-01 did not show HA-native `automation.*` or `script.*
 
 ## First Mobile Dashboard Design
 
-Working name: `Home`
+Working name: `Ned Home`
+
+Live HA dashboard created 2026-06-01:
+
+- Dashboard title: `Ned Home`
+- URL path: `/ned-home/home`
+- Sidebar: shown
+- First button grid: `Family Room Modes`
+- Buttons call `script.turn_on` directly:
+  - `script.family_room_evening`
+  - `script.family_room_movie`
+- Reason: the Family Room area page's auto `Scenes > Dimmed`/scene-trigger path did not drive the physical lights, while Developer Tools `script.turn_on` worked. Use explicit script buttons for daily controls.
 
 Design principle: 4 room cards + a small status/quick-actions area. No entity sprawl.
 
@@ -272,5 +283,5 @@ Inventory doc:
 - [x] First HA scripts created.
 - [x] First HA scripts tested manually from Developer Tools; Neima confirmed `script.turn_on` worked.
 - [x] Family Room area metadata corrected: `script.family_room_evening` and `script.family_room_movie` assigned to the `family_room` area; corresponding scene entities hidden from UI to prevent the non-working scene-trigger path.
-- [ ] First HA dashboard created.
+- [x] First HA dashboard created: `Ned Home`, with `Family Room Modes` buttons wired to `script.turn_on`.
 - [ ] Source-app duplicate automation disabled after HA replacement is tested.
