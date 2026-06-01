@@ -10,7 +10,7 @@
 |------|-----------|-------|
 | Kitchen | Island Pendants | 30% |
 | Kitchen | Main Lights | Turn Off |
-| Living Room | Hue Lightstrip | Turn On |
+| Living Room | Hue Lightstrip | 28% |
 | Living Room | Lamp | 75% |
 | Living Room | Main Lights | 1% |
 | Dining Room | Main Lights | 20% |

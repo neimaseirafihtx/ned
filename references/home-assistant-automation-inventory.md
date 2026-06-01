@@ -38,12 +38,12 @@ Do not disable or delete source-app automations until the HA replacement has bee
 |---|---|---:|---|---|---|
 | Kitchen | Island Pendants | 30% | `light.kitchen_island_pendants` | Migrate | Good HA scene target. |
 | Kitchen | Main Lights | Off | `light.kitchen_main_lights` | Migrate | Exact off. |
-| Living / Family Room | Hue Lightstrip | On | `light.tv_lightstrip` | Migrate | Need choose brightness/color if Apple does not expose exact value. |
+| Living / Family Room | Hue Lightstrip | 28% | `light.tv_lightstrip` | Migrated | Neima confirmed Apple Home Evening uses 28% brightness. |
 | Living / Family Room | Lamp | 75% | `light.family_room_lamp` | Migrate | Hue lamp. |
 | Living / Family Room | Main Lights | 1% | `light.family_room_main_lights` | Migrate | Lutron main lights; very low, not fully off. |
 | Dining Room | Main Lights | 20% | `light.dining_room_main_lights` | Migrate | Lutron. |
 
-Decision: **Migrate / replace as HA script `script.evening` or HA scene `scene.ned_evening`.** This is the best first useful daily scene because it spans Hue + Lutron and matches real existing behavior.
+Decision: **Migrated to HA as `scene.family_room_evening` and `script.family_room_evening`.** This is the best first useful daily scene because it spans Hue + Lutron and matches real existing behavior.
 
 ### Scene: Movie
 
@@ -55,7 +55,7 @@ Decision: **Migrate / replace as HA script `script.evening` or HA scene `scene.n
 | Living / Family Room | Main Lights | Off | `light.family_room_main_lights` | Migrate | Lutron main lights off. |
 | Dining Room | Main Lights | Off | `light.dining_room_main_lights` | Migrate | Lutron. |
 
-Decision: **Migrate / replace as HA script `script.movie_mode` or HA scene `scene.ned_movie`.** This is the second-best dashboard button.
+Decision: **Migrated to HA as `scene.family_room_movie` and `script.family_room_movie`.** This is the second-best dashboard button.
 
 ---
 
@@ -124,6 +124,8 @@ App name shown: **Polk**. Current state shown: **All Off**.
 
 | Source | Name | Trigger | Targets | Behavior | Decision | Notes |
 |---|---|---|---|---|---|---|
+| HA | Family Room Evening | Manual scene/script | Kitchen, Family Room, Dining Room | New HA scene `scene.family_room_evening` plus callable script `script.family_room_evening` | Built / verify manually | Created 2026-06-01 via HA config API and reloaded. Uses exact Apple Home Evening values, with Living Room renamed Family Room. |
+| HA | Family Room Movie | Manual scene/script | Kitchen, Family Room, Dining Room | New HA scene `scene.family_room_movie` plus callable script `script.family_room_movie` | Built / verify manually | Created 2026-06-01 via HA config API and reloaded. Uses exact Apple Home Movie values, with Living Room renamed Family Room. |
 | Hue | Family Room Dimmed | Manual scene | Family Room Hue lights | Existing scene `scene.family_room_dimmed`, brightness target 65 | Keep / ingredient | Does not include Lutron Family Room Main Lights. Use as ingredient only. |
 | Hue | Entryway Relax | Manual scene | Entryway Hue lights | Existing scene `scene.entryway_relax`, brightness target 143 | Keep | Good dashboard candidate. |
 | Hue | Entryway Bright 80% | Manual scene | Entryway Hue lights | Existing scene `scene.entryway_bright_80`, brightness target 205 | Keep | Good dashboard candidate. |
@@ -156,18 +158,18 @@ App name shown: **Polk**. Current state shown: **All Off**.
 
 These are design drafts only. Do not apply without explicit approval.
 
-### `script.ned_evening`
+### `scene.family_room_evening` / `script.family_room_evening`
 
 - `light.kitchen_island_pendants`: on, brightness 30%
 - `light.kitchen_main_lights`: off
-- `light.tv_lightstrip`: on
+- `light.tv_lightstrip`: on, brightness 28%
 - `light.family_room_lamp`: on, brightness 75%
 - `light.family_room_main_lights`: on, brightness 1%
 - `light.dining_room_main_lights`: on, brightness 20%
 
-Open question: Apple Home only says Hue Lightstrip “Turn On” for Evening, not a specific brightness/color. Use current/default Hue state unless Neima wants a specific level.
+Resolved: Neima confirmed Apple Home `Evening` should set the TV lightstrip to 28% brightness.
 
-### `script.movie_mode`
+### `scene.family_room_movie` / `script.family_room_movie`
 
 - `light.kitchen_island_pendants`: on, brightness 35%
 - `light.tv_lightstrip`: on, brightness 19%
@@ -197,8 +199,7 @@ Open question: include `light.listening_room`? Do not include bedroom/exterior b
 
 Most core inventory is now usable. Remaining detail that would help:
 
-1. Apple Home details for Hue Lightstrip brightness/color in `Evening` if available.
-2. Whether `All Lights Off` in Google Home literally includes bedroom, exterior, and listening room, or just common areas.
+1. Whether `All Lights Off` in Google Home literally includes bedroom, exterior, and listening room, or just common areas.
 3. Whether Hue `Evening Lamps` should remain as a vendor-native ambience automation or be replaced after HA scenes are proven.
 4. Whether Lutron outdoor schedules should remain permanently in Lutron — current recommendation: yes.
 
@@ -214,7 +215,7 @@ Most core inventory is now usable. Remaining detail that would help:
 - [x] Hue app automations confirmed.
 - [x] Lutron app schedules confirmed.
 - [x] First HA replacement selected: Apple Home `Evening`, then `Movie`.
-- [ ] Neima approved exact HA script creation.
-- [ ] First HA scripts created.
+- [x] Neima approved exact HA `Evening` script spec, including TV lightstrip at 28%.
+- [x] First HA scenes/scripts created: `scene.family_room_evening`, `scene.family_room_movie`, `script.family_room_evening`, `script.family_room_movie`.
 - [ ] First HA scripts tested manually.
 - [ ] Dashboard buttons created.

@@ -2,7 +2,7 @@
 
 **Created:** 2026-06-01  
 **Owner:** Neima / Ned  
-**Status:** Active — inventory captured; ready for first HA script creation after approval
+**Status:** Active — first Family Room scenes/scripts created in HA; ready for manual testing and dashboard buttons
 
 ---
 
@@ -38,6 +38,8 @@ Source: `references/home-assistant-entity-map.md` plus live HA REST state check 
 
 | Scene | Friendly name | Source / Notes | First-pass decision |
 |---|---|---|---|
+| `scene.family_room_evening` | Family Room Evening | HA scene created 2026-06-01 from Apple Home Evening values | Test manually, then expose on dashboard. |
+| `scene.family_room_movie` | Family Room Movie | HA scene created 2026-06-01 from Apple Home Movie values | Test manually, then expose on dashboard. |
 | `scene.family_room_dimmed` | Family Room Dimmed | Hue scene, brightness target 65 | Use as ingredient, but it does not include Lutron main lights. |
 | `scene.entryway_relax` | Entryway Relax | Hue scene, brightness target 143 | Keep; expose on dashboard. |
 | `scene.entryway_bright_80` | Entryway Bright 80% | Hue scene, brightness target 205 | Keep; expose if useful. |
@@ -158,20 +160,20 @@ Summary:
 
 Do not use broad natural-language/area targeting. Use exact entities.
 
-### `script.ned_evening`
+### `scene.family_room_evening` / `script.family_room_evening`
 
 Exact translation target from Apple Home `Evening`:
 
 - `light.kitchen_island_pendants`: on, brightness 30%
 - `light.kitchen_main_lights`: off
-- `light.tv_lightstrip`: on
+- `light.tv_lightstrip`: on, brightness 28%
 - `light.family_room_lamp`: on, brightness 75%
 - `light.family_room_main_lights`: on, brightness 1%
 - `light.dining_room_main_lights`: on, brightness 20%
 
-Open question: Apple Home says Hue Lightstrip “Turn On” without a captured brightness/color. Use HA/Hue default on-state unless Neima wants a specific value.
+Resolved: Neima confirmed Apple Home `Evening` should set the TV lightstrip to 28% brightness.
 
-### `script.movie_mode`
+### `scene.family_room_movie` / `script.family_room_movie`
 
 Exact translation target from Apple Home `Movie`:
 
