@@ -6,5 +6,5 @@
 - [Mac Mini Setup](mac-mini-handoff.md) — Phase 2 complete setup tracker — load when helping with Mac Mini config or troubleshooting
 - [Cameras & Security](user_cameras_security.md) — Nest cams + $100/yr Nest Aware active; Reolink+NVR+Coral planned; don't half-migrate
 - [AI Learning Goal](project_ai_learning.md) — Phase 3 active: HA+MCP, custom MCP server, cron agent; HA Ollama config notes
-- [Roadmap](project_homelab_roadmap.md) — Phase 2 complete, Phase 3 active; 30-day plan; key decisions
+- [Roadmap](project_homelab_roadmap.md) — Phase 2 complete, Phase 3 active; 30-day plan; friend Hermes Docker pilot queued; key decisions
 - [Adaptive Memory System](project_adaptive_memory.md) — /note command, session log, typed memory files — system meta

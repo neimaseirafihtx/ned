@@ -19,7 +19,7 @@ Two tracks run in parallel:
 |-------|------|--------|
 | 1 | Agent Foundation | ✅ COMPLETE — Hermes + GPT-5.5 on Mac Mini, Telegram connected |
 | 3 | Connected Agents + MCP | ▶️ ACTIVE — HA MCP read/live-state working; custom Ned MCP server + health cron are next |
-| 5 | Multi-Agent & Autonomous Systems | 📋 Delegation, cron agents, skills library, Claude second-brain review lane, local simple-task workers |
+| 5 | Multi-Agent & Autonomous Systems | 📋 Delegation, cron agents, skills library, Claude second-brain review lane, local simple-task workers, Docker-isolated friend Hermes pilot |
 | 7 | Mastery + Sovereignty | 📋 Hybrid cloud/local stack first; fully local stack only where quality and latency make sense |
 
 **Phase 3 detail (current focus):**
@@ -53,6 +53,7 @@ Two tracks run in parallel:
   - Claude is used as a second-brain/reviewer for planning, architecture, code review, and docs
   - Grok/xAI OAuth is tracked as a possible additional cloud contingency once stable in Hermes
   - local models are scoped to simple, fast, private, or offline tasks
+- Planned: Docker-hosted friend Hermes pilot documented in `plans/friend-hermes-docker-roadmap.md`; start with one container on the Mac Mini, using the friend's own OpenAI OAuth and strict isolation boundaries.
 
 ---
 
@@ -126,5 +127,6 @@ Two tracks run in parallel:
 - **Camera migration rule** — keep Nest Aware until fully committing to local cameras
 - **Ollama stays modest** — qwen3.5:9b for HA automation + light local use only
 - **Hybrid AI provider strategy** — ChatGPT/OpenAI OAuth remains Hermes' primary low-friction cloud brain; Claude subscription is the deliberate second-brain lane for planning, architecture, docs, and code review; Grok/xAI OAuth is a possible cloud contingency if Hermes support proves stable; local models are supporting workers for simple/private/offline tasks, not the primary Ned replacement yet
+- **Friend Hermes hosting strategy** — do not buy/build new server hardware just for this yet; pilot one Docker-isolated friend Hermes container on the Mac Mini with the friend's OpenAI OAuth, no shared Hermes/auth state, no HA token, no host Docker socket, and no mount of Neima's home folder
 - **NVR owns camera storage** — external SSD is personal cloud only
 - **No REX on Mac Mini** — REX runs on M1 Pro (separate project)

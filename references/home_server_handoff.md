@@ -12,6 +12,7 @@ Build mastery of AI agents and agentic workflows. The home lab is the live real-
 - **What crossed the line:** Hermes can now read live Home Assistant state through MCP, not just reason from static docs.
 - **What was learned:** Official HA MCP writes work, but targeting is natural-language/area-based; future agent writes should stay approval-gated or move behind an exact allowlisted wrapper.
 - **Next milestone:** custom Ned MCP server for project/homelab status, then first Hermes daily health brief cron.
+- **New roadmap item:** Docker-hosted friend Hermes pilot is queued after current Phase 3 work; see `plans/friend-hermes-docker-roadmap.md`.
 
 ## Hardware
 
@@ -107,6 +108,7 @@ Build mastery of AI agents and agentic workflows. The home lab is the live real-
 **AI Track: agents that run without you**
 - Delegation patterns: orchestrator dispatching worker agents in parallel.
 - Hermes cron jobs → autonomous agents running on schedule.
+- Docker-hosted friend Hermes pilot: one isolated container/profile using the friend's own OpenAI OAuth, with strict volume/tool boundaries and no access to Neima's Hermes, Home Assistant, SSH keys, or home folder.
 - Skills library: build reusable procedural memory, refine over time.
 - Understand when to use single agent vs. multi-agent vs. just a tool call.
 
@@ -135,3 +137,4 @@ Build mastery of AI agents and agentic workflows. The home lab is the live real-
 - **No cameras/Frigate yet** — do not start that rabbit hole before Phase 3 custom MCP + cron work lands.
 - **NVR owns camera storage** — external SSD is personal cloud / agent workspace only.
 - **Official HA MCP writes remain approval-gated** until exact control wrappers or HA groups make targeting safe.
+- **Friend Hermes hosting is a pilot, not a hardware trigger yet** — start with one Docker-isolated OpenAI OAuth container on the Mac Mini when ready; reassess hardware only after measuring real memory/CPU pressure.

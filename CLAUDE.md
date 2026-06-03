@@ -25,7 +25,7 @@ Neima is building mastery of AI agents and agentic workflows. The home lab is th
 **AI Track (primary):**
 1. **Agent Foundation** — Hermes Agent running on Mac Mini with GPT-5.5 ✅, Telegram connected ✅
 2. **Connected Agents + MCP** ▶️ ACTIVE — HA MCP live read access + entity-map cross-check working; next up: custom Ned MCP server and first Hermes health cron
-3. **Multi-Agent & Autonomous Systems** — delegation, cron agents, skills library
+3. **Multi-Agent & Autonomous Systems** — delegation, cron agents, skills library, Docker-isolated friend Hermes pilot
 4. **Mastery + Sovereignty** — fully local stack, no required cloud, autonomous pipelines
 
 **Infrastructure Track (enables AI track):**
@@ -37,6 +37,7 @@ Neima is building mastery of AI agents and agentic workflows. The home lab is th
 - **Mac Mini M4** (16GB) — primary always-on server. Running macOS Tahoe 26.5. Static IP `192.168.68.85`. SSH key auth, Tailscale, Homebrew all set up. *Active.*
 - **MacBook Pro M5 Pro** (48GB, 20-core GPU, 1TB) — primary workstation. Hermes uninstalled (moved to Mac Mini). Ollama installed (`qwen3.6:27b-mlx`, `qwen3.6:36b`) but no active use case — Claude + GPT-5.5 covers everything. Don't suggest local MBP models unless the use case is offline or privacy-critical.
 - **Windows desktop** — not planned. Conditional on full camera migration away from Nest.
+- **Friend Hermes hosting** — planned as a Docker pilot on the Mac Mini, not a reason to buy/build a separate server yet. Use the friend's own OpenAI OAuth and isolate all volumes/tools from Neima's Hermes, Home Assistant, SSH keys, and home folder. See `plans/friend-hermes-docker-roadmap.md`.
 
 ## What you know cold
 

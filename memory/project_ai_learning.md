@@ -29,8 +29,9 @@ Hermes has crossed from chat-only into live tool-using home awareness: Home Assi
 3. Memory systems — context window vs. persistent vs. session search
 4. MCP — standardization layer; build at least one custom server yourself
 5. Multi-agent orchestration — delegation, parallel workers
-6. Skills / procedural memory — reusable captured workflows
-7. Provider/model routing — decide when to use the Hermes/OpenAI primary cloud brain, Claude as reviewer/second brain, Grok/xAI as a contingency cloud lane, or local models as simple workers
+6. Agent environment isolation — Docker-hosted friend Hermes pilot with separate OpenAI OAuth, profile/home volume, workspace, and gateway identity
+7. Skills / procedural memory — reusable captured workflows
+8. Provider/model routing — decide when to use the Hermes/OpenAI primary cloud brain, Claude as reviewer/second brain, Grok/xAI as a contingency cloud lane, or local models as simple workers
 
 **Key HA config notes (for when wiring Ollama to HA):**
 - Use native Ollama integration (not HACS Extended OpenAI Conversation)
@@ -42,3 +43,4 @@ Hermes has crossed from chat-only into live tool-using home awareness: Home Assi
 - `references/Hermes Agent.md` — comprehensive Hermes internals
 - `references/openclaw-notes.md` — OpenClaw/REX plugin API
 - `plans/mac-mini-ops-baseline.md` — reboot verification checklist
+- `plans/friend-hermes-docker-roadmap.md` — deferred pilot plan for hosting a friend's isolated Hermes container using their own OpenAI OAuth
