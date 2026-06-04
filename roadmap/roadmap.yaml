@@ -185,12 +185,12 @@ items:
     order: 110
     track: ai-agents
     phase: 3
-    status: next
+    status: planned
     title: Custom Ned MCP server
     summary: Build a project/homelab status MCP server for Ned memory, roadmap, and infrastructure state.
     rationale: Moves Ned from generic file access toward a stable project-status interface.
     completed_at: null
-    next_action: Define first tools such as get_homelab_status, read_ned_memory, and roadmap query.
+    next_action: Revisit after the Obsidian knowledge layer has clarified Ned's human-facing notes, runbooks, and project status model.
     dependencies: [ha-mcp-read-access, daily-mac-mini-health-brief]
     sources:
       - memory/project_homelab_roadmap.md
@@ -216,12 +216,12 @@ items:
     order: 130
     track: knowledge
     phase: 5
-    status: planned
+    status: next
     title: Obsidian knowledge layer
     summary: Human-facing Ned vault for curated notes, decisions, runbooks, research synthesis, and memory-palace navigation.
     rationale: Obsidian is the readable knowledge layer; the Ned Git repo remains canonical operational truth.
     completed_at: null
-    next_action: Design vault folders and constrained agent write areas before enabling write access.
+    next_action: Design vault folders, boundaries, and constrained agent write areas before enabling write access.
     dependencies: [roadmap-dashboard]
     sources:
       - memory/project_homelab_roadmap.md
@@ -311,10 +311,10 @@ items:
     phase: 5
     status: planned
     title: Friend Hermes template / repeatable onboarding
-    summary: Turn Ray's one-off setup into a reusable template for future isolated friend Hermes instances.
+    summary: Turn Ray's proven one-off setup into a reusable template for future isolated friend Hermes instances.
     rationale: Avoid bespoke fragile setup if another friend pilot is approved.
     completed_at: null
-    next_action: Generalize compose files, README, onboarding checklist, and security verification.
+    next_action: Extract Ray compose/config/checklist into a parameterized friend Hermes template with security verification.
     dependencies: [friend-hermes-docker-pilot, ray-hermes-health-monitor]
     sources:
       - plans/friend-hermes-docker-roadmap.md
@@ -400,12 +400,12 @@ items:
     order: 250
     track: infrastructure
     phase: 4
-    status: planned
-    title: Samsung T9 personal storage / future Nextcloud lane
-    summary: Use the Samsung T9 external SSD as Mac mini NAS-style storage, agent workspace, and possible future Nextcloud data drive.
+    status: active
+    title: Samsung T9 storage baseline / future Nextcloud lane
+    summary: Samsung T9 is mounted and usable as Mac mini storage/agent workspace; Nextcloud remains a future service option.
     rationale: Near-term storage should support personal files and agents, not deferred NVR/camera storage.
     completed_at: null
-    next_action: Define mount/backup conventions before installing persistent services on it.
+    next_action: Define stable mount naming, backup conventions, and which folders/services should use the drive before installing persistent services on it.
     sources:
       - memory/project_homelab_roadmap.md
     tags: [storage, samsung-t9, nextcloud]

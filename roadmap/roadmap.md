@@ -7,9 +7,9 @@ Canonical structured roadmap for Ned: every known major roadmap item, including 
 ## Status summary
 
 - **Done:** 5
-- **Active:** 9
+- **Active:** 10
 - **Next:** 1
-- **Planned:** 9
+- **Planned:** 8
 - **Deferred:** 1
 - **Conditional:** 1
 
@@ -22,11 +22,11 @@ Hermes running on the Mac mini with GPT-5.5/OpenAI path and Telegram access.
 - **Next action:** Keep stable; monitor with health checks and update-readiness reports.
 - **Sources:** memory/project_homelab_roadmap.md, memory/session-log.md
 
-### 110. Custom Ned MCP server — Next (Phase 3)
+### 110. Custom Ned MCP server — Planned (Phase 3)
 
 Build a project/homelab status MCP server for Ned memory, roadmap, and infrastructure state.
 
-- **Next action:** Define first tools such as get_homelab_status, read_ned_memory, and roadmap query.
+- **Next action:** Revisit after the Obsidian knowledge layer has clarified Ned's human-facing notes, runbooks, and project status model.
 - **Depends on:** ha-mcp-read-access, daily-mac-mini-health-brief
 - **Sources:** memory/project_homelab_roadmap.md
 
@@ -131,11 +131,11 @@ Make HAOS/UTM startup and homeassistant.local / 192.168.68.68 reachability relia
 - **Depends on:** mac-mini-reboot-baseline
 - **Sources:** memory/session-log.md, memory/project_homelab_roadmap.md
 
-### 250. Samsung T9 personal storage / future Nextcloud lane — Planned (Phase 4)
+### 250. Samsung T9 storage baseline / future Nextcloud lane — Active (Phase 4)
 
-Use the Samsung T9 external SSD as Mac mini NAS-style storage, agent workspace, and possible future Nextcloud data drive.
+Samsung T9 is mounted and usable as Mac mini storage/agent workspace; Nextcloud remains a future service option.
 
-- **Next action:** Define mount/backup conventions before installing persistent services on it.
+- **Next action:** Define stable mount naming, backup conventions, and which folders/services should use the drive before installing persistent services on it.
 - **Sources:** memory/project_homelab_roadmap.md
 
 ## Knowledge / Obsidian / Docs
@@ -148,11 +148,11 @@ Structured roadmap data plus generated CSV, Markdown, JSON, and local HTML dashb
 - **Depends on:** agent-foundation
 - **Sources:** roadmap/roadmap.yaml, roadmap/index.html
 
-### 130. Obsidian knowledge layer — Planned (Phase 5)
+### 130. Obsidian knowledge layer — Next (Phase 5)
 
 Human-facing Ned vault for curated notes, decisions, runbooks, research synthesis, and memory-palace navigation.
 
-- **Next action:** Design vault folders and constrained agent write areas before enabling write access.
+- **Next action:** Design vault folders, boundaries, and constrained agent write areas before enabling write access.
 - **Depends on:** roadmap-dashboard
 - **Sources:** memory/project_homelab_roadmap.md, memory/session-log.md
 
@@ -176,9 +176,9 @@ Script-only cron checks Ray Hermes container, gateway, pairing, mounts, resource
 
 ### 190. Friend Hermes template / repeatable onboarding — Planned (Phase 5)
 
-Turn Ray's one-off setup into a reusable template for future isolated friend Hermes instances.
+Turn Ray's proven one-off setup into a reusable template for future isolated friend Hermes instances.
 
-- **Next action:** Generalize compose files, README, onboarding checklist, and security verification.
+- **Next action:** Extract Ray compose/config/checklist into a parameterized friend Hermes template with security verification.
 - **Depends on:** friend-hermes-docker-pilot, ray-hermes-health-monitor
 - **Sources:** plans/friend-hermes-docker-roadmap.md
 
