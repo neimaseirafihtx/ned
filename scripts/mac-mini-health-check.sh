@@ -22,6 +22,26 @@ ok() { oks+=("$1"); }
 warn() { warns+=("$1"); }
 fail() { fails+=("$1"); }
 
+bold_label() {
+  local item="$1"
+  if [[ "$item" == *:* ]]; then
+    printf '**%s:**%s' "${item%%:*}" "${item#*:}"
+  else
+    printf '%s' "$item"
+  fi
+}
+
+print_items() {
+  local prefix="$1"
+  shift
+  local item
+  for item in "$@"; do
+    printf '%s ' "$prefix"
+    bold_label "$item"
+    printf '\n'
+  done
+}
+
 have() { command -v "$1" >/dev/null 2>&1; }
 
 http_code() {
@@ -161,17 +181,17 @@ fi
 # Output
 now="$(date '+%Y-%m-%d %H:%M:%S %Z')"
 if (( ${#fails[@]} == 0 && ${#warns[@]} == 0 )); then
-  echo "Mac mini health: all green — ${now}"
-  printf '✓ %s\n' "${oks[@]}"
+  echo "**Mac mini health:** **all green** — ${now}"
+  print_items '✓' "${oks[@]}"
 elif (( ${#fails[@]} == 0 )); then
-  echo "Mac mini health: green with warnings — ${now}"
-  printf '✓ %s\n' "${oks[@]}"
-  printf '⚠ %s\n' "${warns[@]}"
+  echo "**Mac mini health:** **green with warnings** — ${now}"
+  print_items '✓' "${oks[@]}"
+  print_items '⚠' "${warns[@]}"
 else
-  echo "Mac mini health: FAIL — ${now}"
-  printf '✗ %s\n' "${fails[@]}"
-  printf '⚠ %s\n' "${warns[@]}"
-  printf '✓ %s\n' "${oks[@]}"
+  echo "**Mac mini health:** **FAIL** — ${now}"
+  print_items '✗' "${fails[@]}"
+  print_items '⚠' "${warns[@]}"
+  print_items '✓' "${oks[@]}"
 fi
 
 # Cron delivery should succeed even when the health report says FAIL.
