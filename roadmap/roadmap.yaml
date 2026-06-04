@@ -1,0 +1,426 @@
+schema_version: 1
+name: Ned End-to-End Roadmap
+description: >-
+  Canonical structured roadmap for Ned: every known major roadmap item,
+  including completed, active, planned, deferred, and conditional work.
+editing_rules:
+  source_of_truth: roadmap/roadmap.yaml
+  reorder_by: Change the numeric order field. Keep stable ids unchanged.
+  generated_files:
+    - roadmap/roadmap.json
+    - roadmap/roadmap.csv
+    - roadmap/roadmap.md
+    - roadmap/index.html
+statuses:
+  done: Completed and kept for historical continuity.
+  active: In progress or currently operational.
+  next: Recommended near-term work.
+  planned: Accepted roadmap item, not next.
+  deferred: Intentionally postponed.
+  conditional: Only do if trigger criteria are met.
+tracks:
+  ai-agents: AI / Agents
+  smart-home: Home Assistant / Smart Home
+  infrastructure: Infrastructure / Mac mini / Network
+  knowledge: Knowledge / Obsidian / Docs
+  friend-hermes: Friend Hermes / Hosted Agents
+  local-sovereignty: Local Models / Sovereignty
+  future-expansion: Future Expansion
+items:
+  - id: agent-foundation
+    order: 10
+    track: ai-agents
+    phase: 1
+    status: done
+    title: Agent Foundation
+    summary: Hermes running on the Mac mini with GPT-5.5/OpenAI path and Telegram access.
+    rationale: Establishes the always-on Ned operator and messaging interface.
+    completed_at: 2026-05-29
+    next_action: Keep stable; monitor with health checks and update-readiness reports.
+    sources:
+      - memory/project_homelab_roadmap.md
+      - memory/session-log.md
+    tags: [hermes, telegram, foundation]
+
+  - id: mac-mini-substrate
+    order: 20
+    track: infrastructure
+    phase: 2
+    status: done
+    title: Home Lab Substrate
+    summary: Mac mini, SSH, Homebrew, Tailscale, Docker Desktop, UTM/HAOS, Ollama, and Ned repo baseline.
+    rationale: Gives Ned a persistent real-world sandbox and host environment.
+    completed_at: 2026-05-29
+    next_action: Keep boot/reboot assumptions documented as services evolve.
+    sources:
+      - memory/project_homelab_roadmap.md
+      - memory/session-log.md
+      - references/home_server_handoff.md
+    tags: [mac-mini, substrate, tailscale, docker, utm]
+
+  - id: mac-mini-reboot-baseline
+    order: 30
+    track: infrastructure
+    phase: 3
+    status: done
+    title: Mac mini reboot/service baseline
+    summary: Verified Hermes gateway, Tailscale, and Ollama auto-start; Docker Desktop and HAOS/UTM boot behavior documented.
+    rationale: Stabilize before adding more services.
+    completed_at: 2026-05-29
+    next_action: Revisit after Hermes updates, Docker changes, or UTM network changes.
+    sources:
+      - plans/mac-mini-ops-baseline.md
+      - memory/session-log.md
+    tags: [ops, reboot, reliability]
+
+  - id: ha-entity-map
+    order: 40
+    track: smart-home
+    phase: 3
+    status: done
+    title: Home Assistant entity map
+    summary: Room/device map generated, curated, and cross-checked against live HA MCP state.
+    rationale: Agents need clean names and exact entities before safe control.
+    completed_at: 2026-05-29
+    next_action: Update when new HA devices/entities are added or renamed.
+    sources:
+      - references/home-assistant-entity-map.md
+      - memory/session-log.md
+    tags: [home-assistant, entity-map]
+
+  - id: ha-mcp-read-access
+    order: 50
+    track: smart-home
+    phase: 3
+    status: done
+    title: Home Assistant MCP read access
+    summary: Official HA MCP Server connected to Hermes via native HTTP; read-only validation passed.
+    rationale: Live smart-home state is Ned's first practical MCP integration.
+    completed_at: 2026-05-29
+    next_action: Keep read access broad but interpret through curated entity map.
+    sources:
+      - plans/home-assistant-mcp-roadmap.md
+      - references/ha-mcp-setup.md
+      - memory/session-log.md
+    tags: [mcp, home-assistant]
+
+  - id: ha-safe-light-control
+    order: 60
+    track: smart-home
+    phase: 3
+    status: active
+    title: Approval-gated safe light control
+    summary: Light writes have been tested, but routine control should use exact light entities or allowlisted scripts.
+    rationale: Visible low-risk controls are useful, but broad Assist targeting can affect nearby lights.
+    completed_at: null
+    next_action: Prefer deterministic scripts/entities for daily light actions; keep Sonos/TV/HVAC/security off-limits.
+    dependencies: [ha-mcp-read-access, ha-entity-map]
+    sources:
+      - plans/home-assistant-mcp-roadmap.md
+      - memory/session-log.md
+    tags: [home-assistant, lights, safety]
+
+  - id: ha-usability-pass
+    order: 70
+    track: smart-home
+    phase: 3
+    status: active
+    title: Home Assistant human usability pass
+    summary: Make HA useful for Neima day-to-day with Companion App, phone dashboard, scenes, and practical automations.
+    rationale: HA must beat Google Home / Apple Home for common workflows, not just serve as an agent backend.
+    completed_at: null
+    next_action: Continue dashboard v2, source-app inventory, and tested scripts/scenes.
+    dependencies: [ha-entity-map, ha-safe-light-control]
+    sources:
+      - plans/home-assistant-usability-pass.md
+      - references/home-assistant-automation-inventory.md
+      - memory/project_homelab_roadmap.md
+    tags: [home-assistant, dashboard, scenes, automations]
+
+  - id: neima-home-dashboard
+    order: 80
+    track: smart-home
+    phase: 3
+    status: active
+    title: Neima Home dashboard
+    summary: HA dashboard created at /neima-home/home with room cards and Family Room script buttons.
+    rationale: Phone-first dashboard is the first human-facing proof that HA is useful.
+    completed_at: null
+    next_action: Refine card order, top quick actions, and remove rarely used/noisy entities.
+    dependencies: [ha-usability-pass]
+    sources:
+      - plans/home-assistant-usability-pass.md
+    tags: [dashboard, home-assistant, phone]
+
+  - id: daily-mac-mini-health-brief
+    order: 90
+    track: infrastructure
+    phase: 3
+    status: active
+    title: Daily Mac mini homelab health brief
+    summary: Script-only Hermes cron sends daily Mac mini/Ned health report to Neima's Telegram DM at 8:00 AM.
+    rationale: Keeps the always-on substrate visible and catches failures without hiding useful FAIL reports.
+    completed_at: 2026-06-04
+    next_action: Debug Home Assistant reachability separately when it fails in reports.
+    sources:
+      - scripts/mac-mini-health-check.sh
+      - memory/session-log.md
+    tags: [cron, monitoring, mac-mini]
+
+  - id: hermes-update-readiness
+    order: 100
+    track: infrastructure
+    phase: 3
+    status: active
+    title: Weekly Hermes update readiness check
+    summary: Weekly non-mutating cron checks Hermes version, config, doctor, skills, and git ahead/behind state.
+    rationale: Hermes moves fast; automatic visibility is safer than unattended updates.
+    completed_at: 2026-06-04
+    next_action: Review Monday reports and run manual Hermes update when appropriate.
+    sources:
+      - ~/.hermes/scripts/hermes-update-check.py
+    tags: [cron, hermes, updates]
+
+  - id: custom-ned-mcp-server
+    order: 110
+    track: ai-agents
+    phase: 3
+    status: next
+    title: Custom Ned MCP server
+    summary: Build a project/homelab status MCP server for Ned memory, roadmap, and infrastructure state.
+    rationale: Moves Ned from generic file access toward a stable project-status interface.
+    completed_at: null
+    next_action: Define first tools such as get_homelab_status, read_ned_memory, and roadmap query.
+    dependencies: [ha-mcp-read-access, daily-mac-mini-health-brief]
+    sources:
+      - memory/project_homelab_roadmap.md
+    tags: [mcp, ned, project-status]
+
+  - id: roadmap-dashboard
+    order: 120
+    track: knowledge
+    phase: 3
+    status: active
+    title: Interactive end-to-end roadmap dashboard
+    summary: Structured roadmap data plus generated CSV, Markdown, JSON, and local HTML dashboard for viewing/reordering Ned work.
+    rationale: Gives Neima an end-to-end view of everything ever on the roadmap and a simple way to change order of operations.
+    completed_at: null
+    next_action: Use roadmap/roadmap.yaml order fields or dashboard export to reprioritize.
+    dependencies: [agent-foundation]
+    sources:
+      - roadmap/roadmap.yaml
+      - roadmap/index.html
+    tags: [roadmap, dashboard, planning]
+
+  - id: obsidian-knowledge-layer
+    order: 130
+    track: knowledge
+    phase: 5
+    status: planned
+    title: Obsidian knowledge layer
+    summary: Human-facing Ned vault for curated notes, decisions, runbooks, research synthesis, and memory-palace navigation.
+    rationale: Obsidian is the readable knowledge layer; the Ned Git repo remains canonical operational truth.
+    completed_at: null
+    next_action: Design vault folders and constrained agent write areas before enabling write access.
+    dependencies: [roadmap-dashboard]
+    sources:
+      - memory/project_homelab_roadmap.md
+      - memory/session-log.md
+    tags: [obsidian, knowledge, docs]
+
+  - id: hybrid-ai-provider-lane
+    order: 140
+    track: ai-agents
+    phase: 3
+    status: active
+    title: Hybrid AI provider lane
+    summary: OpenAI/ChatGPT remains primary Ned operator; Claude is second-brain/reviewer; Grok/xAI tracked as contingency; local models are supporting workers.
+    rationale: Keep quality and reliability high while preserving fallback options and local-learning paths.
+    completed_at: null
+    next_action: Document routing rules as actual operational patterns emerge.
+    sources:
+      - memory/project_homelab_roadmap.md
+      - memory/session-log.md
+    tags: [openai, claude, grok, ollama, routing]
+
+  - id: claude-second-brain-lane
+    order: 150
+    track: ai-agents
+    phase: 5
+    status: planned
+    title: Claude second-brain review lane
+    summary: Use Claude deliberately for planning, architecture, long-context docs, code review, and careful second opinions.
+    rationale: Separates always-on operation from deeper reflective review.
+    completed_at: null
+    next_action: Define handoff templates and when Hermes should ask Claude/Claude Code for review.
+    dependencies: [hybrid-ai-provider-lane]
+    sources:
+      - memory/project_homelab_roadmap.md
+    tags: [claude, review, planning]
+
+  - id: local-simple-task-workers
+    order: 160
+    track: local-sovereignty
+    phase: 5
+    status: planned
+    title: Local simple-task workers
+    summary: Use Ollama/llama.cpp workers for simple, fast, private, or offline tasks rather than replacing the cloud chief-of-staff model.
+    rationale: Builds local competence without sacrificing primary agent quality.
+    completed_at: null
+    next_action: Identify first low-risk local tasks such as log triage or structured extraction.
+    dependencies: [hybrid-ai-provider-lane]
+    sources:
+      - memory/project_homelab_roadmap.md
+    tags: [ollama, llama-cpp, local-models]
+
+  - id: friend-hermes-docker-pilot
+    order: 170
+    track: friend-hermes
+    phase: 5
+    status: active
+    title: Docker-isolated friend Hermes pilot
+    summary: Pilot a separate Hermes container for Ray with isolated Hermes home, workspace, Telegram bot, OpenAI OAuth, and OneDrive file handoff.
+    rationale: Tests safe multi-agent hosting without buying new hardware.
+    completed_at: null
+    next_action: Keep Ray isolated and document operational lessons before adding more friends.
+    dependencies: [mac-mini-substrate]
+    sources:
+      - plans/friend-hermes-docker-roadmap.md
+      - references/ray-hermes-agent-setup.md
+    tags: [docker, ray, isolation, friend-hermes]
+
+  - id: ray-hermes-health-monitor
+    order: 180
+    track: friend-hermes
+    phase: 5
+    status: active
+    title: Daily Ray Hermes health monitor
+    summary: Script-only cron checks Ray Hermes container, gateway, pairing, mounts, resource usage, logs, compose dir, and OneDrive Dropbox.
+    rationale: Hosted agents need deterministic monitoring independent of Ned's own health brief.
+    completed_at: 2026-06-04
+    next_action: Watch daily 8:10 AM DM report and refine checks as Ray's usage changes.
+    dependencies: [friend-hermes-docker-pilot]
+    sources:
+      - references/ray-hermes-agent-setup.md
+      - ~/.hermes/scripts/ray-hermes-health-brief.sh
+    tags: [cron, ray, monitoring]
+
+  - id: friend-hermes-template
+    order: 190
+    track: friend-hermes
+    phase: 5
+    status: planned
+    title: Friend Hermes template / repeatable onboarding
+    summary: Turn Ray's one-off setup into a reusable template for future isolated friend Hermes instances.
+    rationale: Avoid bespoke fragile setup if another friend pilot is approved.
+    completed_at: null
+    next_action: Generalize compose files, README, onboarding checklist, and security verification.
+    dependencies: [friend-hermes-docker-pilot, ray-hermes-health-monitor]
+    sources:
+      - plans/friend-hermes-docker-roadmap.md
+    tags: [docker, template, onboarding]
+
+  - id: home-assistant-automation-migration
+    order: 200
+    track: smart-home
+    phase: 4
+    status: planned
+    title: Smart-home automation migration
+    summary: Inventory and selectively migrate Google Home, Apple Home, Hue, and Lutron routines into Home Assistant after testing replacements.
+    rationale: HA becomes the control plane only when duplicate source-app routines are understood and safely replaced.
+    completed_at: null
+    next_action: Finish automation inventory and choose first schedule/scene to migrate.
+    dependencies: [ha-usability-pass, neima-home-dashboard]
+    sources:
+      - references/home-assistant-automation-inventory.md
+      - plans/home-assistant-usability-pass.md
+    tags: [automations, smart-home, migration]
+
+  - id: home-assistant-boot-reliability
+    order: 210
+    track: infrastructure
+    phase: 4
+    status: planned
+    title: Home Assistant boot/reachability reliability
+    summary: Make HAOS/UTM startup and homeassistant.local / 192.168.68.68 reachability reliable after reboots and bridge changes.
+    rationale: HA usefulness and MCP depend on HA being reachable, but this is separate from MCP capability.
+    completed_at: null
+    next_action: Debug current HA reachability when Neima wants; verify UTM bridge targets en9.
+    dependencies: [mac-mini-reboot-baseline]
+    sources:
+      - memory/session-log.md
+      - memory/project_homelab_roadmap.md
+    tags: [home-assistant, utm, network]
+
+  - id: local-intelligence-layer
+    order: 220
+    track: local-sovereignty
+    phase: 4
+    status: planned
+    title: Local intelligence layer
+    summary: Expand local inference/automation capacity after Phase 3 foundation, scoped to proven useful tasks.
+    rationale: Local intelligence supports privacy/offline/latency goals without prematurely replacing cloud models.
+    completed_at: null
+    next_action: Revisit after HA usability and custom Ned MCP server are stable.
+    dependencies: [custom-ned-mcp-server, local-simple-task-workers]
+    sources:
+      - memory/project_homelab_roadmap.md
+    tags: [local-ai, ollama, inference]
+
+  - id: camera-frigate-nvr
+    order: 230
+    track: future-expansion
+    phase: 4
+    status: deferred
+    title: Camera / Frigate / NVR path
+    summary: Local camera/NVR work is intentionally postponed; Nest cameras/thermostats remain deferred for now.
+    rationale: Camera/NVR migration is a rabbit hole and does not teach the core agent loop as directly as HA+MCP.
+    completed_at: null
+    next_action: Do not plan storage or GPU around cameras until Neima explicitly reopens this project.
+    sources:
+      - memory/project_homelab_roadmap.md
+    tags: [cameras, frigate, nvr, deferred]
+
+  - id: gpu-stack
+    order: 240
+    track: future-expansion
+    phase: 6
+    status: conditional
+    title: GPU stack
+    summary: GPU/NVR/local-heavy stack only triggers if there is a full Nest-to-Reolink/local-camera migration or proven local inference need.
+    rationale: Avoid buying hardware before the operational need is real.
+    completed_at: null
+    next_action: Keep conditional; do not buy/build until trigger criteria are met.
+    dependencies: [camera-frigate-nvr]
+    sources:
+      - memory/project_homelab_roadmap.md
+    tags: [gpu, conditional, hardware]
+
+  - id: nextcloud-personal-storage
+    order: 250
+    track: infrastructure
+    phase: 4
+    status: planned
+    title: Samsung T9 personal storage / future Nextcloud lane
+    summary: Use the Samsung T9 external SSD as Mac mini NAS-style storage, agent workspace, and possible future Nextcloud data drive.
+    rationale: Near-term storage should support personal files and agents, not deferred NVR/camera storage.
+    completed_at: null
+    next_action: Define mount/backup conventions before installing persistent services on it.
+    sources:
+      - memory/project_homelab_roadmap.md
+    tags: [storage, samsung-t9, nextcloud]
+
+  - id: ai-mastery-sovereignty
+    order: 260
+    track: local-sovereignty
+    phase: 7
+    status: planned
+    title: Mastery + sovereignty
+    summary: Long-term hybrid cloud/local stack with fully local components where quality, context, latency, and reliability make sense.
+    rationale: AI mastery is the primary goal; sovereignty grows from proven workflows, not ideology.
+    completed_at: null
+    next_action: Accumulate lessons from MCP, cron, friend Hermes, local workers, and HA automation work.
+    dependencies: [hybrid-ai-provider-lane, local-intelligence-layer]
+    sources:
+      - memory/project_homelab_roadmap.md
+    tags: [ai-mastery, sovereignty, long-term]

@@ -23,3 +23,4 @@
 [2026-06-01] [project] Home Assistant usability pass started: first mobile dashboard/scene plan and Google/Hue/Lutron inventory template created in Ned repo.
 [2026-06-01] [project] Smart home inventory captured: Apple Home Evening/Movie, Google Home 11 PM All Lights Off, Hue Morning/Evening Lamps, and Lutron outdoor schedules; first HA migration target is Evening then Movie.
 [2026-06-04] [project] Roadmap updated: add Obsidian as Ned's human-facing knowledge layer for curated notes, decisions, runbooks, and research synthesis while keeping the ned Git repo as canonical agent source of truth.
+[2026-06-04] [project] Roadmap dashboard added: `roadmap/roadmap.yaml` is now the canonical structured end-to-end roadmap; generated views live at `roadmap/index.html`, `roadmap/roadmap.csv`, `roadmap/roadmap.md`, and `roadmap/roadmap.json`. Reorder roadmap work by changing item `order` values and regenerating with `python3 scripts/generate-roadmap.py`.
