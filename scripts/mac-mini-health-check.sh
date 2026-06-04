@@ -3,7 +3,8 @@ set -u
 
 # Mac mini homelab health check.
 # Designed for both manual runs and Hermes cron no_agent delivery.
-# Prints a concise status brief and exits non-zero if any hard failure is found.
+# Prints a concise status brief. Exit 0 so Hermes cron delivers the report even
+# when a monitored service is failing; the message body carries FAIL/WARN state.
 
 HOST="Neimas-Mac-mini.local"
 CANONICAL_IP="192.168.68.85"
@@ -173,4 +174,7 @@ else
   printf '✓ %s\n' "${oks[@]}"
 fi
 
-(( ${#fails[@]} == 0 ))
+# Cron delivery should succeed even when the health report says FAIL.
+# A non-zero exit makes Hermes treat the job itself as broken, which can hide
+# the useful stdout behind an error path.
+exit 0
