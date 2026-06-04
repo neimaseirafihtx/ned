@@ -168,6 +168,50 @@ Platform     User ID              Name
 telegram     8614345033           Ray Fitzgerald
 ```
 
+## Tailscale / Hermes Desktop Remote Access
+
+Ray's Docker-isolated Hermes agent can also be accessed by Hermes Desktop over the Mac mini's Tailscale IP via the Hermes API server.
+
+Current non-secret connection details:
+
+```text
+Remote URL: http://100.106.154.18:8643
+Model name: ray-hermes
+Container port: 8642
+Host bind: 100.106.154.18:8643 -> 8642/tcp
+```
+
+Security posture:
+
+- The Docker port is bound only to the Mac mini's Tailscale IP, not `0.0.0.0` on the LAN or public internet.
+- Ray must be connected to the Tailscale tailnet / have access to the Mac mini.
+- `API_SERVER_KEY` is required and stored only in Ray's isolated `.env`; do not commit or print it.
+- A one-off connection-instructions file with the token may be placed in Ray's OneDrive outbox when Ray needs to configure Desktop; treat it as a credential.
+
+Host-side compose config includes an `env_file` pointing at Ray's isolated Hermes `.env` and a port mapping for the Tailscale-only API server.
+
+Ray `.env` API-server variables:
+
+```text
+API_SERVER_ENABLED=true
+API_SERVER_HOST=0.0.0.0
+API_SERVER_PORT=8642
+API_SERVER_MODEL_NAME=ray-hermes
+API_SERVER_KEY=[REDACTED]
+```
+
+Verification commands:
+
+```bash
+curl http://100.106.154.18:8643/health
+# Expected: {"status":"ok","platform":"hermes-agent"}
+
+# Use API_SERVER_KEY from Ray's .env, without printing it:
+curl http://100.106.154.18:8643/v1/models \
+  -H "Authorization: Bearer $API_SERVER_KEY"
+# Expected model id: ray-hermes
+```
+
 ## Verified Telegram Functionality
 
 Ray tested Telegram by asking whether the agent could see `/shared` and `/workspace`.
