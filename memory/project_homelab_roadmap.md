@@ -19,7 +19,7 @@ Two tracks run in parallel:
 |-------|------|--------|
 | 1 | Agent Foundation | ✅ COMPLETE — Hermes + GPT-5.5 on Mac Mini, Telegram connected |
 | 3 | Connected Agents + MCP | ▶️ ACTIVE — HA MCP read/live-state working; custom Ned MCP server + health cron are next |
-| 5 | Multi-Agent & Autonomous Systems | 📋 Delegation, cron agents, skills library, Claude second-brain review lane, local simple-task workers, Docker-isolated friend Hermes pilot |
+| 5 | Multi-Agent & Autonomous Systems | 📋 Delegation, cron agents, skills library, Obsidian human-facing knowledge layer, Claude second-brain review lane, local simple-task workers, Docker-isolated friend Hermes pilot |
 | 7 | Mastery + Sovereignty | 📋 Hybrid cloud/local stack first; fully local stack only where quality and latency make sense |
 
 **Phase 3 detail (current focus):**
@@ -53,6 +53,7 @@ Two tracks run in parallel:
   - Claude is used as a second-brain/reviewer for planning, architecture, code review, and docs
   - Grok/xAI OAuth is tracked as a possible additional cloud contingency once stable in Hermes
   - local models are scoped to simple, fast, private, or offline tasks
+- Planned: Obsidian knowledge layer for Ned — a human-facing vault for roadmaps, architecture notes, runbooks, research notes, and decision history; keep the `ned` Git repo as the canonical operational source of truth for agent coordination.
 - Planned: Docker-hosted friend Hermes pilot documented in `plans/friend-hermes-docker-roadmap.md`; start with one container on the Mac Mini, using the friend's own OpenAI OAuth and strict isolation boundaries.
 
 ---
@@ -112,6 +113,10 @@ Two tracks run in parallel:
   - define first practical automations/notifications that Google Home / Apple Home do not already solve well
   - first planning docs created: `plans/home-assistant-usability-pass.md` and `references/home-assistant-automation-inventory.md`
 - Save lessons as Hermes skill
+- Add Obsidian as Ned's curated knowledge layer:
+  - use it for human-facing notes, architecture decisions, runbooks, and research synthesis
+  - keep `ned` repo/GitHub as the source of operational truth for agent plans and shared project state
+  - start with read/search access plus constrained write folders such as `Ned/Inbox/`, `Ned/Plans/`, `Ned/Runbooks/`, and `Ned/Home Infrastructure/`
 
 ---
 
@@ -121,6 +126,7 @@ Two tracks run in parallel:
 - **Home Assistant must become useful, not ornamental** — prioritize automations, scenes, dashboards, and the phone app before adding more integrations; migrate/inventory existing Google Home, Lutron, and Hue automations so HA becomes the control plane instead of another parallel app; if it is worse than Google Home / Apple Home for daily use, the stack is not done
 - **MCP is foundational** — invest in understanding it deeply, build custom servers
 - **ned is the canonical project brain** — both Claude Code and Hermes read/write it via GitHub
+- **Obsidian is the human-facing Ned knowledge layer** — use it for curated notes, decision history, runbooks, and research synthesis, but do not let it replace the `ned` Git repo as the canonical agent coordination/source-of-truth layer
 - **Stabilize before expanding** — reboot test before adding new services
 - **No cameras/Frigate yet** — rabbit hole, doesn't teach the core agent loop as directly as HA+MCP
 - **No GPU stack yet** — only triggered by full Nest→Reolink migration

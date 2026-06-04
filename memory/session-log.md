@@ -22,3 +22,4 @@
 [2026-06-01] [project] First daily Hermes health brief cron created for Ned Telegram group using repo script scripts/mac-mini-health-check.sh.
 [2026-06-01] [project] Home Assistant usability pass started: first mobile dashboard/scene plan and Google/Hue/Lutron inventory template created in Ned repo.
 [2026-06-01] [project] Smart home inventory captured: Apple Home Evening/Movie, Google Home 11 PM All Lights Off, Hue Morning/Evening Lamps, and Lutron outdoor schedules; first HA migration target is Evening then Movie.
+[2026-06-04] [project] Roadmap updated: add Obsidian as Ned's human-facing knowledge layer for curated notes, decisions, runbooks, and research synthesis while keeping the ned Git repo as canonical agent source of truth.
