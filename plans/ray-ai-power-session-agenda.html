@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ray × Neima AI Power Session Agenda</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f3ec;
+      --paper: #fffdf8;
+      --ink: #171512;
+      --muted: #6f6658;
+      --soft: #ebe3d6;
+      --line: #d9ccbb;
+      --accent: #214e40;
+      --accent-2: #c0663f;
+      --accent-3: #395c91;
+      --gold: #b58935;
+      --good: #2f6f4f;
+      --shadow: 0 18px 50px rgba(38, 31, 21, 0.12);
+      --radius: 22px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(192, 102, 63, .16), transparent 28rem),
+        radial-gradient(circle at 84% 4%, rgba(57, 92, 145, .14), transparent 30rem),
+        linear-gradient(180deg, #fbf7ef 0%, var(--bg) 34%, #efe7da 100%);
+      line-height: 1.5;
+    }
+
+    a { color: inherit; }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 72px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding: 10px;
+      border: 1px solid rgba(33, 78, 64, .18);
+      background: rgba(255, 253, 248, .78);
+      backdrop-filter: blur(14px);
+      border-radius: 999px;
+      box-shadow: 0 8px 28px rgba(38, 31, 21, .08);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-left: 8px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      color: #fffaf0;
+      background: var(--accent);
+      border-radius: 12px;
+      font-family: var(--serif);
+      font-size: 20px;
+      box-shadow: inset 0 -8px 16px rgba(0,0,0,.14);
+    }
+
+    .nav {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a,
+    .print-button {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .nav a:hover,
+    .print-button:hover {
+      color: var(--accent);
+      border-color: rgba(33, 78, 64, .18);
+      background: #fffaf0;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(33, 78, 64, .16);
+      border-radius: 34px;
+      padding: clamp(28px, 6vw, 70px);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.68), rgba(255,253,248,.92)),
+        radial-gradient(circle at 82% 18%, rgba(181, 137, 53, .2), transparent 18rem),
+        var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -100px;
+      bottom: -140px;
+      width: 360px;
+      height: 360px;
+      border: 1px solid rgba(33, 78, 64, .16);
+      border-radius: 50%;
+      background: repeating-linear-gradient(45deg, rgba(33,78,64,.08) 0 1px, transparent 1px 12px);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #efe7da;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 { line-height: 1.05; letter-spacing: -.045em; }
+
+    h1 {
+      max-width: 920px;
+      margin: 0;
+      font-size: clamp(44px, 8vw, 92px);
+      font-family: var(--serif);
+      font-weight: 760;
+    }
+
+    .hero p {
+      max-width: 780px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: clamp(18px, 2.4vw, 24px);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 20px;
+      margin-top: 34px;
+      align-items: stretch;
+    }
+
+    .principle {
+      padding: 24px;
+      border-radius: var(--radius);
+      background: var(--accent);
+      color: #fffaf0;
+      box-shadow: inset 0 -20px 40px rgba(0,0,0,.12);
+    }
+
+    .principle .label,
+    .stat .label,
+    .card .label,
+    .track .label {
+      margin-bottom: 8px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      opacity: .75;
+    }
+
+    .principle strong {
+      display: block;
+      max-width: 760px;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.08;
+      letter-spacing: -.035em;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 20px;
+      background: #fffaf0;
+      border: 1px solid var(--line);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      letter-spacing: -.04em;
+      color: var(--accent);
+    }
+
+    section { margin-top: 28px; }
+
+    .section-head {
+      display: flex;
+      gap: 18px;
+      align-items: end;
+      justify-content: space-between;
+      margin: 0 0 14px;
+      padding: 0 4px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 52px);
+      font-family: var(--serif);
+      font-weight: 760;
+    }
+
+    .section-head p {
+      max-width: 560px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card,
+    .timeline,
+    .menu,
+    .prompt-bank,
+    .checklist,
+    .finish {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,253,248,.86);
+      box-shadow: 0 12px 34px rgba(38, 31, 21, .07);
+    }
+
+    .card { padding: 22px; }
+    .card h3 { margin: 0 0 10px; font-size: 24px; }
+    .card p { margin: 0; color: var(--muted); }
+
+    .tracks {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .track {
+      padding: 22px;
+      border-radius: var(--radius);
+      color: #fffaf0;
+      min-height: 185px;
+    }
+    .track:nth-child(1) { background: var(--accent); }
+    .track:nth-child(2) { background: var(--accent-3); }
+    .track:nth-child(3) { background: var(--accent-2); }
+    .track h3 { margin: 0 0 10px; font-size: 28px; }
+    .track p { margin: 0; opacity: .9; }
+
+    .timeline { overflow: hidden; }
+
+    .day {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      border-top: 1px solid var(--line);
+    }
+    .day:first-child { border-top: 0; }
+
+    .day-title {
+      padding: 26px;
+      background: #f3eadf;
+      border-right: 1px solid var(--line);
+    }
+
+    .day-title small {
+      display: block;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .day-title strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 26px;
+      line-height: 1;
+      letter-spacing: -.035em;
+    }
+
+    .sessions { padding: 18px; }
+
+    .session {
+      display: grid;
+      grid-template-columns: 122px 1fr;
+      gap: 16px;
+      padding: 16px 0;
+      border-top: 1px dashed rgba(111,102,88,.28);
+    }
+    .session:first-child { border-top: 0; }
+
+    .time {
+      font-family: var(--mono);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .session h3 { margin: 0 0 6px; font-size: 22px; }
+    .session p { margin: 0; color: var(--muted); }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border: 1px solid rgba(33, 78, 64, .16);
+      border-radius: 999px;
+      background: #fffaf0;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .menu { padding: 22px; }
+
+    .build-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .build {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 14px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fffaf0;
+    }
+
+    .rank {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: var(--accent);
+      color: #fffaf0;
+      font-family: var(--mono);
+      font-weight: 900;
+    }
+
+    .build h3 { margin: 0 0 6px; font-size: 22px; }
+    .build p { margin: 0; color: var(--muted); }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 16px;
+    }
+
+    .checklist,
+    .prompt-bank,
+    .finish { padding: 24px; }
+
+    ul.clean {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0 0;
+    }
+
+    ul.clean li {
+      position: relative;
+      padding: 12px 0 12px 34px;
+      border-top: 1px dashed rgba(111,102,88,.25);
+      color: var(--muted);
+    }
+    ul.clean li:first-child { border-top: 0; }
+    ul.clean li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 17px;
+      width: 16px;
+      height: 16px;
+      border-radius: 5px;
+      border: 2px solid var(--accent);
+      background: #fffaf0;
+    }
+
+    .prompt {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 16px;
+      background: #171512;
+      color: #fffaf0;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+    }
+
+    .finish {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      background: var(--accent);
+      color: #fffaf0;
+      border-color: rgba(255,255,255,.16);
+    }
+
+    .finish h2 { color: #fffaf0; }
+    .finish p, .finish li { color: rgba(255,250,240,.86); }
+    .finish ul.clean li {
+      color: rgba(255,250,240,.86);
+      border-top-color: rgba(255,255,255,.16);
+    }
+    .finish ul.clean li::before { border-color: #fffaf0; background: transparent; }
+
+    .folder {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,250,240,.12);
+      border: 1px solid rgba(255,250,240,.18);
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    footer {
+      margin-top: 28px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 880px) {
+      .topbar { align-items: flex-start; border-radius: 24px; flex-direction: column; }
+      .nav { justify-content: flex-start; }
+      .hero-grid, .tracks, .cards, .build-grid, .two-col, .finish { grid-template-columns: 1fr; }
+      .day { grid-template-columns: 1fr; }
+      .day-title { border-right: 0; border-bottom: 1px solid var(--line); }
+      .session { grid-template-columns: 1fr; gap: 4px; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .page { width: 100%; padding: 0; }
+      .topbar { display: none; }
+      .hero, .card, .timeline, .menu, .prompt-bank, .checklist, .finish {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+      .hero { border-radius: 0; }
+      section { break-inside: avoid; }
+      .finish { background: #fff; color: var(--ink); }
+      .finish h2 { color: var(--ink); }
+      .finish p, .finish li { color: var(--muted); }
+      .folder { background: #f5f5f5; color: var(--ink); }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="topbar" aria-label="Agenda navigation">
+      <div class="brand"><span class="mark">N</span> Ray × Neima AI Power Session</div>
+      <div class="nav">
+        <a href="#tracks">Tracks</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#builds">Builds</a>
+        <a href="#prep">Prep</a>
+        <a href="#handoff">Handoff</a>
+        <button class="print-button" onclick="window.print()">Print / PDF</button>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="eyebrow">2 days · learn by building · practical AI</div>
+      <h1>An AI weekend that produces working life systems, not just cool demos.</h1>
+      <p>Use Ned and Ray’s isolated Hermes agent side-by-side to learn how agents think, how to give them context, and how to turn messy life inputs into reusable workflows.</p>
+      <div class="hero-grid">
+        <div class="principle">
+          <div class="label">Guiding principle</div>
+          <strong>Do not make AI impressive. Make it useful, understandable, and repeatable.</strong>
+        </div>
+        <div class="stats" aria-label="Session targets">
+          <div class="stat"><div class="label">Useful builds</div><strong>2–4</strong></div>
+          <div class="stat"><div class="label">Learning weight</div><strong>50%</strong></div>
+          <div class="stat"><div class="label">Life value</div><strong>35%</strong></div>
+          <div class="stat"><div class="label">Fun demos</div><strong>15%</strong></div>
+        </div>
+      </div>
+    </header>
+
+    <section id="tracks">
+      <div class="section-head">
+        <h2>The three tracks</h2>
+        <p>Everything during the weekend should map to one of these. If an activity does not teach, improve life, or build confidence, cut it.</p>
+      </div>
+      <div class="tracks">
+        <article class="track">
+          <div class="label">Track 1</div>
+          <h3>Life upgrades</h3>
+          <p>Build small systems that reduce friction: weekly planning, inbox processing, learning plans, reusable prompts.</p>
+        </article>
+        <article class="track">
+          <div class="label">Track 2</div>
+          <h3>AI literacy</h3>
+          <p>Learn context, memory, files, tools, verification, hallucination control, agent boundaries, and approval workflows.</p>
+        </article>
+        <article class="track">
+          <div class="label">Track 3</div>
+          <h3>Build confidence</h3>
+          <p>Ray leaves knowing how to ask better questions, critique output, run his agent, and keep improving after the visit.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Success looks like this</h2>
+        <p>A clear finish line keeps the session from becoming random AI tinkering.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="label">Outcome 1</div>
+          <h3>Ray Life OS</h3>
+          <p>A simple markdown command center for Ray’s goals, projects, routines, prompts, and open loops.</p>
+        </article>
+        <article class="card">
+          <div class="label">Outcome 2</div>
+          <h3>Inbox workflow</h3>
+          <p>Ray can drop messy notes into an inbox and have his agent draft summaries, tasks, questions, and updates.</p>
+        </article>
+        <article class="card">
+          <div class="label">Outcome 3</div>
+          <h3>30-day learning path</h3>
+          <p>A realistic daily AI practice plan with exercises Ray can actually keep doing after the trip.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="schedule">
+      <div class="section-head">
+        <h2>Digestible agenda</h2>
+        <p>Keep timeboxes flexible. The priority is finishing working artifacts and understanding the patterns behind them.</p>
+      </div>
+      <div class="timeline">
+        <div class="day">
+          <div class="day-title"><small>Night before</small><strong>Setup + project choice</strong></div>
+          <div class="sessions">
+            <div class="session">
+              <div class="time">30–45 min</div>
+              <div>
+                <h3>Make sure the tools work</h3>
+                <p>Verify Ray can message his Hermes bot, read/write through the OneDrive shared folder, and bring 3 annoyances + 3 learning goals.</p>
+                <div class="tags"><span class="tag">low friction</span><span class="tag">avoid setup hell</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day">
+          <div class="day-title"><small>Day 1 morning</small><strong>Foundation</strong></div>
+          <div class="sessions">
+            <div class="session">
+              <div class="time">9:30–10:15</div>
+              <div>
+                <h3>Kickoff: AI is a workflow layer</h3>
+                <p>Chatbot vs agent, context windows, files as memory, tools, verification, and why boundaries matter.</p>
+                <div class="tags"><span class="tag">mental model</span><span class="tag">agent basics</span></div>
+              </div>
+            </div>
+            <div class="session">
+              <div class="time">10:15–11:30</div>
+              <div>
+                <h3>Ned + Ray-Hermes tour</h3>
+                <p>Show the personal AI coach pattern, isolated friend-agent setup, file handoff workflow, and why stable context beats clever prompting.</p>
+                <div class="tags"><span class="tag">systems thinking</span><span class="tag">security</span></div>
+              </div>
+            </div>
+            <div class="session">
+              <div class="time">11:30–12:30</div>
+              <div>
+                <h3>Build 1: Ray Life OS</h3>
+                <p>Create a simple personal command center with profile, goals, projects, routines, useful prompts, and inbox files.</p>
+                <div class="tags"><span class="tag">working artifact</span><span class="tag">markdown memory</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day">
+          <div class="day-title"><small>Day 1 afternoon</small><strong>First useful systems</strong></div>
+          <div class="sessions">
+            <div class="session">
+              <div class="time">1:30–3:00</div>
+              <div>
+                <h3>Build 2: Weekly reset assistant</h3>
+                <p>Turn goals, errands, open loops, and energy constraints into a weekly plan with top priorities and recovery time.</p>
+                <div class="tags"><span class="tag">life admin</span><span class="tag">real value</span></div>
+              </div>
+            </div>
+            <div class="session">
+              <div class="time">3:00–4:00</div>
+              <div>
+                <h3>Prompt lab</h3>
+                <p>Transform a vague prompt into a reusable agent workflow using role, context, goal, constraints, output format, and verification.</p>
+                <div class="tags"><span class="tag">prompting</span><span class="tag">reusable template</span></div>
+              </div>
+            </div>
+            <div class="session">
+              <div class="time">4:00–6:00</div>
+              <div>
+                <h3>Build 3: AI learning roadmap</h3>
+                <p>Draft Ray’s 30-day plan and end with Day 1 notes, decisions, unfinished ideas, and a sharper Day 2 plan.</p>
+                <div class="tags"><span class="tag">learning path</span><span class="tag">recap</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day">
+          <div class="day-title"><small>Day 2 morning</small><strong>Workflow build</strong></div>
+          <div class="sessions">
+            <div class="session">
+              <div class="time">9:30–10:00</div>
+              <div>
+                <h3>Pick the main build</h3>
+                <p>Recommended: the AI inbox processor. It teaches files, approval, task extraction, and agent workflow design.</p>
+                <div class="tags"><span class="tag">focus</span><span class="tag">finishable</span></div>
+              </div>
+            </div>
+            <div class="session">
+              <div class="time">10:00–12:00</div>
+              <div>
+                <h3>Build 4: Life admin inbox processor</h3>
+                <p>Messy notes go into inbox. Agent drafts tasks, projects, decisions, questions, and clean output. Ray approves updates.</p>
+                <div class="tags"><span class="tag">core workflow</span><span class="tag">approval pattern</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day">
+          <div class="day-title"><small>Day 2 afternoon</small><strong>Practice + handoff</strong></div>
+          <div class="sessions">
+            <div class="session">
+              <div class="time">1:00–2:30</div>
+              <div>
+                <h3>Finalize the 30-day roadmap</h3>
+                <p>Week 1: using AI well. Week 2: files and workflows. Week 3: tools and automation. Week 4: build your own systems.</p>
+                <div class="tags"><span class="tag">curriculum</span><span class="tag">daily exercises</span></div>
+              </div>
+            </div>
+            <div class="session">
+              <div class="time">2:30–3:30</div>
+              <div>
+                <h3>Side-by-side agent challenge</h3>
+                <p>Give Ned and Ray-Hermes the same task. Compare clarity, usefulness, realism, specificity, personalization, and safety.</p>
+                <div class="tags"><span class="tag">evaluation</span><span class="tag">judgment</span></div>
+              </div>
+            </div>
+            <div class="session">
+              <div class="time">3:30–5:30</div>
+              <div>
+                <h3>Prompt library + final package</h3>
+                <p>Create reusable prompts, session summary, next actions, and a clean folder Ray can keep using.</p>
+                <div class="tags"><span class="tag">handoff</span><span class="tag">sustainability</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="builds">
+      <div class="section-head">
+        <h2>Build menu</h2>
+        <p>If the schedule slips, protect these. They produce the most learning and the most real-world value.</p>
+      </div>
+      <div class="menu">
+        <div class="build-grid">
+          <article class="build">
+            <div class="rank">01</div>
+            <div><h3>Ray Life OS</h3><p>Profile, goals, projects, routines, inbox, prompt library. Immediate value, low difficulty.</p></div>
+          </article>
+          <article class="build">
+            <div class="rank">02</div>
+            <div><h3>AI inbox processor</h3><p>Messy notes into summaries, tasks, questions, and proposed Life OS updates. Highest learning value.</p></div>
+          </article>
+          <article class="build">
+            <div class="rank">03</div>
+            <div><h3>30-day AI roadmap</h3><p>A practical curriculum with daily exercises, not generic reading links.</p></div>
+          </article>
+          <article class="build">
+            <div class="rank">04</div>
+            <div><h3>Useful prompt library</h3><p>Weekly planning, decisions, learning, summaries, messages, project breakdowns, and skeptical review.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="prep">
+      <div class="section-head">
+        <h2>Prep checklist + starter prompt</h2>
+        <p>Use this before Ray arrives so the weekend starts with momentum.</p>
+      </div>
+      <div class="two-col">
+        <article class="checklist">
+          <h3>Night-before checklist</h3>
+          <ul class="clean">
+            <li>Ray’s Telegram bot responds.</li>
+            <li>OneDrive shared folder works for inbox/outbox files.</li>
+            <li>Ray brings 3 annoyances, 3 things he wants to learn, and 3 AI-help wishes.</li>
+            <li>Pick one main Day 2 build: default to AI inbox processor.</li>
+            <li>Agree on the safety pattern: draft first, review, then update.</li>
+          </ul>
+        </article>
+        <article class="prompt-bank">
+          <h3>Opening interview prompt</h3>
+          <div class="prompt">Interview me for 10 minutes and identify the top 5 opportunities where AI could improve my life. Focus on practical workflows, not generic productivity advice. Ask one question at a time. At the end, recommend the first 2 systems we should build this weekend.</div>
+          <h3 style="margin-top:22px">Reusable workflow prompt</h3>
+          <div class="prompt">You are my practical AI workflow coach. Given this messy note, extract: 1) tasks, 2) projects, 3) decisions, 4) open questions, 5) suggested file updates. Draft first and ask for approval before changing my Life OS files.</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="handoff">
+      <div class="finish">
+        <div>
+          <h2>Final handoff package</h2>
+          <p>By the end, Ray should have a folder that makes the weekend continue after the weekend.</p>
+          <ul class="clean">
+            <li>Use the AI inbox once per day for 7 days.</li>
+            <li>Do the 30-minute AI learning exercise daily.</li>
+            <li>Run a weekly review every Sunday.</li>
+            <li>Bring one real-life problem to the agent each week.</li>
+            <li>Keep a “what worked / what failed” note.</li>
+          </ul>
+        </div>
+        <div class="folder" aria-label="Final folder structure">/shared/ray-ai-power-session/
+  session-summary.md
+  next-actions.md
+  useful-prompts.md
+  ray-30-day-ai-roadmap.md
+  ray-life-os/
+    profile.md
+    goals.md
+    projects.md
+    routines.md
+    weekly-review.md
+    decisions.md
+  inbox/
+  outbox/</div>
+      </div>
+    </section>
+
+    <footer>
+      Created by Ned for Neima and Ray · Updated 2026-06-04 · Open this file in a browser or use Print / PDF.
+    </footer>
+  </main>
+</body>
+</html>
