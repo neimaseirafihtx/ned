@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ray × Neima AI Power Session Agenda</title>
+  <title>Ray × Neima AI Power Session Agenda — Final Objectives Update</title>
   <style>
     :root {
       color-scheme: light;
@@ -17,6 +17,7 @@
       --accent-2: #c0663f;
       --accent-3: #395c91;
       --gold: #b58935;
+      --danger: #8f2f2b;
       --good: #2f6f4f;
       --shadow: 0 18px 50px rgba(38, 31, 21, 0.12);
       --radius: 22px;
@@ -26,9 +27,7 @@
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
-
     body {
       margin: 0;
       font-family: var(--sans);
@@ -39,88 +38,27 @@
         linear-gradient(180deg, #fbf7ef 0%, var(--bg) 34%, #efe7da 100%);
       line-height: 1.5;
     }
-
     a { color: inherit; }
-
-    .page {
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 28px 0 72px;
-    }
+    .page { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 72px; }
 
     .topbar {
-      position: sticky;
-      top: 12px;
-      z-index: 20;
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 24px;
-      padding: 10px;
+      position: sticky; top: 12px; z-index: 20;
+      display: flex; gap: 12px; align-items: center; justify-content: space-between;
+      margin-bottom: 24px; padding: 10px;
       border: 1px solid rgba(33, 78, 64, .18);
-      background: rgba(255, 253, 248, .78);
+      background: rgba(255, 253, 248, .82);
       backdrop-filter: blur(14px);
       border-radius: 999px;
       box-shadow: 0 8px 28px rgba(38, 31, 21, .08);
     }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding-left: 8px;
-      font-weight: 800;
-      letter-spacing: -.02em;
-    }
-
-    .mark {
-      display: grid;
-      place-items: center;
-      width: 36px;
-      height: 36px;
-      color: #fffaf0;
-      background: var(--accent);
-      border-radius: 12px;
-      font-family: var(--serif);
-      font-size: 20px;
-      box-shadow: inset 0 -8px 16px rgba(0,0,0,.14);
-    }
-
-    .nav {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .nav a,
-    .print-button {
-      min-height: 40px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 14px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      text-decoration: none;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 700;
-      background: transparent;
-      cursor: pointer;
-    }
-
-    .nav a:hover,
-    .print-button:hover {
-      color: var(--accent);
-      border-color: rgba(33, 78, 64, .18);
-      background: #fffaf0;
-    }
+    .brand { display: flex; align-items: center; gap: 10px; padding-left: 8px; font-weight: 800; letter-spacing: -.02em; }
+    .mark { display: grid; place-items: center; width: 36px; height: 36px; color: #fffaf0; background: var(--accent); border-radius: 12px; font-family: var(--serif); font-size: 20px; box-shadow: inset 0 -8px 16px rgba(0,0,0,.14); }
+    .nav { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+    .nav a, .print-button { min-height: 40px; display: inline-flex; align-items: center; justify-content: center; padding: 0 14px; border-radius: 999px; border: 1px solid transparent; text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 700; background: transparent; cursor: pointer; }
+    .nav a:hover, .print-button:hover { color: var(--accent); border-color: rgba(33, 78, 64, .18); background: #fffaf0; }
 
     .hero {
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
       border: 1px solid rgba(33, 78, 64, .16);
       border-radius: 34px;
       padding: clamp(28px, 6vw, 70px);
@@ -130,364 +68,84 @@
         var(--paper);
       box-shadow: var(--shadow);
     }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      right: -100px;
-      bottom: -140px;
-      width: 360px;
-      height: 360px;
-      border: 1px solid rgba(33, 78, 64, .16);
-      border-radius: 50%;
-      background: repeating-linear-gradient(45deg, rgba(33,78,64,.08) 0 1px, transparent 1px 12px);
-      pointer-events: none;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 18px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: #efe7da;
-      color: var(--accent);
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
+    .hero::after { content: ""; position: absolute; right: -100px; bottom: -140px; width: 360px; height: 360px; border: 1px solid rgba(33, 78, 64, .16); border-radius: 50%; background: repeating-linear-gradient(45deg, rgba(33,78,64,.08) 0 1px, transparent 1px 12px); pointer-events: none; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px; padding: 8px 12px; border-radius: 999px; background: #efe7da; color: var(--accent); font-size: 13px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
     h1, h2, h3 { line-height: 1.05; letter-spacing: -.045em; }
-
-    h1 {
-      max-width: 920px;
-      margin: 0;
-      font-size: clamp(44px, 8vw, 92px);
-      font-family: var(--serif);
-      font-weight: 760;
-    }
-
-    .hero p {
-      max-width: 780px;
-      margin: 22px 0 0;
-      color: var(--muted);
-      font-size: clamp(18px, 2.4vw, 24px);
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 20px;
-      margin-top: 34px;
-      align-items: stretch;
-    }
-
-    .principle {
-      padding: 24px;
-      border-radius: var(--radius);
-      background: var(--accent);
-      color: #fffaf0;
-      box-shadow: inset 0 -20px 40px rgba(0,0,0,.12);
-    }
-
-    .principle .label,
-    .stat .label,
-    .card .label,
-    .track .label {
-      margin-bottom: 8px;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      opacity: .75;
-    }
-
-    .principle strong {
-      display: block;
-      max-width: 760px;
-      font-size: clamp(24px, 3vw, 38px);
-      line-height: 1.08;
-      letter-spacing: -.035em;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-
-    .stat {
-      padding: 18px;
-      border-radius: 20px;
-      background: #fffaf0;
-      border: 1px solid var(--line);
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 28px;
-      letter-spacing: -.04em;
-      color: var(--accent);
-    }
+    h1 { max-width: 960px; margin: 0; font-size: clamp(42px, 7.5vw, 86px); font-family: var(--serif); font-weight: 760; }
+    .hero p { max-width: 860px; margin: 22px 0 0; color: var(--muted); font-size: clamp(18px, 2.2vw, 23px); }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 20px; margin-top: 34px; align-items: stretch; }
+    .principle { padding: 24px; border-radius: var(--radius); background: var(--accent); color: #fffaf0; box-shadow: inset 0 -20px 40px rgba(0,0,0,.12); }
+    .label { margin-bottom: 8px; font-size: 12px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; opacity: .75; }
+    .principle strong { display: block; max-width: 760px; font-size: clamp(24px, 3vw, 38px); line-height: 1.08; letter-spacing: -.035em; }
+    .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .stat { padding: 18px; border-radius: 20px; background: #fffaf0; border: 1px solid var(--line); }
+    .stat strong { display: block; font-size: 28px; letter-spacing: -.04em; color: var(--accent); }
 
     section { margin-top: 28px; }
+    .section-head { display: flex; gap: 18px; align-items: end; justify-content: space-between; margin: 0 0 14px; padding: 0 4px; }
+    h2 { margin: 0; font-size: clamp(30px, 4vw, 52px); font-family: var(--serif); font-weight: 760; }
+    .section-head p { max-width: 600px; margin: 0; color: var(--muted); font-size: 16px; }
 
-    .section-head {
-      display: flex;
-      gap: 18px;
-      align-items: end;
-      justify-content: space-between;
-      margin: 0 0 14px;
-      padding: 0 4px;
-    }
+    .cards, .tracks, .three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .two-col { display: grid; grid-template-columns: .95fr 1.05fr; gap: 16px; }
+    .card, .timeline, .menu, .prompt-bank, .checklist, .finish, .reality, .source-note { border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,253,248,.88); box-shadow: 0 12px 34px rgba(38, 31, 21, .07); }
+    .card, .prompt-bank, .checklist, .reality, .source-note { padding: 22px; }
+    .card h3, .build h3, .checklist h3, .prompt-bank h3, .reality h3, .source-note h3 { margin: 0 0 10px; font-size: 24px; }
+    .card p, .build p, .reality p, .source-note p { margin: 0; color: var(--muted); }
 
-    h2 {
-      margin: 0;
-      font-size: clamp(30px, 4vw, 52px);
-      font-family: var(--serif);
-      font-weight: 760;
-    }
-
-    .section-head p {
-      max-width: 560px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 16px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .card,
-    .timeline,
-    .menu,
-    .prompt-bank,
-    .checklist,
-    .finish {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255,253,248,.86);
-      box-shadow: 0 12px 34px rgba(38, 31, 21, .07);
-    }
-
-    .card { padding: 22px; }
-    .card h3 { margin: 0 0 10px; font-size: 24px; }
-    .card p { margin: 0; color: var(--muted); }
-
-    .tracks {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .track {
-      padding: 22px;
-      border-radius: var(--radius);
-      color: #fffaf0;
-      min-height: 185px;
-    }
+    .track { padding: 22px; border-radius: var(--radius); color: #fffaf0; min-height: 205px; }
     .track:nth-child(1) { background: var(--accent); }
     .track:nth-child(2) { background: var(--accent-3); }
     .track:nth-child(3) { background: var(--accent-2); }
     .track h3 { margin: 0 0 10px; font-size: 28px; }
-    .track p { margin: 0; opacity: .9; }
+    .track p { margin: 0; opacity: .92; }
 
     .timeline { overflow: hidden; }
-
-    .day {
-      display: grid;
-      grid-template-columns: 210px 1fr;
-      border-top: 1px solid var(--line);
-    }
+    .day { display: grid; grid-template-columns: 210px 1fr; border-top: 1px solid var(--line); }
     .day:first-child { border-top: 0; }
-
-    .day-title {
-      padding: 26px;
-      background: #f3eadf;
-      border-right: 1px solid var(--line);
-    }
-
-    .day-title small {
-      display: block;
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-    }
-    .day-title strong {
-      display: block;
-      margin-top: 8px;
-      font-size: 26px;
-      line-height: 1;
-      letter-spacing: -.035em;
-    }
-
+    .day-title { padding: 26px; background: #f3eadf; border-right: 1px solid var(--line); }
+    .day-title small { display: block; color: var(--muted); font-family: var(--mono); font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+    .day-title strong { display: block; margin-top: 8px; font-size: 26px; line-height: 1; letter-spacing: -.035em; }
     .sessions { padding: 18px; }
-
-    .session {
-      display: grid;
-      grid-template-columns: 122px 1fr;
-      gap: 16px;
-      padding: 16px 0;
-      border-top: 1px dashed rgba(111,102,88,.28);
-    }
+    .session { display: grid; grid-template-columns: 122px 1fr; gap: 16px; padding: 16px 0; border-top: 1px dashed rgba(111,102,88,.28); }
     .session:first-child { border-top: 0; }
-
-    .time {
-      font-family: var(--mono);
-      color: var(--accent);
-      font-size: 13px;
-      font-weight: 900;
-    }
-
+    .time { font-family: var(--mono); color: var(--accent); font-size: 13px; font-weight: 900; }
     .session h3 { margin: 0 0 6px; font-size: 22px; }
     .session p { margin: 0; color: var(--muted); }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      min-height: 28px;
-      padding: 0 10px;
-      border: 1px solid rgba(33, 78, 64, .16);
-      border-radius: 999px;
-      background: #fffaf0;
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: 800;
-    }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .tag { display: inline-flex; align-items: center; min-height: 28px; padding: 0 10px; border: 1px solid rgba(33, 78, 64, .16); border-radius: 999px; background: #fffaf0; color: var(--accent); font-size: 12px; font-weight: 800; }
+    .tag.warn { color: var(--danger); border-color: rgba(143,47,43,.25); }
 
     .menu { padding: 22px; }
+    .build-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .build { display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: #fffaf0; }
+    .rank { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; background: var(--accent); color: #fffaf0; font-family: var(--mono); font-weight: 900; }
+    .rank.orange { background: var(--accent-2); }
+    .rank.blue { background: var(--accent-3); }
 
-    .build-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-
-    .build {
-      display: grid;
-      grid-template-columns: 44px 1fr;
-      gap: 14px;
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: #fffaf0;
-    }
-
-    .rank {
-      display: grid;
-      place-items: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      background: var(--accent);
-      color: #fffaf0;
-      font-family: var(--mono);
-      font-weight: 900;
-    }
-
-    .build h3 { margin: 0 0 6px; font-size: 22px; }
-    .build p { margin: 0; color: var(--muted); }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: .9fr 1.1fr;
-      gap: 16px;
-    }
-
-    .checklist,
-    .prompt-bank,
-    .finish { padding: 24px; }
-
-    ul.clean {
-      list-style: none;
-      padding: 0;
-      margin: 14px 0 0;
-    }
-
-    ul.clean li {
-      position: relative;
-      padding: 12px 0 12px 34px;
-      border-top: 1px dashed rgba(111,102,88,.25);
-      color: var(--muted);
-    }
+    ul.clean { list-style: none; padding: 0; margin: 14px 0 0; }
+    ul.clean li { position: relative; padding: 12px 0 12px 34px; border-top: 1px dashed rgba(111,102,88,.25); color: var(--muted); }
     ul.clean li:first-child { border-top: 0; }
-    ul.clean li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 17px;
-      width: 16px;
-      height: 16px;
-      border-radius: 5px;
-      border: 2px solid var(--accent);
-      background: #fffaf0;
-    }
+    ul.clean li::before { content: ""; position: absolute; left: 0; top: 17px; width: 16px; height: 16px; border-radius: 5px; border: 2px solid var(--accent); background: #fffaf0; }
+    .reality ul.clean li::before { border-color: var(--accent-2); }
+    .source-note ul.clean li::before { border-color: var(--accent-3); }
 
-    .prompt {
-      margin-top: 14px;
-      padding: 16px;
-      border-radius: 16px;
-      background: #171512;
-      color: #fffaf0;
-      font-family: var(--mono);
-      font-size: 13px;
-      line-height: 1.55;
-      white-space: pre-wrap;
-    }
+    .callout { margin-top: 14px; padding: 16px; border-radius: 16px; background: #fff4e9; border: 1px solid rgba(192,102,63,.26); color: #5b3b2f; }
+    .callout strong { color: var(--danger); }
+    .prompt { margin-top: 14px; padding: 16px; border-radius: 16px; background: #171512; color: #fffaf0; font-family: var(--mono); font-size: 13px; line-height: 1.55; white-space: pre-wrap; }
 
-    .finish {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      background: var(--accent);
-      color: #fffaf0;
-      border-color: rgba(255,255,255,.16);
-    }
-
+    .finish { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 24px; background: var(--accent); color: #fffaf0; border-color: rgba(255,255,255,.16); }
     .finish h2 { color: #fffaf0; }
-    .finish p, .finish li { color: rgba(255,250,240,.86); }
-    .finish ul.clean li {
-      color: rgba(255,250,240,.86);
-      border-top-color: rgba(255,255,255,.16);
-    }
+    .finish p, .finish li { color: rgba(255,250,240,.9); }
+    .finish ul.clean li { color: rgba(255,250,240,.92); border-top-color: rgba(255,255,255,.16); }
     .finish ul.clean li::before { border-color: #fffaf0; background: transparent; }
-
-    .folder {
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255,250,240,.12);
-      border: 1px solid rgba(255,250,240,.18);
-      font-family: var(--mono);
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    footer {
-      margin-top: 28px;
-      color: var(--muted);
-      text-align: center;
-      font-size: 13px;
-    }
+    .folder { padding: 18px; border-radius: 18px; background: rgba(255,250,240,.12); border: 1px solid rgba(255,250,240,.18); font-family: var(--mono); font-size: 13px; line-height: 1.7; white-space: pre-wrap; }
+    footer { margin-top: 28px; color: var(--muted); text-align: center; font-size: 13px; }
 
     @media (max-width: 880px) {
       .topbar { align-items: flex-start; border-radius: 24px; flex-direction: column; }
       .nav { justify-content: flex-start; }
-      .hero-grid, .tracks, .cards, .build-grid, .two-col, .finish { grid-template-columns: 1fr; }
+      .hero-grid, .tracks, .cards, .three, .build-grid, .two-col, .finish { grid-template-columns: 1fr; }
       .day { grid-template-columns: 1fr; }
       .day-title { border-right: 0; border-bottom: 1px solid var(--line); }
       .session { grid-template-columns: 1fr; gap: 4px; }
@@ -497,10 +155,7 @@
       body { background: #fff; }
       .page { width: 100%; padding: 0; }
       .topbar { display: none; }
-      .hero, .card, .timeline, .menu, .prompt-bank, .checklist, .finish {
-        box-shadow: none;
-        break-inside: avoid;
-      }
+      .hero, .card, .timeline, .menu, .prompt-bank, .checklist, .finish, .reality, .source-note { box-shadow: none; break-inside: avoid; }
       .hero { border-radius: 0; }
       section { break-inside: avoid; }
       .finish { background: #fff; color: var(--ink); }
@@ -515,210 +170,216 @@
     <nav class="topbar" aria-label="Agenda navigation">
       <div class="brand"><span class="mark">N</span> Ray × Neima AI Power Session</div>
       <div class="nav">
+        <a href="#outcomes">Outcomes</a>
+        <a href="#priorities">Priorities</a>
         <a href="#tracks">Tracks</a>
+        <a href="#learning">Learning</a>
+        <a href="#reality">Reality check</a>
         <a href="#schedule">Schedule</a>
         <a href="#builds">Builds</a>
-        <a href="#prep">Prep</a>
         <a href="#handoff">Handoff</a>
         <button class="print-button" onclick="window.print()">Print / PDF</button>
       </div>
     </nav>
 
     <header class="hero">
-      <div class="eyebrow">2 days · learn by building · practical AI</div>
-      <h1>An AI weekend that produces working life systems, not just cool demos.</h1>
-      <p>Use Ned and Ray’s isolated Hermes agent side-by-side to learn how agents think, how to give them context, and how to turn messy life inputs into reusable workflows.</p>
+      <div class="eyebrow">Updated with Ray’s final objectives · 2 days · build + learn</div>
+      <h1>An AI weekend that moves Ray’s urgent work forward and teaches him how the systems work.</h1>
+      <p>Ray’s final objectives make the agenda more concrete: materially advance TARMAC work safely, build a Microsoft notes-to-actions workflow, map the Hermes fitness coach, and teach the AI/system patterns Ray can keep using after the weekend.</p>
       <div class="hero-grid">
         <div class="principle">
           <div class="label">Guiding principle</div>
-          <strong>Do not make AI impressive. Make it useful, understandable, and repeatable.</strong>
+          <strong>Use Hermes for safe architecture and coaching. Execute confidential TARMAC/client work only on Ray’s approved work laptop.</strong>
         </div>
         <div class="stats" aria-label="Session targets">
-          <div class="stat"><div class="label">Useful builds</div><strong>2–4</strong></div>
-          <div class="stat"><div class="label">Learning weight</div><strong>50%</strong></div>
-          <div class="stat"><div class="label">Life value</div><strong>35%</strong></div>
-          <div class="stat"><div class="label">Fun demos</div><strong>15%</strong></div>
+          <div class="stat"><div class="label">Priority order</div><strong>TARMAC first</strong></div>
+          <div class="stat"><div class="label">Work data in Hermes</div><strong>0</strong></div>
+          <div class="stat"><div class="label">Finish line</div><strong>Artifacts</strong></div>
+          <div class="stat"><div class="label">Learning mode</div><strong>Build-by-doing</strong></div>
         </div>
       </div>
     </header>
 
-    <section id="tracks">
+    <section id="outcomes">
       <div class="section-head">
-        <h2>The three tracks</h2>
-        <p>Everything during the weekend should map to one of these. If an activity does not teach, improve life, or build confidence, cut it.</p>
+        <h2>Ray’s “worth it” outcomes</h2>
+        <p>These are Ray’s agreed objectives from his agent interview. The agenda is now ordered by urgency and leverage, not by generic AI-demo flow.</p>
       </div>
-      <div class="tracks">
-        <article class="track">
-          <div class="label">Track 1</div>
-          <h3>Life upgrades</h3>
-          <p>Build small systems that reduce friction: weekly planning, inbox processing, learning plans, reusable prompts.</p>
+      <div class="cards">
+        <article class="card">
+          <div class="label">Objective 1 · highest urgency</div>
+          <h3>TARMAC confidential SOW execution</h3>
+          <p>Ray leaves with the TARMAC work materially moving: deliverables identified, sequencing clear, drafts/scaffolds started locally, compliance structure mapped, SharePoint/IT needs clarified, and blockers/risks named.</p>
         </article>
-        <article class="track">
-          <div class="label">Track 2</div>
-          <h3>AI literacy</h3>
-          <p>Learn context, memory, files, tools, verification, hallucination control, agent boundaries, and approval workflows.</p>
+        <article class="card">
+          <div class="label">Objective 2 · daily work leverage</div>
+          <h3>OneNote → Microsoft actions</h3>
+          <p>Handwritten iPad/OneNote meeting notes become reviewed reminders, calendar items, To Do/Planner tasks, drafted follow-up emails, scheduling actions, and entity-specific action lists.</p>
         </article>
-        <article class="track">
-          <div class="label">Track 3</div>
-          <h3>Build confidence</h3>
-          <p>Ray leaves knowing how to ask better questions, critique output, run his agent, and keep improving after the visit.</p>
+        <article class="card">
+          <div class="label">Objective 3 · long-term personal leverage</div>
+          <h3>Hermes fitness coach roadmap</h3>
+          <p>A roadmap for Hermes as a persistent fitness intelligence layer: Whoop, Intervals, Garmin, ALMA/nutrition, Excel tracker staging, daily/weekly reports, phone interaction, dashboard/app path, and memory through 12/31/2027 goals.</p>
         </article>
       </div>
     </section>
 
-    <section>
+    <section id="priorities">
       <div class="section-head">
-        <h2>Success looks like this</h2>
-        <p>A clear finish line keeps the session from becoming random AI tinkering.</p>
+        <h2>If time gets tight, protect this order</h2>
+        <p>The weekend should produce progress, not just organization. Client-email work stays useful but should fold into the Microsoft action workflow unless there is extra time.</p>
       </div>
       <div class="cards">
         <article class="card">
-          <div class="label">Outcome 1</div>
-          <h3>Ray Life OS</h3>
-          <p>A simple markdown command center for Ray’s goals, projects, routines, prompts, and open loops.</p>
+          <div class="label">1</div>
+          <h3>TARMAC SOW execution</h3>
+          <p>Highest urgency and heaviest lift. Keep confidential content on the work laptop. Use Hermes only for meta-work: workflow design, generic templates, sequencing, review checklists, and operating rules.</p>
         </article>
         <article class="card">
-          <div class="label">Outcome 2</div>
-          <h3>Inbox workflow</h3>
-          <p>Ray can drop messy notes into an inbox and have his agent draft summaries, tasks, questions, and updates.</p>
+          <div class="label">2</div>
+          <h3>OneNote action system</h3>
+          <p>Highest daily work leverage. Validate license, handwriting extraction, Power Automate/connector availability, and review-first destinations before promising automation.</p>
         </article>
         <article class="card">
-          <div class="label">Outcome 3</div>
-          <h3>30-day learning path</h3>
-          <p>A realistic daily AI practice plan with exercises Ray can actually keep doing after the trip.</p>
+          <div class="label">3 + 4</div>
+          <h3>Fitness roadmap + email templates</h3>
+          <p>Fitness is the long-term Hermes build. Email/scheduling templates are secondary and should become one output type from the OneNote action system.</p>
         </article>
+      </div>
+    </section>
+
+    <section id="tracks">
+      <div class="section-head">
+        <h2>The three working tracks</h2>
+        <p>AI literacy should be taught through Ray’s real systems. Every concept should attach to one of these builds.</p>
+      </div>
+      <div class="tracks">
+        <article class="track">
+          <div class="label">Track 1</div>
+          <h3>Confidential execution playbook</h3>
+          <p>Build TARMAC-safe prompts, sequencing, deliverable checklists, SharePoint/IT asks, compliance document structure, marketing-material structure, risk log, and review gates.</p>
+        </article>
+        <article class="track">
+          <div class="label">Track 2</div>
+          <h3>Microsoft workflow build</h3>
+          <p>Design the OneNote → Copilot/OCR → review → Outlook/To Do/Planner/email draft pipeline inside Ray’s Microsoft environment, with manual fallback if automation is blocked.</p>
+        </article>
+        <article class="track">
+          <div class="label">Track 3</div>
+          <h3>Fitness agent architecture</h3>
+          <p>Map the long-term Hermes fitness coach across endurance, strength, body composition, yoga/mobility, data pulls, reports, dashboard/app, and durable memory.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="learning">
+      <div class="section-head">
+        <h2>Learning objectives woven through the builds</h2>
+        <p>Ray should leave with practical confidence, not just finished files. Teach each concept only when it connects to the system currently being built.</p>
+      </div>
+      <div class="two-col">
+        <article class="checklist">
+          <h3>Core concepts Ray should be able to explain</h3>
+          <ul class="clean">
+            <li>What an API call is: request, response, endpoint, method, status, payload.</li>
+            <li>What authentication means, why tokens/secrets matter, and how to avoid leaking them.</li>
+            <li>How JSON is structured and why agents/APIs exchange structured data.</li>
+            <li>What cron/scheduled jobs do for daily reports, data pulls, and follow-up workflows.</li>
+            <li>How agents use files, context, tools, memory, inbox/outbox folders, and boundaries.</li>
+            <li>How Power Automate thinks in triggers, actions, connectors, approvals, and destinations.</li>
+          </ul>
+        </article>
+        <article class="checklist">
+          <h3>Operating habits to practice</h3>
+          <ul class="clean">
+            <li>Write reusable workflow prompts with role, context, goal, constraints, output format, verification, and approval step.</li>
+            <li>Use approval-first workflows: AI drafts, Ray reviews, Ray executes.</li>
+            <li>Verify AI output with confidence levels, assumptions, source checks, and red-team questions.</li>
+            <li>Know when Excel is enough, when markdown/files are better, and when a database/app becomes warranted.</li>
+            <li>Classify and protect PII / GLBA-sensitive information; use redacted, synthetic, or metadata-only examples when needed.</li>
+            <li>Understand basic dashboard/app pieces: frontend, backend, data source, database, auth, hosting, scheduled jobs, and mobile access.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="reality">
+      <div class="section-head">
+        <h2>Reality check: can Copilot actually do this?</h2>
+        <p>Short answer: partly yes, but not as a guaranteed one-click pipeline. The weekend should prototype and validate each Microsoft tenant capability.</p>
+      </div>
+      <div class="two-col">
+        <article class="reality">
+          <h3>What looks feasible</h3>
+          <ul class="clean">
+            <li><strong>Copilot in OneNote can help draft, create lists, organize information, and work from notebook context</strong> when the right Microsoft 365 Copilot experience is available.</li>
+            <li><strong>Power Automate has a OneNote Business connector</strong> with triggers such as “when a new page is created in a section” and actions such as get page content, create page, update page content, and list sections/pages.</li>
+            <li><strong>Power Automate Copilot can generate cloud-flow structure from natural language</strong> and suggest triggers/actions, then Ray still verifies connections and edits the flow.</li>
+            <li><strong>Outlook / To Do / Planner actions are plausible</strong> through Microsoft connectors, assuming Ray’s tenant allows the required connections and data policies.</li>
+          </ul>
+        </article>
+        <article class="reality">
+          <h3>What must be tested</h3>
+          <ul class="clean">
+            <li><strong>Copilot Pro vs Microsoft 365 Copilot:</strong> Ray’s “full pro Copilot” subscription may not equal enterprise Microsoft 365 Copilot inside his work tenant. Work-account licensing/admin policy is the gating item.</li>
+            <li><strong>Handwriting extraction quality:</strong> OneNote/Copilot may handle typed notes better than messy handwritten ink. The first test must use Ray’s real iPad handwriting style.</li>
+            <li><strong>Automation trigger delay:</strong> the OneNote connector is polling-based; Microsoft documents trigger polling frequency as 1 per 1200 seconds, so this may be a “process after meeting” workflow, not instant automation.</li>
+            <li><strong>Security/DLP:</strong> Ray’s work tenant may block connectors, Outlook draft creation, Planner writes, or cross-app automation. No confidential notes should be copied into Hermes while testing.</li>
+          </ul>
+          <div class="callout"><strong>Practical call:</strong> treat the OneNote system as a validated prototype target, not a promise. Build a manual-review workflow first; automate only after Ray proves OCR, connectors, and permissions work.</div>
+        </article>
+      </div>
+      <div class="source-note" style="margin-top:16px">
+        <h3>Evidence used for this reality check</h3>
+        <ul class="clean">
+          <li>Microsoft Learn describes Microsoft 365 Copilot as working across apps like Word, Excel, PowerPoint, Outlook, Teams, and OneNote, with OneNote experiences that can draft plans, generate ideas, create lists, and organize information. Microsoft notes app experiences may vary by licensing and tenant configuration.</li>
+          <li>Microsoft Learn’s OneNote Business connector lists triggers for new pages/sections and actions for creating pages, getting page content, getting pages/sections, and updating page content.</li>
+          <li>Microsoft Learn’s Power Automate Copilot documentation says cloud-flow Copilot can understand intent, create a flow based on a prompt, set up connections, apply parameters, and respond to requests to modify the flow.</li>
+        </ul>
       </div>
     </section>
 
     <section id="schedule">
       <div class="section-head">
-        <h2>Digestible agenda</h2>
-        <p>Keep timeboxes flexible. The priority is finishing working artifacts and understanding the patterns behind them.</p>
+        <h2>Updated digestible agenda</h2>
+        <p>Timeboxes are flexible. The rule is: protect urgent confidential work, validate assumptions, teach through doing, and end with usable artifacts.</p>
       </div>
       <div class="timeline">
         <div class="day">
-          <div class="day-title"><small>Night before</small><strong>Setup + project choice</strong></div>
+          <div class="day-title"><small>Night before</small><strong>Access + boundaries</strong></div>
           <div class="sessions">
-            <div class="session">
-              <div class="time">30–45 min</div>
-              <div>
-                <h3>Make sure the tools work</h3>
-                <p>Verify Ray can message his Hermes bot, read/write through the OneDrive shared folder, and bring 3 annoyances + 3 learning goals.</p>
-                <div class="tags"><span class="tag">low friction</span><span class="tag">avoid setup hell</span></div>
-              </div>
-            </div>
+            <div class="session"><div class="time">30–45 min</div><div><h3>Confirm tools, files, and confidentiality rules</h3><p>Verify Ray’s Hermes bot, shared folder, work laptop, Microsoft access, Copilot access, Claude/OpenAI on the work laptop, and the rule that TARMAC/client content stays off Hermes and out of /shared.</p><div class="tags"><span class="tag">setup</span><span class="tag warn">confidential boundary</span></div></div></div>
           </div>
         </div>
-
         <div class="day">
-          <div class="day-title"><small>Day 1 morning</small><strong>Foundation</strong></div>
+          <div class="day-title"><small>Day 1 morning</small><strong>TARMAC first</strong></div>
           <div class="sessions">
-            <div class="session">
-              <div class="time">9:30–10:15</div>
-              <div>
-                <h3>Kickoff: AI is a workflow layer</h3>
-                <p>Chatbot vs agent, context windows, files as memory, tools, verification, and why boundaries matter.</p>
-                <div class="tags"><span class="tag">mental model</span><span class="tag">agent basics</span></div>
-              </div>
-            </div>
-            <div class="session">
-              <div class="time">10:15–11:30</div>
-              <div>
-                <h3>Ned + Ray-Hermes tour</h3>
-                <p>Show the personal AI coach pattern, isolated friend-agent setup, file handoff workflow, and why stable context beats clever prompting.</p>
-                <div class="tags"><span class="tag">systems thinking</span><span class="tag">security</span></div>
-              </div>
-            </div>
-            <div class="session">
-              <div class="time">11:30–12:30</div>
-              <div>
-                <h3>Build 1: Ray Life OS</h3>
-                <p>Create a simple personal command center with profile, goals, projects, routines, useful prompts, and inbox files.</p>
-                <div class="tags"><span class="tag">working artifact</span><span class="tag">markdown memory</span></div>
-              </div>
-            </div>
+            <div class="session"><div class="time">9:30–10:00</div><div><h3>Kickoff: AI as approval-first workflow layer</h3><p>Set the operating model: Hermes designs safe meta-work, Ray executes confidential work locally, every AI output is reviewed, and learning happens inside the real builds.</p><div class="tags"><span class="tag">mental model</span><span class="tag">safety</span></div></div></div>
+            <div class="session"><div class="time">10:00–11:15</div><div><h3>TARMAC deliverable inventory + sequence</h3><p>On Ray’s approved work laptop, identify deliverables, milestones, blockers, risks, dependencies, and review gates. Capture only generic structure in shared/Hermes-facing notes.</p><div class="tags"><span class="tag warn">local only</span><span class="tag">SOW execution</span></div></div></div>
+            <div class="session"><div class="time">11:15–12:30</div><div><h3>Draft/scaffold sprint 1</h3><p>Create local prompts/checklists Ray can use to scaffold each deliverable, compliance structure, SharePoint/IT needs, and marketing-material outline without moving confidential content outside approved tools.</p><div class="tags"><span class="tag">templates</span><span class="tag">review gates</span></div></div></div>
           </div>
         </div>
-
         <div class="day">
-          <div class="day-title"><small>Day 1 afternoon</small><strong>First useful systems</strong></div>
+          <div class="day-title"><small>Day 1 afternoon</small><strong>TARMAC + Microsoft validation</strong></div>
           <div class="sessions">
-            <div class="session">
-              <div class="time">1:30–3:00</div>
-              <div>
-                <h3>Build 2: Weekly reset assistant</h3>
-                <p>Turn goals, errands, open loops, and energy constraints into a weekly plan with top priorities and recovery time.</p>
-                <div class="tags"><span class="tag">life admin</span><span class="tag">real value</span></div>
-              </div>
-            </div>
-            <div class="session">
-              <div class="time">3:00–4:00</div>
-              <div>
-                <h3>Prompt lab</h3>
-                <p>Transform a vague prompt into a reusable agent workflow using role, context, goal, constraints, output format, and verification.</p>
-                <div class="tags"><span class="tag">prompting</span><span class="tag">reusable template</span></div>
-              </div>
-            </div>
-            <div class="session">
-              <div class="time">4:00–6:00</div>
-              <div>
-                <h3>Build 3: AI learning roadmap</h3>
-                <p>Draft Ray’s 30-day plan and end with Day 1 notes, decisions, unfinished ideas, and a sharper Day 2 plan.</p>
-                <div class="tags"><span class="tag">learning path</span><span class="tag">recap</span></div>
-              </div>
-            </div>
+            <div class="session"><div class="time">1:30–3:00</div><div><h3>Draft/scaffold sprint 2</h3><p>Keep moving the urgent work: draft or scaffold the heaviest TARMAC sections locally, name assumptions, and create the final execution checklist Ray can continue after the weekend.</p><div class="tags"><span class="tag">progress</span><span class="tag warn">work laptop only</span></div></div></div>
+            <div class="session"><div class="time">3:00–4:15</div><div><h3>Reality check Microsoft capabilities</h3><p>Test whether Ray’s Copilot license, OneNote handwriting OCR, Power Automate, Outlook, To Do, Planner, SharePoint, and tenant/DLP settings can support the desired workflow.</p><div class="tags"><span class="tag">Copilot</span><span class="tag">Power Automate</span><span class="tag">tenant permissions</span></div></div></div>
+            <div class="session"><div class="time">4:15–5:30</div><div><h3>Design the OneNote action pipeline</h3><p>Map the exact process: OneNote page/section trigger or manual marker, content extraction, AI action extraction, Ray review, then Outlook/To Do/Planner/email draft destinations.</p><div class="tags"><span class="tag">review-first</span><span class="tag">workflow design</span></div></div></div>
           </div>
         </div>
-
         <div class="day">
-          <div class="day-title"><small>Day 2 morning</small><strong>Workflow build</strong></div>
+          <div class="day-title"><small>Day 2 morning</small><strong>Microsoft build</strong></div>
           <div class="sessions">
-            <div class="session">
-              <div class="time">9:30–10:00</div>
-              <div>
-                <h3>Pick the main build</h3>
-                <p>Recommended: the AI inbox processor. It teaches files, approval, task extraction, and agent workflow design.</p>
-                <div class="tags"><span class="tag">focus</span><span class="tag">finishable</span></div>
-              </div>
-            </div>
-            <div class="session">
-              <div class="time">10:00–12:00</div>
-              <div>
-                <h3>Build 4: Life admin inbox processor</h3>
-                <p>Messy notes go into inbox. Agent drafts tasks, projects, decisions, questions, and clean output. Ray approves updates.</p>
-                <div class="tags"><span class="tag">core workflow</span><span class="tag">approval pattern</span></div>
-              </div>
-            </div>
+            <div class="session"><div class="time">9:30–10:45</div><div><h3>Prototype OneNote → actions</h3><p>Build the lowest-risk version using a sanitized or non-sensitive test note: extract actions, classify people/entities, propose tasks/calendar/email drafts, and put Ray in the approval loop.</p><div class="tags"><span class="tag">prototype</span><span class="tag">realistic test</span></div></div></div>
+            <div class="session"><div class="time">10:45–12:00</div><div><h3>Email + scheduling templates folded into workflow</h3><p>Create reusable warm-professional templates for initial inquiries, document/request follow-ups, and scheduling. Treat them as output types from the action system.</p><div class="tags"><span class="tag">email</span><span class="tag">scheduling</span></div></div></div>
           </div>
         </div>
-
         <div class="day">
-          <div class="day-title"><small>Day 2 afternoon</small><strong>Practice + handoff</strong></div>
+          <div class="day-title"><small>Day 2 afternoon</small><strong>Fitness + handoff</strong></div>
           <div class="sessions">
-            <div class="session">
-              <div class="time">1:00–2:30</div>
-              <div>
-                <h3>Finalize the 30-day roadmap</h3>
-                <p>Week 1: using AI well. Week 2: files and workflows. Week 3: tools and automation. Week 4: build your own systems.</p>
-                <div class="tags"><span class="tag">curriculum</span><span class="tag">daily exercises</span></div>
-              </div>
-            </div>
-            <div class="session">
-              <div class="time">2:30–3:30</div>
-              <div>
-                <h3>Side-by-side agent challenge</h3>
-                <p>Give Ned and Ray-Hermes the same task. Compare clarity, usefulness, realism, specificity, personalization, and safety.</p>
-                <div class="tags"><span class="tag">evaluation</span><span class="tag">judgment</span></div>
-              </div>
-            </div>
-            <div class="session">
-              <div class="time">3:30–5:30</div>
-              <div>
-                <h3>Prompt library + final package</h3>
-                <p>Create reusable prompts, session summary, next actions, and a clean folder Ray can keep using.</p>
-                <div class="tags"><span class="tag">handoff</span><span class="tag">sustainability</span></div>
-              </div>
-            </div>
+            <div class="session"><div class="time">1:00–2:15</div><div><h3>Hermes fitness coach architecture</h3><p>Map the long-term system around Ray’s 2027 goals: 100-mile sub-24, sub-4 marathon, sub-20 5K, HYROX/Ironman stretch, strength goals, 18–20% body fat, and Yoga 500-hour path.</p><div class="tags"><span class="tag">fitness roadmap</span><span class="tag">2027 goals</span></div></div></div>
+            <div class="session"><div class="time">2:15–3:15</div><div><h3>Data integration prototype path</h3><p>Decide the first Hermes fitness data win: Whoop, Intervals, Garmin, ALMA/nutrition, Excel tracker staging, cron/API pulls, daily reports, weekly PDFs, and phone-based check-ins.</p><div class="tags"><span class="tag">Whoop</span><span class="tag">Intervals</span><span class="tag">Garmin</span><span class="tag">ALMA</span></div></div></div>
+            <div class="session"><div class="time">3:15–5:30</div><div><h3>Final package + next 30 days</h3><p>Package the TARMAC safe playbook, Microsoft workflow, fitness-agent roadmap, learning notes, useful prompts, and exact next actions into files Ray can keep using.</p><div class="tags"><span class="tag">handoff</span><span class="tag">sustainability</span></div></div></div>
           </div>
         </div>
       </div>
@@ -726,52 +387,45 @@
 
     <section id="builds">
       <div class="section-head">
-        <h2>Build menu</h2>
-        <p>If the schedule slips, protect these. They produce the most learning and the most real-world value.</p>
+        <h2>Protected build menu</h2>
+        <p>These are the highest-value artifacts. Do not let the weekend drift away from them.</p>
       </div>
       <div class="menu">
         <div class="build-grid">
-          <article class="build">
-            <div class="rank">01</div>
-            <div><h3>Ray Life OS</h3><p>Profile, goals, projects, routines, inbox, prompt library. Immediate value, low difficulty.</p></div>
-          </article>
-          <article class="build">
-            <div class="rank">02</div>
-            <div><h3>AI inbox processor</h3><p>Messy notes into summaries, tasks, questions, and proposed Life OS updates. Highest learning value.</p></div>
-          </article>
-          <article class="build">
-            <div class="rank">03</div>
-            <div><h3>30-day AI roadmap</h3><p>A practical curriculum with daily exercises, not generic reading links.</p></div>
-          </article>
-          <article class="build">
-            <div class="rank">04</div>
-            <div><h3>Useful prompt library</h3><p>Weekly planning, decisions, learning, summaries, messages, project breakdowns, and skeptical review.</p></div>
-          </article>
+          <article class="build"><div class="rank orange">01</div><div><h3>TARMAC confidential execution playbook</h3><p>Generic, safe templates and checklists Ray can use locally: deliverable inventory, sequencing, compliance structure, SharePoint/IT checklist, marketing-material outline, risk log, and review gates. No confidential SOW text, client details, or work documents leave the work laptop.</p></div></article>
+          <article class="build"><div class="rank">02</div><div><h3>Microsoft OneNote action workflow</h3><p>OneNote handwritten notes → extracted actions → Ray review → Outlook / Calendar / To Do / Planner / email drafts, including manual fallback if automation or tenant permissions are blocked.</p></div></article>
+          <article class="build"><div class="rank blue">03</div><div><h3>Hermes fitness coach roadmap</h3><p>Architecture for Whoop + Intervals + Garmin + ALMA/nutrition + Excel tracker, cron/API pulls, daily/weekly reports, phone interaction, dashboard/app path, and durable training context through 2027 goals.</p></div></article>
+          <article class="build"><div class="rank">04</div><div><h3>Client email + scheduling templates</h3><p>Reusable warm-professional prompts for initial inquiries, document follow-ups, and meeting scheduling; preferably folded into the OneNote action workflow as reviewed output types.</p></div></article>
         </div>
       </div>
     </section>
 
     <section id="prep">
       <div class="section-head">
-        <h2>Prep checklist + starter prompt</h2>
-        <p>Use this before Ray arrives so the weekend starts with momentum.</p>
+        <h2>Prep checklist + starter prompts</h2>
+        <p>Use this before Ray arrives so the session starts with validation, not wandering.</p>
       </div>
       <div class="two-col">
         <article class="checklist">
           <h3>Night-before checklist</h3>
           <ul class="clean">
-            <li>Ray’s Telegram bot responds.</li>
-            <li>OneDrive shared folder works for inbox/outbox files.</li>
-            <li>Ray brings 3 annoyances, 3 things he wants to learn, and 3 AI-help wishes.</li>
-            <li>Pick one main Day 2 build: default to AI inbox processor.</li>
-            <li>Agree on the safety pattern: draft first, review, then update.</li>
+            <li>Ray’s Telegram bot responds and shared OneDrive folder works.</li>
+            <li>Ray has the approved work laptop available for TARMAC execution, Microsoft validation, and local Claude/OpenAI use.</li>
+            <li>Confirm what Copilot license is active in the work account, not just personal Copilot Pro.</li>
+            <li>Prepare one non-sensitive or sanitized handwritten OneNote test page and one sanitized example of a meeting follow-up pattern.</li>
+            <li>Confirm Power Automate, Outlook, To Do, Planner, SharePoint, and OneNote permissions.</li>
+            <li>Agree: no TARMAC/client/GLBA-sensitive confidential content goes into Hermes or /shared; use redacted, synthetic, or metadata-only examples.</li>
           </ul>
         </article>
         <article class="prompt-bank">
-          <h3>Opening interview prompt</h3>
-          <div class="prompt">Interview me for 10 minutes and identify the top 5 opportunities where AI could improve my life. Focus on practical workflows, not generic productivity advice. Ask one question at a time. At the end, recommend the first 2 systems we should build this weekend.</div>
-          <h3 style="margin-top:22px">Reusable workflow prompt</h3>
-          <div class="prompt">You are my practical AI workflow coach. Given this messy note, extract: 1) tasks, 2) projects, 3) decisions, 4) open questions, 5) suggested file updates. Draft first and ask for approval before changing my Life OS files.</div>
+          <h3>Opening Microsoft validation prompt</h3>
+          <div class="prompt">Help me validate whether my Microsoft environment can support a OneNote-to-actions workflow. Ask one question at a time. Check: Copilot license, OneNote handwriting extraction, Power Automate availability, OneNote connector trigger, Outlook draft creation, Microsoft To Do/Planner task creation, and tenant/DLP restrictions. Do not process confidential notes.</div>
+          <h3 style="margin-top:22px">TARMAC-safe local prompt</h3>
+          <div class="prompt">You are my confidential-work execution coach. I will run this locally on my approved work laptop. Given a SOW that I do not share externally, help me identify deliverables, sequence drafting, create a review checklist, list assumptions/risks, and produce a SharePoint/IT setup request. Keep outputs structured and approval-first.</div>
+          <h3 style="margin-top:22px">Fitness agent architecture prompt</h3>
+          <div class="prompt">Design a long-term fitness coach architecture for goals through 12/31/2027. Inputs may include Whoop, Intervals, Garmin, ALMA/nutrition, Excel tracker, PDFs/books/interviews, and daily check-ins. Output: data model, cron/API plan, dashboard/app spec, report cadence, memory strategy, and first prototype path.</div>
+          <h3 style="margin-top:22px">Teach-through-building prompt</h3>
+          <div class="prompt">As we build this workflow, pause at each technical concept and explain it in beginner/intermediate terms using this exact build as the example. Cover APIs, authentication, JSON, cron, files, memory, Power Automate triggers/actions, verification, and approval-first workflow design.</div>
         </article>
       </div>
     </section>
@@ -780,34 +434,34 @@
       <div class="finish">
         <div>
           <h2>Final handoff package</h2>
-          <p>By the end, Ray should have a folder that makes the weekend continue after the weekend.</p>
+          <p>By the end, Ray should have a folder of concrete artifacts he can continue using immediately.</p>
           <ul class="clean">
-            <li>Use the AI inbox once per day for 7 days.</li>
-            <li>Do the 30-minute AI learning exercise daily.</li>
-            <li>Run a weekly review every Sunday.</li>
-            <li>Bring one real-life problem to the agent each week.</li>
-            <li>Keep a “what worked / what failed” note.</li>
+            <li>Use the TARMAC playbook locally on the work laptop only and leave with real deliverable progress.</li>
+            <li>Run the OneNote action workflow with one safe test note or document the exact blocked step.</li>
+            <li>Pick the first Hermes fitness data integration to prototype.</li>
+            <li>Write a 30-day follow-up plan with exact next actions.</li>
+            <li>Keep a “what Ray learned / what worked / what failed / what to automate next” note.</li>
           </ul>
         </div>
         <div class="folder" aria-label="Final folder structure">/shared/ray-ai-power-session/
   session-summary.md
   next-actions.md
   useful-prompts.md
-  ray-30-day-ai-roadmap.md
-  ray-life-os/
-    profile.md
-    goals.md
-    projects.md
-    routines.md
-    weekly-review.md
-    decisions.md
-  inbox/
-  outbox/</div>
+  ray-ai-learning-notes.md
+  microsoft-onenote-action-workflow.md
+  copilot-power-automate-reality-check.md
+  client-email-response-templates.md
+  tarmac-confidential-execution-playbook.md
+  tarmac-sharepoint-it-checklist.md
+  tarmac-risk-blocker-log.md
+  hermes-fitness-coach-roadmap.md
+  fitness-data-integration-map.md
+  ray-30-day-ai-roadmap.md</div>
       </div>
     </section>
 
     <footer>
-      Created by Ned for Neima and Ray · Updated 2026-06-04 · Open this file in a browser or use Print / PDF.
+      Updated with Ray’s final objectives, priority order, learning objectives, and Microsoft capability reality check. Backup created as ray-ai-power-session-agenda.pre-final-objectives-20260607T153432Z.html.
     </footer>
   </main>
 </body>
