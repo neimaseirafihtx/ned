@@ -1,4 +1,10 @@
 <!-- Session observation log. Format: [YYYY-MM-DD] [type] observation -->
+[2026-06-08] [project] Hermes/Ned migrated from Mac Mini to Windows PowerSpec (Neima_Server, 192.168.68.89, Tailscale 100.120.157.4). Gateway installed as Windows Scheduled Task. Mac Mini gateway stopped.
+[2026-06-08] [project] Ray Hermes Docker container also migrated to Windows server (was on Mac Mini). Container at C:\hermes-friends\ray\, bound 100.120.157.4:8643. Mac container stopped.
+[2026-06-08] [project] Windows server primary host confirmed: Hermes v0.16.0, 67 sessions carried over, SOUL.md written, gateway Scheduled Task active, Telegram confirmed live.
+[2026-06-08] [user] Hostname preference: Neima_Server (not ned-server as originally planned in migration doc).
+[2026-06-08] [project] HA not yet migrated — Mac Mini still hosting HAOS VM at 192.168.68.85:8123. Hermes MCP URL updated to point at Mac Mini IP. HA migration to Windows (Hyper-V/Docker) is Phase 9, intentionally deferred.
+[2026-06-08] [project] Cron bash scripts (mac-mini-health-brief.sh, ray-hermes-health-brief.sh) deferred for rewrite — will fail on Windows until rebuilt as .py or .ps1.
 <!-- Cleared automatically when /note is run. -->
 [2026-05-29] [project] Reboot test complete: Hermes gateway, Tailscale, and Ollama auto-start; Docker Desktop needs `open -a Docker`; HAOS UTM VM `Linux` needs `utmctl start 'Linux'` before `homeassistant.local:8123` returns 200.
 [2026-05-29] [project] HA entity map generated and saved to references/home-assistant-entity-map.md — live snapshot of all devices

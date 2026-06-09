@@ -1,29 +1,26 @@
 ---
 name: mac-mini-m4
-description: Mac Mini M4 16GB — active always-on server running HAOS/Ollama/Docker/Hermes; static IP 192.168.68.85
+description: Mac Mini M4 16GB — secondary/standby; Hermes migrated to Windows server 2026-06-08; still hosts HAOS VM
 metadata:
   type: user
 ---
 
-Mac Mini M4 — primary home lab server. Always on.
+Mac Mini M4 — **no longer primary Hermes host as of 2026-06-08.** Hermes gateway stopped. Still online for HAOS.
 
 - **Chip:** Apple M4 (base)
 - **RAM:** 16GB unified memory
 - **OS:** macOS Tahoe 26.5 — use `launchctl enable` + `kickstart`, NOT `launchctl load` (deprecated in macOS 26)
-- **Status:** Active — arrived 2026-05-28
 - **Static IP:** `192.168.68.85`
 - **SSH alias:** `mac-mini` (key auth, no password)
 - **Username:** `neimaseirafi`
 
-**Running services:**
-- HAOS 17.3 in UTM VM → `homeassistant.local:8123` (Hue, Caseta, Sonos integrated)
-- Ollama with `qwen3.5:9b` — HA automation + light local use
-- Docker Desktop (ARM native)
-- Hermes Agent (GPT-5.5 backend, Telegram connected)
-- Tailscale → `neima.seirafi@gmail.com` tailnet
+**Current services (post-migration):**
+- HAOS 17.3 in UTM VM → `homeassistant.local:8123` (Hue, Caseta, Sonos) — still active, HA not yet migrated to Windows
+- Ray Hermes Docker container — migrated to Windows server 2026-06-08, Mac container stopped
+- Hermes/Ned gateway — **stopped**, migrated to Windows server
+- Ollama with `qwen3.5:9b` — still present but no active use case now that Hermes is on Windows
+- Tailscale → `100.106.154.18`
 
-**Key constraint:** 16GB tight with Ollama (7.76GB) + UTM/HAOS (set to 2GB). OLLAMA_KEEP_ALIVE=0 recommended to unload model when idle.
-
-**Planned additions:** Samsung T9 1TB SSD (Nextcloud), Google Coral TPU (Frigate), Reolink NVR (camera storage).
+**Planned:** HA will eventually move to Windows server (Hyper-V or Docker). Until then Mac Mini stays on as HA host only.
 
 **ned repo:** cloned at `~/Documents/ned` — shared with Claude Code via GitHub.
