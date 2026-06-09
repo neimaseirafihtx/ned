@@ -33,3 +33,4 @@
 [2026-06-04] [project] Ray × Neima AI Power Session agenda document created at `plans/ray-ai-power-session-agenda.html` to package the 2-day learning/build agenda into a browser/print-friendly artifact.
 [2026-06-04] [project] Ray Hermes Tailscale/Desktop access enabled: Ray Docker API server exposed only on Mac mini Tailscale IP `100.106.154.18:8643` -> container `8642`, model name `ray-hermes`, bearer key stored in Ray isolated `.env`, and Ray connection instructions placed in Ray Dropbox outbox.
 [2026-06-07] [user] Windows server NEIMA_SERVER SSH configured: LAN alias neima-server to 192.168.68.89, Tailscale alias neima-server-remote to 100.120.157.4; Hermes over SSH fixed by pointing hermes.cmd HERMES_PYTHON to system Python 3.13.
+[2026-06-08] [user] Hermes profile ha-local verified on Windows with Ollama Gemma4:12B via custom localhost endpoint and 32768 active context.
