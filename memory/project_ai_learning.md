@@ -8,13 +8,13 @@ metadata:
 AI agents and agentic workflows are the primary learning goal. Home lab is the sandbox, not the end goal.
 
 **Current focus (Phase 3 — Connected Agents + MCP):**
-1. Reboot Mac Mini → verify all services survive ✅
-2. Clean HA entity map by room ✅
-3. Enable HA MCP server → agents read live Home Assistant state ✅
-4. Compare live MCP state against the curated entity map ✅
-5. Build first custom MCP server (ned project/homelab status) ▶️ NEXT
-6. First Hermes cron job — daily homelab health brief ▶️ NEXT
-7. Define hybrid AI provider routing ▶️ NEXT
+0. Restore Home Assistant on the Windows server ▶️ NEXT — HA offline since Mac Mini decommission (2026-06-09); Hyper-V HAOS VM preferred, then re-point Hermes `HA_MCP_URL` + new long-lived token (plan: `home-assistant-windows-migration-handoff-2026-06-08.md`)
+1. Clean HA entity map by room ✅ (re-verify after restore)
+2. Enable HA MCP server → agents read live Home Assistant state ✅ pre-migration (re-validate after restore)
+3. Compare live MCP state against the curated entity map ✅ pre-migration
+4. Build first custom MCP server (ned project/homelab status) ▶️ NEXT
+5. Re-establish health crons on Windows — rewrite `mac-mini-health-check.sh` / `ray-hermes-health-brief.sh` as `.py`/`.ps1`
+6. Define hybrid AI provider routing ▶️ NEXT
    - Hermes/OpenAI: primary always-on operator through current ChatGPT OAuth subscription
    - Claude: second-brain lane for plans, architecture, docs, code review, and careful review
    - Grok/xAI: possible extra cloud contingency if OAuth support proves stable in Hermes
@@ -33,11 +33,11 @@ Hermes has crossed from chat-only into live tool-using home awareness: Home Assi
 7. Skills / procedural memory — reusable captured workflows
 8. Provider/model routing — decide when to use the Hermes/OpenAI primary cloud brain, Claude as reviewer/second brain, Grok/xAI as a contingency cloud lane, or local models as simple workers
 
-**Key HA config notes (for when wiring Ollama to HA):**
+**Key HA config notes (for when wiring Ollama to HA, post-restore on Windows):**
 - Use native Ollama integration (not HACS Extended OpenAI Conversation)
 - Enable `prefer_local_intents: true` — HA handles simple intents, LLM only for complex
-- Disable Qwen thinking mode in system prompt (`/no_think`) — voice/chat can't wait 20s
-- HA Ollama endpoint: `localhost:11434` (same box as UTM VM)
+- Disable model thinking mode in system prompt if applicable — voice/chat can't wait 20s
+- HA Ollama endpoint: point at the Windows host's Ollama (`192.168.68.89:11434` from inside a Hyper-V VM; `localhost` only works if HA runs as a container on the same host)
 
 **Key resources:**
 - `references/Hermes Agent.md` — comprehensive Hermes internals

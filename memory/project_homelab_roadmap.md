@@ -17,8 +17,8 @@ Two tracks run in parallel:
 
 | Phase | Name | Status |
 |-------|------|--------|
-| 1 | Agent Foundation | ✅ COMPLETE — Hermes + GPT-5.5 on Mac Mini, Telegram connected |
-| 3 | Connected Agents + MCP | ▶️ ACTIVE — HA MCP read/live-state working; custom Ned MCP server + health cron are next |
+| 1 | Agent Foundation | ✅ COMPLETE — Hermes + GPT-5.5, Telegram connected (migrated Mac Mini → Windows server 2026-06-08) |
+| 3 | Connected Agents + MCP | ▶️ ACTIVE — HA MCP was validated pre-migration but HA is OFFLINE since Mac Mini decommission (2026-06-09); restore HA on Windows server first, then custom Ned MCP server + health cron |
 | 5 | Multi-Agent & Autonomous Systems | 📋 Delegation, cron agents, skills library, Obsidian human-facing knowledge layer, Claude second-brain review lane, local simple-task workers, Docker-isolated friend Hermes pilot |
 | 7 | Mastery + Sovereignty | 📋 Hybrid cloud/local stack first; fully local stack only where quality and latency make sense |
 
@@ -54,7 +54,7 @@ Two tracks run in parallel:
   - Grok/xAI OAuth is tracked as a possible additional cloud contingency once stable in Hermes
   - local models are scoped to simple, fast, private, or offline tasks
 - Planned: Obsidian knowledge layer for Ned — a human-facing vault for roadmaps, architecture notes, runbooks, research notes, and decision history; keep the `ned` Git repo as the canonical operational source of truth for agent coordination.
-- Planned: Docker-hosted friend Hermes pilot documented in `plans/friend-hermes-docker-roadmap.md`; start with one container on the Mac Mini, using the friend's own OpenAI OAuth and strict isolation boundaries.
+- Live: Docker-hosted friend Hermes pilot (Ray) running on the Windows server with Ray's own OpenAI OAuth and strict isolation boundaries; documented in `plans/friend-hermes-docker-roadmap.md`.
 
 ---
 
@@ -62,19 +62,20 @@ Two tracks run in parallel:
 
 | Phase | Name | Status |
 |-------|------|--------|
-| 2 | Home Lab Substrate | ✅ COMPLETE |
-| 4 | Local Intelligence Layer | 📋 After Phase 3 — Frigate, NVR, Voice pipeline |
-| 6 | GPU Stack | ⏸ Conditional — full Nest→Reolink migration only |
+| 2 | Home Lab Substrate | ✅ COMPLETE — re-platformed to Windows server 2026-06-08; Mac Mini decommissioned/returned 2026-06-09 |
+| 2b | Home Assistant restore on Windows server | ▶️ NEXT — HA offline since Mac Mini decommission; Hyper-V HAOS VM preferred, artifacts at `C:\restore\home-assistant\backups\`, plan in `home-assistant-windows-migration-handoff-2026-06-08.md` |
+| 4 | Local Intelligence Layer | 📋 After HA restore + Phase 3 — Frigate, NVR, Voice pipeline |
+| 6 | GPU Stack | ⏸ Conditional — full Nest→Reolink migration only (RTX 5060 Ti 16GB already on hand covers near-term local inference) |
 
-**Phase 2 complete state:**
-- Mac Mini M4 16GB, macOS Tahoe 26.5, static IP `192.168.68.85`
-- SSH key auth, auto-login, Homebrew, Tailscale, Screen Sharing ✅
-- Docker Desktop (ARM native) ✅
-- UTM + HAOS 17.3 at `homeassistant.local:8123` ✅
-- Hue, Lutron Caseta, Sonos auto-discovered in HA ✅
-- Ollama running with `qwen3.5:9b` ✅
-- Hermes Agent running with GPT-5.5 backend + Telegram ✅
+**Phase 2 current state (Windows server, since 2026-06-08):**
+- PowerSpec `Neima_Server` — Ryzen 7 7700X, RTX 5060 Ti 16GB, 32GB DDR5, Win11 Pro, LAN `192.168.68.89`, Tailscale `neima-server`
+- Hermes Agent v0.16.0 + GPT-5.5 + Telegram, gateway as Scheduled Task ✅
+- Ray Hermes Docker container (isolated) ✅
+- Ollama `gemma4:12b` (100% GPU) ✅
+- Docker Desktop (WSL2), Tailscale, Claude Code ✅
 - ned repo on GitHub, shared between Claude Code + Hermes ✅
+- Home Assistant — ❌ OFFLINE, pending rebuild here (was HAOS 17.3 in UTM on the Mac Mini; Hue, Lutron Caseta, Sonos integrations to be restored from backup)
+- Mac Mini M4 fully decommissioned and returned to store 2026-06-09
 
 ---
 
@@ -131,8 +132,8 @@ Two tracks run in parallel:
 - **No cameras/Frigate yet** — rabbit hole, doesn't teach the core agent loop as directly as HA+MCP
 - **No GPU stack yet** — only triggered by full Nest→Reolink migration
 - **Camera migration rule** — keep Nest Aware until fully committing to local cameras
-- **Ollama stays modest** — qwen3.5:9b for HA automation + light local use only
+- **Ollama stays modest** — gemma4:12b on the Windows server (RTX 5060 Ti) for HA automation + light local use only
 - **Hybrid AI provider strategy** — ChatGPT/OpenAI OAuth remains Hermes' primary low-friction cloud brain; Claude subscription is the deliberate second-brain lane for planning, architecture, docs, and code review; Grok/xAI OAuth is a possible cloud contingency if Hermes support proves stable; local models are supporting workers for simple/private/offline tasks, not the primary Ned replacement yet
-- **Friend Hermes hosting strategy** — do not buy/build new server hardware just for this yet; pilot one Docker-isolated friend Hermes container on the Mac Mini with the friend's OpenAI OAuth, no shared Hermes/auth state, no HA token, no host Docker socket, and no mount of Neima's home folder
+- **Friend Hermes hosting strategy** — no new hardware just for this; Ray's Docker-isolated Hermes runs on the Windows server with Ray's own OpenAI OAuth, no shared Hermes/auth state, no HA token, no host Docker socket, and no mount of Neima's home folder
 - **NVR owns camera storage** — external SSD is personal cloud only
 - **No REX on Mac Mini** — REX runs on M1 Pro (separate project)

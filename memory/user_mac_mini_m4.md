@@ -1,26 +1,16 @@
 ---
 name: mac-mini-m4
-description: Mac Mini M4 16GB — secondary/standby; Hermes migrated to Windows server 2026-06-08; still hosts HAOS VM
+description: Mac Mini M4 — DECOMMISSIONED 2026-06-09, returned to store; replaced by [[windows-server]]
 metadata:
   type: user
 ---
 
-Mac Mini M4 — **no longer primary Hermes host as of 2026-06-08.** Hermes gateway stopped. Still online for HAOS.
+Mac Mini M4 (16GB) — **decommissioned and returned to the store 2026-06-09.** It no longer exists in the home lab. Do not suggest it as a host or troubleshoot it.
 
-- **Chip:** Apple M4 (base)
-- **RAM:** 16GB unified memory
-- **OS:** macOS Tahoe 26.5 — use `launchctl enable` + `kickstart`, NOT `launchctl load` (deprecated in macOS 26)
-- **Static IP:** `192.168.68.85`
-- **SSH alias:** `mac-mini` (key auth, no password)
-- **Username:** `neimaseirafi`
+- Former role: primary always-on server (Hermes, HAOS-in-UTM, Ollama, Docker, Tailscale), static IP `192.168.68.85`, SSH alias `mac-mini` — all dead now.
+- Hermes/Ray/Ollama migrated to the Windows server 2026-06-08 ([[windows-server]]).
+- Home Assistant went offline with the Mini; restore on the Windows server is the next infra milestone. Recovery artifacts preserved at `C:\restore\home-assistant\backups\` (HA backup tar `automatic_backup_2026_5_4.tar` + ARM64 `haos.qcow2` + emergency kit notes); plan in `home-assistant-windows-migration-handoff-2026-06-08.md`.
+- Any doc referencing `192.168.68.85`, `homeassistant.local:8123` via UTM, `en9`/UGREEN adapter, or macOS server setup is historical.
 
-**Current services (post-migration):**
-- HAOS 17.3 in UTM VM → `homeassistant.local:8123` (Hue, Caseta, Sonos) — still active, HA not yet migrated to Windows
-- Ray Hermes Docker container — migrated to Windows server 2026-06-08, Mac container stopped
-- Hermes/Ned gateway — **stopped**, migrated to Windows server
-- Ollama with `qwen3.5:9b` — still present but no active use case now that Hermes is on Windows
-- Tailscale → `100.106.154.18`
-
-**Planned:** HA will eventually move to Windows server (Hyper-V or Docker). Until then Mac Mini stays on as HA host only.
-
-**ned repo:** cloned at `~/Documents/ned` — shared with Claude Code via GitHub.
+**Why:** prevents stale recommendations against a machine that was returned.
+**How to apply:** treat all Mac Mini references in older docs/handoffs as history, not live infrastructure.

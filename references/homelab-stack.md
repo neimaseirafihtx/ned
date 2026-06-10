@@ -1,10 +1,12 @@
 # Home Lab Stack — HA, Frigate, Docker, Networking
 
-Last updated: 2026-05-24
+Last updated: 2026-06-09
+
+> **Platform note (2026-06-09):** the Mac Mini was decommissioned and returned. The home lab server is now the Windows PowerSpec PC (`192.168.68.89`). Mac-specific instructions below (UTM, Homebrew, macOS Docker caveats) are kept for historical context only. HA is currently offline pending restore on Windows — see `home-assistant-windows-migration-handoff-2026-06-08.md`.
 
 ## Home Assistant
 
-### How to install on Mac Mini
+### How to install on the Windows server
 
 **Use HAOS in a VM — not Docker Container.** This is important.
 
@@ -13,13 +15,24 @@ Docker Container (HADC) works but is a second-class citizen. It loses:
 - Supervised mode features
 - Simpler backup/restore
 
+**Best option on Windows:** Hyper-V VM running HAOS x86_64 (VMware/VirtualBox if Hyper-V conflicts get annoying; Docker Container only as a throwaway test build).
+1. Download the HAOS x86_64 `.vhdx` image from https://www.home-assistant.io/installation/ (Windows/Generic x86-64 instructions)
+2. Create a Hyper-V Gen 2 VM with an **external switch** bridged to the LAN so HA gets its own LAN IP (mDNS/discovery for Hue, Sonos, Caseta need this), disable Secure Boot, attach the vhdx
+3. Allocate 2 vCPU, 2-4GB RAM — HAOS is lightweight
+4. HA runs at `http://homeassistant.local:8123` → restore the full backup from `C:\restore\home-assistant\backups\`
+
+This gives you the full HA experience including add-ons. The old ARM64 `haos.qcow2` from the Mac is a recovery artifact only — it won't boot as an x86_64 VM.
+
+<details>
+<summary>Historical: install on Mac Mini (decommissioned)</summary>
+
 **Best option for Mac Mini:** UTM (free) or Parallels, running HAOS as a VM.
 1. Download HAOS `.qcow2` image from https://www.home-assistant.io/installation/
 2. Create UTM VM, attach the image, boot
 3. Allocate 2 CPU cores, 2-4GB RAM to the VM — HAOS is lightweight
 4. HA runs at `http://homeassistant.local:8123`
 
-This gives you the full HA experience including add-ons.
+</details>
 
 ### Integrations in order of difficulty
 

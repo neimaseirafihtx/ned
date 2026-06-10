@@ -2,6 +2,8 @@
 
 This is the source-of-truth context file for Ned. Update it as plans evolve.
 
+> **MAJOR UPDATE (2026-06-09):** the home lab re-platformed. Hermes, Ray Hermes, and Ollama moved to the Windows PowerSpec server (`192.168.68.89`, see `memory/user_windows_server.md`) on 2026-06-08, and the Mac Mini was decommissioned and returned to the store on 2026-06-09. Home Assistant is **offline** until it's rebuilt on the Windows server (Hyper-V HAOS VM preferred; artifacts at `C:\restore\home-assistant\backups\`; plan in `home-assistant-windows-migration-handoff-2026-06-08.md`). Mac Mini details below are historical.
+
 ## The Goal
 
 Build mastery of AI agents and agentic workflows. The home lab is the live real-world sandbox agents operate in — not the end goal, just the substrate. Two tracks run in parallel: **AI Track** (primary) and **Infrastructure Track** (enables AI track).
@@ -16,9 +18,9 @@ Build mastery of AI agents and agentic workflows. The home lab is the live real-
 
 ## Hardware
 
-### Mac Mini M4 — 16GB (PRIMARY SERVER)
-- Role: always-on agent host, Home Assistant VM, Ollama, Docker services, personal cloud / agent workspace.
-- Status: **active**.
+### Mac Mini M4 — 16GB (DECOMMISSIONED 2026-06-09)
+- Role (historical): always-on agent host, Home Assistant VM, Ollama, Docker services, personal cloud / agent workspace.
+- Status: **decommissioned — returned to the store 2026-06-09**. Replaced by the Windows PowerSpec server.
 - OS: macOS Tahoe 26.5.
 - Static IP: `192.168.68.85`.
 - Active LAN interface: `en9` via UGREEN USB-C 2.5GbE adapter, MAC `6c:1f:f7:c0:3e:e5`, verified at `2500Base-T <full-duplex>`.

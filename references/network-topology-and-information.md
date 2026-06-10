@@ -111,7 +111,9 @@ AT&T Fiber Gateway
   - Feeds the rest of the home's Ethernet ports.
   - Gigabit switching layer for wired home drops.
 
-### Mac Mini LAN / Home Assistant Bridge State
+### Mac Mini LAN / Home Assistant Bridge State (HISTORICAL — Mac Mini decommissioned 2026-06-09)
+
+> The Mac Mini was returned to the store on 2026-06-09. `192.168.68.85` is no longer in use (the router reservation can be released). The home lab server is now the Windows PowerSpec PC at `192.168.68.89`. Home Assistant is offline pending rebuild on the Windows server; when it returns, decide whether to keep the old `192.168.68.68` reservation for the HA VM.
 
 - **Mac Mini active LAN interface:** `en9`
   - Adapter: UGREEN USB-C 2.5GbE Ethernet adapter.

@@ -13,7 +13,7 @@ MacBook Pro M5 Pro — primary workstation. Not a server.
 
 **Primary tools:** Claude + Claude Code for all coding, reasoning, and analysis.
 
-**Hermes Agent:** Uninstalled from MBP (2026-05-29) — now runs exclusively on Mac Mini.
+**Hermes Agent:** Uninstalled from MBP (2026-05-29) — now runs exclusively on the Windows server ([[windows-server]]).
 
 **Local LLM stack:**
 - Ollama installed — `qwen3.6:27b-mlx` and `qwen3.6:36b`

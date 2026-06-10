@@ -29,9 +29,9 @@ PowerSpec PC — primary home lab server as of 2026-06-08. Replaced Mac Mini as 
 
 **Known Hermes SSH caveat:** `hermes.cmd` points HERMES_PYTHON to system Python 3.13 (not venv) to fix SSH os error 448. If Hermes auto-updates and rewrites `hermes.cmd`, re-run the fix in `docs/windows-server-ssh-hermes-handoff.md` (also in the migration bundle on Desktop).
 
-**HA MCP:** `http://192.168.68.85:8123/api/mcp` — pointing at Mac Mini until HA migrates to this machine.
+**HA MCP:** offline — the old endpoint pointed at the Mac Mini, which was decommissioned 2026-06-09 ([[mac-mini-m4]]). Re-point Hermes `HA_MCP_URL`/token after HA is restored here.
 
-**Planned:**
-- Home Assistant — rebuild on this machine (Hyper-V or Docker), intentionally last
-- Cron bash scripts (`mac-mini-health-brief.sh`, `ray-hermes-health-brief.sh`) — rewrite as `.py` or `.ps1`
+**Next up:**
+- **Home Assistant restore on this machine** — Hyper-V HAOS x86_64 VM preferred (Docker Container is fallback only). Recovery artifacts staged at `C:\restore\home-assistant\backups\` (`automatic_backup_2026_5_4.tar`, ARM64 `haos.qcow2` — recovery artifact only, won't boot on x86), plus copies on OneDrive Desktop and `Downloads\mac-mini-migration-backups-...`. Full plan: `home-assistant-windows-migration-handoff-2026-06-08.md`.
+- Cron bash scripts (`mac-mini-health-brief.sh`, `ray-hermes-health-brief.sh`) — rewrite as `.py` or `.ps1` for Windows host checks
 - Gateway persistence confirmed via Scheduled Task; verify survives reboot

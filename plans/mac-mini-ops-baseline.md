@@ -1,6 +1,8 @@
 # Mac Mini Ops Baseline
 *Created 2026-05-29 — updated 2026-06-01 after UGREEN 2.5GbE / HA recovery verification*
 
+> **OBSOLETE (2026-06-09):** the Mac Mini was decommissioned and returned to the store. This baseline is kept as a template for an equivalent Windows server ops baseline (Hermes Scheduled Task, Docker Desktop, Ollama, Tailscale, future HA Hyper-V VM).
+
 ---
 
 ## Purpose

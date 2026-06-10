@@ -21,7 +21,7 @@ statuses:
 tracks:
   ai-agents: AI / Agents
   smart-home: Home Assistant / Smart Home
-  infrastructure: Infrastructure / Mac mini / Network
+  infrastructure: Infrastructure / Windows Server / Network
   knowledge: Knowledge / Obsidian / Docs
   friend-hermes: Friend Hermes / Hosted Agents
   local-sovereignty: Local Models / Sovereignty
@@ -33,10 +33,10 @@ items:
     phase: 1
     status: done
     title: Agent Foundation
-    summary: Hermes running on the Mac mini with GPT-5.5/OpenAI path and Telegram access.
+    summary: Hermes running with GPT-5.5/OpenAI path and Telegram access; migrated Mac mini → Windows server 2026-06-08.
     rationale: Establishes the always-on Ned operator and messaging interface.
     completed_at: 2026-05-29
-    next_action: Keep stable; monitor with health checks and update-readiness reports.
+    next_action: Keep stable on the Windows server; monitor with health checks and update-readiness reports.
     sources:
       - memory/project_homelab_roadmap.md
       - memory/session-log.md
@@ -48,10 +48,10 @@ items:
     phase: 2
     status: done
     title: Home Lab Substrate
-    summary: Mac mini, SSH, Homebrew, Tailscale, Docker Desktop, UTM/HAOS, Ollama, and Ned repo baseline.
+    summary: Original Mac mini substrate (SSH, Homebrew, Tailscale, Docker, UTM/HAOS, Ollama, Ned repo); re-platformed to the Windows server 2026-06-08, Mac mini decommissioned/returned 2026-06-09.
     rationale: Gives Ned a persistent real-world sandbox and host environment.
     completed_at: 2026-05-29
-    next_action: Keep boot/reboot assumptions documented as services evolve.
+    next_action: Historical — current substrate is the Windows server (memory/user_windows_server.md).
     sources:
       - memory/project_homelab_roadmap.md
       - memory/session-log.md
@@ -64,10 +64,10 @@ items:
     phase: 3
     status: done
     title: Mac mini reboot/service baseline
-    summary: Verified Hermes gateway, Tailscale, and Ollama auto-start; Docker Desktop and HAOS/UTM boot behavior documented.
+    summary: Verified Hermes gateway, Tailscale, and Ollama auto-start on the Mac mini; superseded by the Windows server migration.
     rationale: Stabilize before adding more services.
     completed_at: 2026-05-29
-    next_action: Revisit after Hermes updates, Docker changes, or UTM network changes.
+    next_action: Historical — build an equivalent Windows server ops baseline (Scheduled Task, Docker, Ollama, Tailscale, reboot survival).
     sources:
       - plans/mac-mini-ops-baseline.md
       - memory/session-log.md
@@ -97,7 +97,7 @@ items:
     summary: Official HA MCP Server connected to Hermes via native HTTP; read-only validation passed.
     rationale: Live smart-home state is Ned's first practical MCP integration.
     completed_at: 2026-05-29
-    next_action: Keep read access broad but interpret through curated entity map.
+    next_action: HA offline since Mac mini decommission — after HA restore on Windows, mint a new token, update Hermes .env, and re-validate with `hermes mcp test homeassistant`.
     sources:
       - plans/home-assistant-mcp-roadmap.md
       - references/ha-mcp-setup.md
@@ -113,8 +113,8 @@ items:
     summary: Light writes have been tested, but routine control should use exact light entities or allowlisted scripts.
     rationale: Visible low-risk controls are useful, but broad Assist targeting can affect nearby lights.
     completed_at: null
-    next_action: Prefer deterministic scripts/entities for daily light actions; keep Sonos/TV/HVAC/security off-limits.
-    dependencies: [ha-mcp-read-access, ha-entity-map]
+    next_action: Paused — HA offline until restored on the Windows server. Then prefer deterministic scripts/entities for daily light actions; keep Sonos/TV/HVAC/security off-limits.
+    dependencies: [ha-mcp-read-access, ha-entity-map, home-assistant-boot-reliability]
     sources:
       - plans/home-assistant-mcp-roadmap.md
       - memory/session-log.md
@@ -129,8 +129,8 @@ items:
     summary: Make HA useful for Neima day-to-day with Companion App, phone dashboard, scenes, and practical automations.
     rationale: HA must beat Google Home / Apple Home for common workflows, not just serve as an agent backend.
     completed_at: null
-    next_action: Continue dashboard v2, source-app inventory, and tested scripts/scenes.
-    dependencies: [ha-entity-map, ha-safe-light-control]
+    next_action: Paused — HA offline until restored on the Windows server. Then continue dashboard v2, source-app inventory, and tested scripts/scenes.
+    dependencies: [ha-entity-map, ha-safe-light-control, home-assistant-boot-reliability]
     sources:
       - plans/home-assistant-usability-pass.md
       - references/home-assistant-automation-inventory.md
@@ -146,8 +146,8 @@ items:
     summary: HA dashboard created at /neima-home/home with room cards and Family Room script buttons.
     rationale: Phone-first dashboard is the first human-facing proof that HA is useful.
     completed_at: null
-    next_action: Refine card order, top quick actions, and remove rarely used/noisy entities.
-    dependencies: [ha-usability-pass]
+    next_action: Paused — HA offline until restored on the Windows server (dashboard config is inside the HA backup). Then refine card order and quick actions.
+    dependencies: [ha-usability-pass, home-assistant-boot-reliability]
     sources:
       - plans/home-assistant-usability-pass.md
     tags: [dashboard, home-assistant, phone]
@@ -156,16 +156,16 @@ items:
     order: 90
     track: infrastructure
     phase: 3
-    status: active
-    title: Daily Mac mini homelab health brief
-    summary: Script-only Hermes cron sends daily Mac mini/Ned health report to Neima's Telegram DM at 8:00 AM.
+    status: planned
+    title: Daily homelab health brief (Windows rewrite)
+    summary: Mac mini version retired with the machine (2026-06-09); rewrite the daily Hermes health cron for the Windows server (Hermes task, Ray container, Ollama, Tailscale, disk, and HA once restored).
     rationale: Keeps the always-on substrate visible and catches failures without hiding useful FAIL reports.
-    completed_at: 2026-06-04
-    next_action: Debug Home Assistant reachability separately when it fails in reports.
+    completed_at: null
+    next_action: Rewrite scripts/mac-mini-health-check.sh as a .ps1/.py Windows host check and re-register the 8:00 AM Hermes cron.
     sources:
       - scripts/mac-mini-health-check.sh
       - memory/session-log.md
-    tags: [cron, monitoring, mac-mini]
+    tags: [cron, monitoring, windows-server]
 
   - id: hermes-update-readiness
     order: 100
@@ -279,7 +279,7 @@ items:
     phase: 5
     status: active
     title: Docker-isolated friend Hermes pilot
-    summary: Pilot a separate Hermes container for Ray with isolated Hermes home, workspace, Telegram bot, OpenAI OAuth, and OneDrive file handoff.
+    summary: Separate Hermes container for Ray with isolated Hermes home, workspace, Telegram bot, OpenAI OAuth, and OneDrive file handoff; migrated to the Windows server 2026-06-08 (C:\hermes-friends\ray\).
     rationale: Tests safe multi-agent hosting without buying new hardware.
     completed_at: null
     next_action: Keep Ray isolated and document operational lessons before adding more friends.
@@ -298,7 +298,7 @@ items:
     summary: Script-only cron checks Ray Hermes container, gateway, pairing, mounts, resource usage, logs, compose dir, and OneDrive Dropbox.
     rationale: Hosted agents need deterministic monitoring independent of Ned's own health brief.
     completed_at: 2026-06-04
-    next_action: Watch daily 8:10 AM DM report and refine checks as Ray's usage changes.
+    next_action: Port ray-hermes-health-brief.sh to the Windows server (.ps1/.py) and re-register the 8:10 AM cron — the bash version targeted the decommissioned Mac mini.
     dependencies: [friend-hermes-docker-pilot]
     sources:
       - references/ray-hermes-agent-setup.md
@@ -340,17 +340,16 @@ items:
     order: 210
     track: infrastructure
     phase: 4
-    status: planned
-    title: Home Assistant boot/reachability reliability
-    summary: Make HAOS/UTM startup and homeassistant.local / 192.168.68.68 reachability reliable after reboots and bridge changes.
-    rationale: HA usefulness and MCP depend on HA being reachable, but this is separate from MCP capability.
+    status: next
+    title: Restore Home Assistant on the Windows server
+    summary: HA is offline since the Mac mini was decommissioned (2026-06-09). Rebuild as a Hyper-V HAOS x86_64 VM, restore the full backup from C:\restore\home-assistant\backups\, reconnect Hue/Caseta/Sonos, and re-point Hermes MCP.
+    rationale: HA usefulness, the smart-home track, and HA MCP all depend on HA running again; this gates most of the paused Phase 3 smart-home work.
     completed_at: null
-    next_action: Debug current HA reachability when Neima wants; verify UTM bridge targets en9.
-    dependencies: [mac-mini-reboot-baseline]
+    next_action: Enable Hyper-V, create the HAOS x86_64 VM with an external (LAN-bridged) switch, restore automatic_backup_2026_5_4.tar, then mint a new long-lived token for Hermes MCP.
     sources:
-      - memory/session-log.md
-      - memory/project_homelab_roadmap.md
-    tags: [home-assistant, utm, network]
+      - home-assistant-windows-migration-handoff-2026-06-08.md
+      - memory/user_windows_server.md
+    tags: [home-assistant, hyper-v, windows-server, restore]
 
   - id: local-intelligence-layer
     order: 220
@@ -400,12 +399,12 @@ items:
     order: 250
     track: infrastructure
     phase: 4
-    status: active
+    status: planned
     title: Samsung T9 storage baseline / future Nextcloud lane
-    summary: Samsung T9 is mounted and usable as Mac mini storage/agent workspace; Nextcloud remains a future service option.
+    summary: Samsung T9 was the Mac mini's storage/agent workspace; the Mac mini is gone (2026-06-09), so the drive needs a new role on the Windows server. Nextcloud remains a future service option.
     rationale: Near-term storage should support personal files and agents, not deferred NVR/camera storage.
     completed_at: null
-    next_action: Define stable mount naming, backup conventions, and which folders/services should use the drive before installing persistent services on it.
+    next_action: Attach the T9 to the Windows server, verify contents, and define mount/backup conventions before installing persistent services on it.
     sources:
       - memory/project_homelab_roadmap.md
     tags: [storage, samsung-t9, nextcloud]

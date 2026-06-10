@@ -1,6 +1,8 @@
 # Home Assistant MCP Setup
 *Verified 2026-05-29 from Mac Mini Hermes runtime*
 
+> **STATUS (2026-06-09): OFFLINE.** The Mac Mini hosting HA was decommissioned and returned. Everything below describes the validated pre-migration setup and is the template for re-wiring after HA is restored on the Windows server (Hyper-V HAOS VM). After restore: create a new long-lived token, update Windows Hermes `.env` (`HA_MCP_URL`, `HA_MCP_TOKEN`), re-run `hermes mcp test homeassistant`, restart the gateway. See `home-assistant-windows-migration-handoff-2026-06-08.md`.
+
 ---
 
 ## Current Status

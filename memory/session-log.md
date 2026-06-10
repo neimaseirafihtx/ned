@@ -34,3 +34,11 @@
 [2026-06-04] [project] Ray Hermes Tailscale/Desktop access enabled: Ray Docker API server exposed only on Mac mini Tailscale IP `100.106.154.18:8643` -> container `8642`, model name `ray-hermes`, bearer key stored in Ray isolated `.env`, and Ray connection instructions placed in Ray Dropbox outbox.
 [2026-06-07] [user] Windows server NEIMA_SERVER SSH configured: LAN alias neima-server to 192.168.68.89, Tailscale alias neima-server-remote to 100.120.157.4; Hermes over SSH fixed by pointing hermes.cmd HERMES_PYTHON to system Python 3.13.
 [2026-06-08] [user] Hermes profile ha-local verified on Windows with Ollama Gemma4:12B via custom localhost endpoint and 32768 active context.
+[2026-06-09] [project] Health check: Mac Mini offline since ~10am (no ping/SSH/Tailscale) - HAOS down with it; Windows services all green
+[2026-06-09] [user] Mac Mini M4 fully decommissioned and returned to the store - no longer exists in the lab
+[2026-06-09] [project] HA offline; next step: restore HA on Windows server via Hyper-V HAOS VM; recovery artifacts verified at C:\restore\home-assistant\backups\ (backup tar + qcow2 + emergency kit)
+[2026-06-09] [project] Docs updated for decommission: CLAUDE.md, memory files, references, plans, roadmap.yaml regenerated
+[2026-06-09] [project] New project: Ray Claude Code in Docker w/ Remote Control from phone - roadmap at plans/ray-claude-code-roadmap.md; existing ray-hermes service needs no changes, additive second compose service
+[2026-06-09] [user] Ray Dropbox (C:\Users\neima\OneDrive\Ray Dropbox) confirmed pinned Always-keep-on-device and already mounted at /shared in ray-hermes container
+[2026-06-09] [user] Ray has claude.ai Pro subscription (his own billing)
+[2026-06-09] [project] Ray Claude Code decisions locked: same-dir spawn mode, Hermes+Claude share /workspace (mirrors ned repo pattern); roadmap updated, ready for Phase 1
