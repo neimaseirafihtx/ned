@@ -12,6 +12,68 @@ We set up a Docker-isolated Hermes agent for Ray, connected it to Ray's own Tele
 
 Ray's agent is separate from Neima/Ned's main Hermes setup. It has its own Docker container, Hermes home, Telegram bot, OpenAI/Codex OAuth, and OneDrive-backed shared folder.
 
+## Current Windows Runtime State — 2026-06-11
+
+Ray's Hermes instance now runs on NEIMA_SERVER / PowerSpec Windows under Docker Desktop.
+
+Current host paths:
+
+```text
+C:/hermes-friends/ray/compose
+C:/hermes-friends/ray/compose/Dockerfile
+C:/hermes-friends/ray/compose/docker-compose.yml
+C:/hermes-friends/ray/compose/OPERATIONS.md
+C:/hermes-friends/ray/hermes-home
+C:/hermes-friends/ray/hermes-home/config.yaml
+C:/hermes-friends/ray/hermes-home/.env
+C:/hermes-friends/ray/workspace
+C:/Users/neima/OneDrive/Ray Dropbox
+```
+
+Current Docker mounts:
+
+```text
+C:/hermes-friends/ray/hermes-home -> /home/hermes/hermes-data
+C:/hermes-friends/ray/workspace -> /workspace
+C:/Users/neima/OneDrive/Ray Dropbox -> /shared
+```
+
+Current API/Desktop exposure:
+
+```text
+Host Tailscale bind: 100.120.157.4:8643 -> container 8642/tcp
+Health URL: http://100.120.157.4:8643/health
+Model name: ray-hermes
+```
+
+The API server requires `API_SERVER_KEY` from Ray's private `.env`; do not print or commit the key.
+
+Current Ray Telegram platform toolsets, after cleanup:
+
+```text
+clarify
+code_execution
+cronjob
+file
+skills
+terminal
+todo
+web
+```
+
+`cronjob` is intentionally enabled because Ray should be able to create/manage scheduled jobs from Telegram. `kanban` was intentionally removed because Ray is not currently participating in Hermes Kanban workflows.
+
+Ray's container currently uses:
+
+```text
+approvals.mode = off
+approvals.cron_mode = deny
+```
+
+This is acceptable for Ray only because Docker provides a hard filesystem boundary and the container does not mount Neima's home, Ned repo, SSH keys, Home Assistant credentials, or Docker socket. Do not treat this as a generic default for less-isolated agents.
+
+The Ray Dockerfile remains intentionally unpinned for now: it installs Hermes via the current upstream installer so rebuilds pick up current fixes. Because the image is unpinned, every rebuild/update must be followed by backup, config migration/checks, gateway verification, Telegram pairing verification, cron verification, Tailscale API port verification, authenticated `/v1/models`, and a model smoke test. If Ray becomes mission-critical or unpinned updates cause instability, pin Hermes to a known-good tag/commit and document the bump process.
+
 ## Ray Agent Identity
 
 - Container name: `ray-hermes`
@@ -175,16 +237,16 @@ Ray's Docker-isolated Hermes agent can also be accessed by Hermes Desktop over t
 Current non-secret connection details:
 
 ```text
-Remote URL: http://100.106.154.18:8643
+Remote URL: http://100.120.157.4:8643
 Model name: ray-hermes
 Container port: 8642
-Host bind: 100.106.154.18:8643 -> 8642/tcp
+Host bind: 100.120.157.4:8643 -> 8642/tcp
 ```
 
 Security posture:
 
-- The Docker port is bound only to the Mac mini's Tailscale IP, not `0.0.0.0` on the LAN or public internet.
-- Ray must be connected to the Tailscale tailnet / have access to the Mac mini.
+- The Docker port is bound only to the Windows host's Tailscale IP, not `0.0.0.0` on the LAN or public internet.
+- Ray must be connected to the Tailscale tailnet / have access to the Windows host.
 - `API_SERVER_KEY` is required and stored only in Ray's isolated `.env`; do not commit or print it.
 - A one-off connection-instructions file with the token may be placed in Ray's OneDrive outbox when Ray needs to configure Desktop; treat it as a credential.
 
@@ -203,13 +265,32 @@ API_SERVER_KEY=[REDACTED]
 Verification commands:
 
 ```bash
-curl http://100.106.154.18:8643/health
+curl http://100.120.157.4:8643/health
 # Expected: {"status":"ok","platform":"hermes-agent"}
 
 # Use API_SERVER_KEY from Ray's .env, without printing it:
-curl http://100.106.154.18:8643/v1/models \
-  -H "Authorization: Bearer $API_SERVER_KEY"
+python - <<'PY'
+import urllib.request
+from pathlib import Path
+key = None
+for line in Path('C:/hermes-friends/ray/hermes-home/.env').read_text().splitlines():
+    if line.startswith('API_SERVER_KEY='):
+        key = line.split('=', 1)[1].strip().strip('"').strip("'")
+        break
+assert key, 'API_SERVER_KEY missing'
+req = urllib.request.Request('http://100.120.157.4:8643/v1/models', headers={'Authorization': 'Bearer ' + key})
+print(urllib.request.urlopen(req, timeout=10).read().decode())
+PY
 # Expected model id: ray-hermes
+```
+
+Known Docker Desktop regression: Compose can still declare `100.120.157.4:8643:8642` while Docker's effective port publication disappears (`docker port ray-hermes` empty, `.NetworkSettings.Ports` shows `{"8642/tcp":[]}`). In that case the gateway may be healthy internally but Hermes Desktop/API over Tailscale fails. Recovery is:
+
+```bash
+cd /c/hermes-friends/ray/compose
+docker compose up -d --force-recreate ray-hermes
+docker port ray-hermes
+curl -fsS http://100.120.157.4:8643/health
 ```
 
 ## Verified Telegram Functionality

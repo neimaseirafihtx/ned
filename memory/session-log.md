@@ -42,3 +42,4 @@
 [2026-06-09] [user] Ray Dropbox (C:\Users\neima\OneDrive\Ray Dropbox) confirmed pinned Always-keep-on-device and already mounted at /shared in ray-hermes container
 [2026-06-09] [user] Ray has claude.ai Pro subscription (his own billing)
 [2026-06-09] [project] Ray Claude Code decisions locked: same-dir spawn mode, Hermes+Claude share /workspace (mirrors ned repo pattern); roadmap updated, ready for Phase 1
+[2026-06-11] [project] Ray Hermes Windows operations documented: watchdog cron added, Docker Desktop Tailscale port-publication recovery captured, Hermes config migrated to v29, Telegram toolsets kept `cronjob` but removed `kanban`, and Dockerfile intentionally left unpinned pending stability.
