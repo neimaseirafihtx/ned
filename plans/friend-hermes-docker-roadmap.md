@@ -159,3 +159,27 @@ Pause or move to a dedicated host if any of these happen:
 ## Future Hardware Note
 
 A separate mini PC with Proxmox is attractive for Home Assistant + Docker isolation, but it also duplicates much of the Mac Mini's reason to exist. Current preference is to preserve the Mac Mini as the Ned/home-infra hub and only add hardware when there is a proven operational need.
+
+---
+
+## Current State (2026-06-11)
+
+Ray's container is live on the Windows server (`Neima_Server`), not the Mac Mini (decommissioned 2026-06-09).
+
+**Container:**
+```
+IMAGE               COMMAND                CONTAINER NAME
+ray-hermes:latest   "hermes gateway run"   ray-hermes
+```
+
+**Shell access:**
+```powershell
+docker exec -it ray-hermes /bin/bash
+```
+
+If bash isn't available:
+```powershell
+docker exec -it ray-hermes /bin/sh
+```
+
+Files live at `C:\hermes-friends\ray\` on the Windows server.
